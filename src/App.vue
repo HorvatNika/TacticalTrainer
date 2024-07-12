@@ -28,4 +28,16 @@ nav {
     }
   }
 }
+
+@font-face {
+  font-family: 'mojFont';
+  src: url('~@/assets/font/mojFont.ttf') format('truetype'); 
+  font-weight: 400; 
+  font-style: normal; 
+}
+
+body {
+  font-family: 'mojFont', sans-serif; 
+}
+
 </style>
