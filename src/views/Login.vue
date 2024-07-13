@@ -8,12 +8,10 @@
           <div class="transparent-box with-shadow compact rounded-40">
             <form @submit.prevent="handleSubmit">
               <div class="form-group">
-                <!-- Primena stila za label za email -->
                 <label for="email" class="text-left">Email</label>
                 <input type="email" class="form-control rounded-40" id="email" placeholder="Enter email address" v-model="formData.email" required />
               </div>
               <div class="form-group position-relative">
-                <!-- Primena stila za label za password -->
                 <label for="exampleInputPassword1" class="text-left">Password</label>
                 <input :type="showPassword ? 'text' : 'password'" class="form-control rounded-40" id="exampleInputPassword1" placeholder="Enter password" v-model="formData.password" required />
                 <i @click="togglePasswordVisibility" class="toggle-password fas" :class="showPassword ? 'fa-eye-slash' : 'fa-eye'"></i>
@@ -61,7 +59,6 @@ export default {
     handleSubmit() {
       console.log('Form submitted with data:', this.formData);
       console.log('Remember me:', this.rememberMe);
-      // Implement login logic here
     },
     togglePasswordVisibility() {
       this.showPassword = !this.showPassword;
@@ -119,7 +116,7 @@ export default {
 .form-control {
   font-family: 'mojFont', sans-serif;
   font-size: 0.9rem;
-  border-radius: 40px; /* Dodano za zaobljeni rub */
+  border-radius: 40px; 
 }
 
 .position-relative {
@@ -180,17 +177,17 @@ export default {
   left: -15px;
   height: 20px;
   width: 20px;
-  background-color: #00adb5; /* Plava boja kružića */
+  background-color: #00adb5; 
   border-radius: 50%;
-  margin-right: -7px; /* Razmak između kružića i teksta */
+  margin-right: -7px; 
 }
 
 .form-check-label:hover .checkmark {
-  background-color: #007d8a; /* Promjena boje na hover */
+  background-color: #007d8a;
 }
 
 .form-check-input {
-  display: none; /* Sakrij originalni checkbox */
+  display: none; 
 }
 
 .form-check-input:checked + .checkmark::after {
@@ -207,9 +204,9 @@ export default {
 }
 
 .text-left {
-  position: relative; /* Omogućava pomeranje pomoću 'left' */
-  left: 15px; /* Pomeranje ulijevo */
-  text-align: left; /* Poravnanje teksta ulijevo */
+  position: relative; 
+  left: 15px; 
+  text-align: left; 
   display: block;
 }
 </style>
