@@ -40,22 +40,19 @@
                 </div>
 
                 <div class="col-md-6">
-                  <div class="form-group">
-                    <label for="exampleInputPassword1" class="text-left">Password</label>
-                    <input :type="showPassword ? 'text' : 'password'" class="form-control rounded-40" id="exampleInputPassword1" placeholder="Enter password" v-model="formData.password" required />
-                    <i @click="togglePasswordVisibility" class="toggle-password fas" :class="showPassword ? 'fa-eye-slash' : 'fa-eye'"></i>
+                  <div class="form-group position-relative">
+                    <label for="exampleInputPassword1" class="text-left">Password<span class="toggle-password" @click="togglePasswordVisibility('password1')">?</span></label>
+                    <input :type="showPassword ? 'text' : 'password'" class="form-control rounded-40" id="exampleInputPassword1" placeholder="Enter password" v-model="formData.password" @input="validatePassword" :class="{'is-valid': passwordValidated && formData.password.length > 0}" required />
+                    <div v-if="showPasswordHint" class="password-hint">
+                      Password must contain at least one uppercase letter, one number, and be at least 5 characters long.
+                    </div>
                   </div>
 
-                  <div class="form-group">
+                  <div class="form-group position-relative">
                     <label for="exampleInputPassword2" class="text-left">Confirm Password</label>
-                    <input type="password" class="form-control rounded-40" id="exampleInputPassword2" placeholder="Confirm password" v-model="formData.confirmPassword" required />
+                    <input :type="showPassword ? 'text' : 'password'" class="form-control rounded-40" id="exampleInputPassword2" placeholder="Confirm password" v-model="formData.confirmPassword" @input="validateConfirmPassword" :class="{'is-valid': passwordsMatch && formData.confirmPassword.length > 0}" required />
                   </div>
                 </div>
-              </div>
-
-              <div class="form-group form-check d-flex align-items-center">
-                <input type="checkbox" class="form-check-input" id="showPassword" v-model="showPassword">
-                <label class="form-check-label" for="showPassword">Show password</label>
               </div>
 
               <button type="submit" class="btn btn-primary btn-block rounded-40">REGISTER</button>
@@ -98,11 +95,10 @@
         </div>
       </div>
 
-    </div>
-
-    <div class="row mt-4 expanded-width justify-content-center">
-      <div class="col-lg-6 text-center">
-        <h1 class="title mb-0"><span class="blue">T</span>actical <span class="blue">T</span>rainer</h1>
+      <div class="row mt-4 justify-content-center">
+        <div class="col-lg-6 text-center">
+          <h1 class="title mb-0"><span class="blue">T</span>actical <span class="blue">T</span>rainer</h1>
+        </div>
       </div>
     </div>
   </div>
@@ -122,19 +118,50 @@ export default {
         password: '',
         confirmPassword: ''
       },
-      showPassword: false
+      showPassword: false,
+      showPasswordHint: false,
+      formErrors: [],
+      passwordValidated: false,
+      passwordsMatch: false
     };
   },
   methods: {
     handleSubmit() {
-      if (this.formData.password !== this.formData.confirmPassword) {
-        alert("Passwords do not match");
-      } else {
-        console.log('Form submitted with data:', this.formData);
+      this.formErrors = [];
+
+      if (!this.formData.name || !this.formData.surname || !this.formData.gender || !this.formData.nationality || !this.formData.rank || !this.formData.unit || !this.formData.password || !this.formData.confirmPassword) {
+        this.formErrors.push("All fields are required.");
       }
+
+      if (this.formData.password !== this.formData.confirmPassword) {
+        this.formErrors.push("Passwords do not match.");
+      }
+
+      if (!this.isPasswordComplex()) {
+        this.formErrors.push("Password must contain at least one uppercase letter, one number, and be at least 5 characters long.");
+      }
+
+      if (this.formErrors.length > 0) {
+        return;
+      }
+
+      console.log('Form submitted with data:', this.formData);
     },
-    togglePasswordVisibility() {
-      this.showPassword = !this.showPassword;
+    togglePasswordVisibility(field) {
+      if (field === 'password1' || field === 'password2') {
+        this.showPassword = !this.showPassword;
+      }
+      this.showPasswordHint = !this.showPasswordHint;
+    },
+    isPasswordComplex() {
+      const password = this.formData.password;
+      return /[A-Z]/.test(password) && /\d/.test(password) && password.length >= 5;
+    },
+    validatePassword() {
+      this.passwordValidated = this.isPasswordComplex();
+    },
+    validateConfirmPassword() {
+      this.passwordsMatch = this.formData.password === this.formData.confirmPassword;
     }
   }
 };
@@ -179,7 +206,6 @@ export default {
   padding: 40px;
   border-radius: 40px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  margin-top: 20px; 
 }
 
 .form-control {
@@ -192,10 +218,17 @@ export default {
   position: relative;
 }
 
+.text-left {
+  position: relative;
+  left: 15px;
+  text-align: left;
+  display: block;
+}
+
 .toggle-password {
   position: absolute;
   top: 50%;
-  right: 15px;
+  right: 105px; 
   transform: translateY(-50%);
   cursor: pointer;
   color: #00adb5;
@@ -239,7 +272,30 @@ export default {
 }
 
 .expanded-width {
-  width: 100%; 
-  max-width: 460px; 
+  width: 100%;
+  max-width: 460px;
+}
+
+.is-valid {
+  border-color: #28a745 !important;
+  box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.5); 
+}
+
+.password-hint {
+  position: absolute;
+  top: calc(100% + 10px);
+  left: 0;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 10px;
+  border-radius: 8px;
+  font-size: 0.8rem;
+  display: none;
+  z-index:999;
+}
+
+.position-relative:hover .password-hint {
+  display: block;
 }
 </style>
