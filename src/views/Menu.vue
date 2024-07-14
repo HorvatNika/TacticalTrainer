@@ -1,5 +1,5 @@
 <template>
-<div class="menu">
+  <div class="menu">
     <div class="background-image"></div>
     <div class="content">
     </div>
@@ -96,7 +96,7 @@ export default {
 
 .menu-text {
   font-family: 'mojFont', sans-serif;
-  font-size: 3rem;
+  font-size: 4rem;
   text-transform: uppercase;
   color: rgba(255, 255, 255, 0.85);
   text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
@@ -112,16 +112,16 @@ export default {
   top: 50%;
   width: 25px;
   height: 2px;
-  background-color: #d4af37; 
+  background-color: #d4af37; /* Senf boja */
 }
 
 .menu-text::before {
-  left: -40px; 
+  left: -40px; /* Podešavanje pozicije sa lijeve strane */
   transform: translateY(-50%);
 }
 
 .menu-text::after {
-  right: -40px; 
+  right: -40px; /* Podešavanje pozicije sa desne strane */
   transform: translateY(-50%);
 }
 
@@ -134,8 +134,8 @@ export default {
 }
 
 .circle {
-  width: 200px;
-  height: 200px;
+  width: 160px;
+  height: 160px;
   border-radius: 50%;
   margin: 0 30px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
@@ -162,6 +162,7 @@ export default {
   transform: translate(-50%, -50%) scale(1.1);
 }
 
+/* Specific styles for .circle-img inside .circle3 */
 .circle3 .circle-img {
   filter: invert(0%) sepia(0%) saturate(100%) hue-rotate(185deg) brightness(400%) contrast(50%) url(#inner-shadow);
 }
