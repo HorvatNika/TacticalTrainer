@@ -1,21 +1,24 @@
 <template>
   <div class="menu">
     <div class="background-image"></div>
-    <div class="content">
-    </div>
+    <div class="content"></div>
     <div class="menu-text">MENU</div>
     <div class="circle-container">
-      <div class="circle circle1">
+      <div class="circle circle1" @mouseover="increaseOpacity(1)" @mouseleave="resetOpacity(1)">
         <img src="@/assets/menuProfil.svg" alt="Vektorski oblik" class="circle-img">
+        <div class="circle-label">Profile</div>
       </div>
-      <div class="circle circle2">
+      <div class="circle circle2" @mouseover="increaseOpacity(2)" @mouseleave="resetOpacity(2)">
         <img src="@/assets/menuKaciga.svg" alt="Vektorski oblik" class="circle-img">
+        <div class="circle-label">Lectures</div>
       </div>
-      <div class="circle circle3">
+      <div class="circle circle3" @mouseover="increaseOpacity(3)" @mouseleave="resetOpacity(3)">
         <img src="@/assets/menuZvijezda.svg" alt="Vektorski oblik" class="circle-img">
+        <div class="circle-label">Schedule</div>
       </div>
-      <div class="circle circle4">
+      <div class="circle circle4" @mouseover="increaseOpacity(4)" @mouseleave="resetOpacity(4)">
         <img src="@/assets/menuUteg.svg" alt="Vektorski oblik" class="circle-img">
+        <div class="circle-label">Exercises</div>
       </div>
     </div>
     <div class="footer">
@@ -42,7 +45,17 @@
 
 <script>
 export default {
-  name: 'Menu'
+  name: 'Menu',
+  methods: {
+    increaseOpacity(index) {
+      const circle = document.querySelector(`.circle${index}`);
+      circle.style.opacity = '1';
+    },
+    resetOpacity(index) {
+      const circle = document.querySelector(`.circle${index}`);
+      circle.style.opacity = '0.6';
+    }
+  }
 };
 </script>
 
@@ -112,16 +125,16 @@ export default {
   top: 50%;
   width: 25px;
   height: 2px;
-  background-color: #d4af37; /* Senf boja */
+  background-color: #d4af37;
 }
 
 .menu-text::before {
-  left: -40px; /* Podešavanje pozicije sa lijeve strane */
+  left: -40px;
   transform: translateY(-50%);
 }
 
 .menu-text::after {
-  right: -40px; /* Podešavanje pozicije sa desne strane */
+  right: -40px;
   transform: translateY(-50%);
 }
 
@@ -140,11 +153,13 @@ export default {
   margin: 0 30px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
   position: relative;
-  transition: transform 0.3s ease;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  opacity: 0.95;
 }
 
 .circle:hover {
   transform: scale(1.1);
+  opacity: 1;
 }
 
 .circle-img {
@@ -162,8 +177,17 @@ export default {
   transform: translate(-50%, -50%) scale(1.1);
 }
 
-/* Specific styles for .circle-img inside .circle3 */
 .circle3 .circle-img {
-  filter: invert(0%) sepia(0%) saturate(100%) hue-rotate(185deg) brightness(400%) contrast(50%) url(#inner-shadow);
+  filter: invert(0%) sepia(0%) saturate(100%) hue-rotate(175deg) brightness(400%) contrast(40%) url(#inner-shadow);
+}
+
+.circle-label {
+  position: absolute;
+  bottom: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 1.2rem;
+  color: white;
+  font-family: 'mojFont', sans-serif;
 }
 </style>

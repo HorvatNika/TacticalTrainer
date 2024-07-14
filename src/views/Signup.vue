@@ -179,7 +179,7 @@ export default {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  color: rgba(255, 255, 255, 0.85); /* Bijele slova s 85% prozirnosti */
+  color: rgba(255, 255, 255, 0.85);
   font-family: 'mojFont', sans-serif;
 }
 
@@ -195,11 +195,11 @@ export default {
 }
 
 .subtitle {
-  color: rgba(255, 255, 255, 0.85); /* Bijela boja s 85% prozirnosti */
+  color: rgba(255, 255, 255, 0.85); 
   font-size: 2rem;
   margin-bottom: 10px;
   z-index: 2;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Dodajemo sjenu za natpis "SIGNUP" */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); 
 }
 
 .transparent-box {
@@ -232,7 +232,7 @@ export default {
   right: 105px; 
   transform: translateY(-50%);
   cursor: pointer;
-  color: #00adb5;
+  color: #d4af37;
 }
 
 .toggle-password:hover {
@@ -279,7 +279,7 @@ export default {
 
 .is-valid {
   border-color: #28a745 !important;
-  box-shadow: 0 0 0 0.2rem rgba(40, 167, 105, 0.5); /* Adjusted to match the shade */
+  box-shadow: 0 0 0 0.2rem rgba(40, 167, 105, 0.5); 
 }
 
 .password-hint {
