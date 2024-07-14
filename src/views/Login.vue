@@ -70,7 +70,7 @@ export default {
 <style scoped>
 .about {
   position: relative;
-  background-image: url('@/assets/pozadina1.jpg');
+  background-image: url('@/assets/pozadina.jpg');
   background-size: cover;
   background-position: center;
   opacity: 0.7;
@@ -79,7 +79,7 @@ export default {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  color: white;
+  color: rgba(255, 255, 255, 0.85); /* Bijele slova s 85% prozirnosti */
   font-family: 'mojFont', sans-serif;
 }
 
@@ -95,35 +95,36 @@ export default {
 }
 
 .subtitle {
-  color: white;
+  color: rgba(255, 255, 255, 0.85); /* Bijela boja s 85% prozirnosti */
   font-size: 2rem;
   margin-bottom: 10px;
   z-index: 2;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Dodajemo sjenu za natpis "LOGIN" */
 }
 
 .transparent-box {
   background-color: rgba(0, 0, 0, 0.37);
   padding: 40px;
-  border-radius: 40px; 
+  border-radius: 40px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .compact {
   max-width: 300px;
-  width: 100%; 
+  width: 100%;
 }
 
 .form-control {
   font-family: 'mojFont', sans-serif;
   font-size: 0.9rem;
-  border-radius: 40px; 
+  border-radius: 40px;
 }
 
 .position-relative {
   position: relative;
 }
 
-.toggle-password { /* NE DIRAJ OVO*/
+.toggle-password {
   position: absolute;
   top: 70%;
   right: 10px;
@@ -164,7 +165,7 @@ export default {
 }
 
 .form-check-label {
-  color: white;
+  color: rgba(255, 255, 255, 0.85); /* Bijela boja s 85% prozirnosti */
   font-size: 0.9rem;
   cursor: pointer;
   display: flex;
@@ -177,9 +178,9 @@ export default {
   left: -15px;
   height: 20px;
   width: 20px;
-  background-color: #00adb5; 
+  background-color: #00adb5;
   border-radius: 50%;
-  margin-right: -7px; 
+  margin-right: -7px;
 }
 
 .form-check-label:hover .checkmark {
@@ -187,7 +188,7 @@ export default {
 }
 
 .form-check-input {
-  display: none; 
+  display: none;
 }
 
 .form-check-input:checked + .checkmark::after {
@@ -204,9 +205,9 @@ export default {
 }
 
 .text-left {
-  position: relative; 
-  left: 15px; 
-  text-align: left; 
+  position: relative;
+  left: 15px;
+  text-align: left;
   display: block;
 }
 </style>

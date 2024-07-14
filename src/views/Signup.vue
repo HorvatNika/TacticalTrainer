@@ -170,7 +170,7 @@ export default {
 <style scoped>
 .about {
   position: relative;
-  background-image: url('@/assets/pozadina1.jpg');
+  background-image: url('@/assets/pozadina.jpg');
   background-size: cover;
   background-position: center;
   opacity: 0.7;
@@ -179,7 +179,7 @@ export default {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  color: white;
+  color: rgba(255, 255, 255, 0.85); /* Bijele slova s 85% prozirnosti */
   font-family: 'mojFont', sans-serif;
 }
 
@@ -195,10 +195,11 @@ export default {
 }
 
 .subtitle {
-  color: white;
+  color: rgba(255, 255, 255, 0.85); /* Bijela boja s 85% prozirnosti */
   font-size: 2rem;
   margin-bottom: 10px;
   z-index: 2;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Dodajemo sjenu za natpis "SIGNUP" */
 }
 
 .transparent-box {
@@ -278,7 +279,7 @@ export default {
 
 .is-valid {
   border-color: #28a745 !important;
-  box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.5); 
+  box-shadow: 0 0 0 0.2rem rgba(40, 167, 105, 0.5); /* Adjusted to match the shade */
 }
 
 .password-hint {
@@ -292,7 +293,7 @@ export default {
   border-radius: 8px;
   font-size: 0.8rem;
   display: none;
-  z-index:999;
+  z-index: 999;
 }
 
 .position-relative:hover .password-hint {
