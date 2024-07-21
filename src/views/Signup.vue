@@ -200,7 +200,7 @@ export default {
 }
 
 .transparent-box {
-  background-color: rgba(0, 0, 0, 0.37);
+  background-color: rgba(0, 0, 0, 0.20);
   padding: 40px;
   border-radius: 40px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -218,7 +218,7 @@ export default {
 
 .text-left {
   position: relative;
-  left: 15px;
+  left: 13px;
   text-align: left;
   display: block;
 }
@@ -284,12 +284,13 @@ export default {
   top: calc(100% + 10px);
   left: 0;
   width: 100%;
-  background-color: rgba(0, 0, 0, 0.8);
+  background-color: rgba(0, 0, 0, 0.7);
   color: white;
-  padding: 10px;
-  border-radius: 8px;
+  padding: 20px;
+  border-radius: 15px;
   font-size: 0.8rem;
   display: none;
+  z-index: 1;
 }
 
 .position-relative:hover .password-hint {

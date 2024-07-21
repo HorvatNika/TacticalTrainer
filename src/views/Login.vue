@@ -129,7 +129,7 @@ export default {
 }
 
 .transparent-box {
-  background-color: rgba(0, 0, 0, 0.37);
+  background-color: rgba(0, 0, 0, 0.20);
   padding: 40px;
   border-radius: 40px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -232,7 +232,7 @@ export default {
 
 .text-left {
   position: relative;
-  left: 15px;
+  left: 13px;
   text-align: left;
   display: block;
 }

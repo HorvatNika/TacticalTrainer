@@ -4,10 +4,12 @@
       <div class="rotated-text">PROFILE</div>
     </div>
 
-    <div class="draggable" @click="openFilePicker">
+    <div class="profile-picture" @click="openFilePicker">
       <div v-if="!profileImage" class="placeholder"></div>
     </div>
     <input type="file" ref="fileInput" style="display: none" @change="handleFileChange">
+
+    <div class="transparent-box"></div>
   </div>
 </template>
 
@@ -71,20 +73,18 @@ export default {
   color: #00adb5; 
 }
 
-.draggable {
+.profile-picture {
   position: absolute;
   width: 200px;
-  height: 200px;
-  z-index: 999;
-  top: 150px;
-  left: 400px;
+  height: 300px;
+  top: 20%;
+  left: 300px;
   overflow: hidden;
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 50%;
-  background-color: transparent;
-  border: 2px dashed rgba(255, 255, 255, 0.5);
+  border-radius: 120px;
+  background-color: rgba(0, 0, 0, 0.10);
 }
 
 .placeholder {
@@ -104,5 +104,15 @@ export default {
   content: '';
   position: absolute;
   border: none;
+}
+
+.transparent-box {
+  position: absolute;
+  width: 450px;
+  height: 300px;
+  top: 20%;
+  right: 25%;
+  background-color: rgba(0, 0, 0, 0.10);
+  border-radius: 120px;
 }
 </style>

@@ -22,11 +22,6 @@ const routes = [
     name: 'menu',
     component: () => import('../views/Menu.vue')
   },
-  {
-    path: '/schedule',
-    name: 'schedule',
-    component: () => import('../views/Schedule.vue')
-  },
   { 
     path: '/profile',
     name: 'profile',
