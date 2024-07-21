@@ -3,7 +3,8 @@
     <router-link to="/">Home</router-link> |
     <router-link to="/login">Prijava</router-link> |
     <router-link to="/signup">Registracija</router-link> |
-    <router-link to="/menu">Menu</router-link>
+    <router-link to="/menu">Menu</router-link> |
+    <router-link to="/profile">Profile</router-link>
   </nav>
   <router-view/>
 </template>

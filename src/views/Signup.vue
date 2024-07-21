@@ -54,9 +54,7 @@
                   </div>
                 </div>
               </div>
-
               <button type="submit" class="btn btn-primary btn-block rounded-40">REGISTER</button>
-
             </form>
           </div>
         </div>
@@ -125,6 +123,7 @@ export default {
       passwordsMatch: false
     };
   },
+  
   methods: {
     handleSubmit() {
       this.formErrors = [];
@@ -173,7 +172,6 @@ export default {
   background-image: url('@/assets/pozadina.jpg');
   background-size: cover;
   background-position: center;
-  opacity: 0.7;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -186,8 +184,8 @@ export default {
 .title {
   font-size: 3rem;
   text-transform: uppercase;
-  z-index: 2;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  opacity: 50%;
 }
 
 .blue {
@@ -198,7 +196,6 @@ export default {
   color: rgba(255, 255, 255, 0.85); 
   font-size: 2rem;
   margin-bottom: 10px;
-  z-index: 2;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); 
 }
 
@@ -293,7 +290,6 @@ export default {
   border-radius: 8px;
   font-size: 0.8rem;
   display: none;
-  z-index: 999;
 }
 
 .position-relative:hover .password-hint {

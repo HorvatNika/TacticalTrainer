@@ -1,19 +1,19 @@
 <template>
-  <div class="home">
-    <video ref="video" autoplay loop id="background-video" @click="toggleMute">
+  <div class="home"> 
+    <video ref="video" autoplay loop id="background-video">
       <source src="@/assets/homeVideo.mp4" type="video/mp4">
-      Your browser does not support the video tag.
     </video>
+
     <div class="mute-button" @click="toggleMute">
       <i v-if="!muted" class="fas fa-volume-up"></i>
       <i v-else class="fas fa-volume-mute"></i>
     </div>
-    <div class="content">
+
+    <div class="background-title">
       <h1 class="title"
           :style="{ opacity: titleOpacity, fontSize: titleFontSize }"
           @mouseover="increaseOpacity"
-          @mouseleave="resetOpacity"
-      >
+          @mouseleave="resetOpacity">
         <span class="blue">T</span>actical <span class="blue">T</span>rainer
       </h1>
     </div>
@@ -30,10 +30,7 @@ export default {
       titleFontSize: '8rem'
     };
   },
-  mounted() {
-    this.$refs.video.volume = 0.5;
-    this.$refs.video.muted = this.muted;
-  },
+  
   methods: {
     toggleMute() {
       this.$refs.video.muted = !this.$refs.video.muted;
@@ -67,16 +64,13 @@ export default {
   min-height: 100%;
   width: auto;
   height: auto;
-  z-index: -1;
   transform: translateX(-50%) translateY(-50%);
-  background: no-repeat;
-  background-size: cover;
   cursor: pointer;
 }
 
 .mute-button {
   position: absolute;
-  top: 20px;
+  bottom: 30px;
   left: 20px;
   background-color: transparent;
   border: none;
@@ -85,16 +79,11 @@ export default {
   cursor: pointer;
   padding: 10px;
   border-radius: 50%;
-  z-index: 10;
 }
 
-.mute-button i {
-  margin: 0;
-}
-
-.content {
+.background-title {
   position: absolute;
-  top: 30%;
+  top: 30vh;
   left: 50%;
   transform: translate(-50%, -50%);
   text-align: center;
@@ -105,13 +94,8 @@ export default {
 .title {
   font-family: 'mojFont', sans-serif;
   text-transform: uppercase;
-  z-index: 2;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
   transition: opacity 0.3s, font-size 0.3s;
-}
-
-.title:hover {
-  opacity: 1;
 }
 
 .blue {

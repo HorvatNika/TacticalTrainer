@@ -1,44 +1,72 @@
 <template>
-  <div class="about">
+  <div class="login">
     <h2 class="subtitle">LOGIN</h2>
     <div class="container">
       <div class="row">
+
         <div class="col-md"></div>
         <div class="col-md-6 d-flex justify-content-center">
           <div class="transparent-box with-shadow compact rounded-40">
             <form @submit.prevent="handleSubmit">
               <div class="form-group">
                 <label for="email" class="text-left">Email</label>
-                <input type="email" class="form-control rounded-40" id="email" placeholder="Enter email address" v-model="formData.email" required />
+                <input
+                  type="email"
+                  class="form-control rounded-40"
+                  id="email"
+                  placeholder="Enter email address"
+                  v-model="formData.email"
+                  required
+                />
               </div>
+              
               <div class="form-group position-relative">
                 <label for="exampleInputPassword1" class="text-left">Password</label>
-                <input :type="showPassword ? 'text' : 'password'" class="form-control rounded-40" id="exampleInputPassword1" placeholder="Enter password" v-model="formData.password" required />
-                <i @click="togglePasswordVisibility" class="toggle-password fas" :class="showPassword ? 'fa-eye-slash' : 'fa-eye'"></i>
+                <input
+                  :type="showPassword ? 'text' : 'password'"
+                  class="form-control rounded-40"
+                  id="exampleInputPassword1"
+                  placeholder="Enter password"
+                  v-model="formData.password"
+                  required
+                />
+                <i
+                  @click="togglePasswordVisibility"
+                  class="toggle-password fas"
+                  :class="showPassword ? 'fa-eye-slash' : 'fa-eye'"
+                ></i>
               </div>
+
               <div class="form-group">
                 <a href="#" class="forget-password">Forgot password?</a>
               </div>
+
               <div class="form-group form-check d-flex align-items-center remember-me">
                 <label class="form-check-label" for="rememberMe">
-                  <input type="checkbox" id="rememberMe" class="form-check-input" v-model="rememberMe" />
+                  <input
+                    type="checkbox"
+                    id="rememberMe"
+                    class="form-check-input"
+                    v-model="rememberMe"
+                  />
                   <span class="checkmark"></span>
                   Remember me
                 </label>
               </div>
-              <button type="submit" class="btn btn-primary btn-block rounded-40">LOGIN</button>
+              <button type="submit" class="btn btn-primary btn-block rounded-40">
+                LOGIN
+              </button>
             </form>
           </div>
         </div>
         <div class="col-md"></div>
       </div>
     </div>
-    <div class="row mt-4" style="position: absolute; bottom: 10px; width: 100%;">
-      <div class="col-sm"></div>
-      <div class="col-sm-6 text-center">
-        <h1 class="title mb-0"><span class="blue">T</span>actical <span class="blue">T</span>rainer</h1>
-      </div>
-      <div class="col-sm"></div>
+
+    <div class="bottom-title">
+      <h1 class="title mb-0">
+        <span class="blue">T</span>actical <span class="blue">T</span>rainer
+      </h1>
     </div>
   </div>
 </template>
@@ -55,6 +83,7 @@ export default {
       rememberMe: false
     };
   },
+  
   methods: {
     handleSubmit() {
       console.log('Form submitted with data:', this.formData);
@@ -68,25 +97,23 @@ export default {
 </script>
 
 <style scoped>
-.about {
+.login {
   position: relative;
   background-image: url('@/assets/pozadina.jpg');
   background-size: cover;
   background-position: center;
-  opacity: 0.7;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  color: rgba(255, 255, 255, 0.85); /* Bijele slova s 85% prozirnosti */
+  color: rgba(255, 255, 255, 0.85); 
   font-family: 'mojFont', sans-serif;
 }
 
 .title {
   font-size: 3rem;
   text-transform: uppercase;
-  z-index: 2;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
@@ -95,11 +122,10 @@ export default {
 }
 
 .subtitle {
-  color: rgba(255, 255, 255, 0.85); /* Bijela boja s 85% prozirnosti */
+  color: rgba(255, 255, 255, 0.85); 
   font-size: 2rem;
   margin-bottom: 10px;
-  z-index: 2;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Dodajemo sjenu za natpis "LOGIN" */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); 
 }
 
 .transparent-box {
@@ -165,7 +191,7 @@ export default {
 }
 
 .form-check-label {
-  color: rgba(255, 255, 255, 0.85); /* Bijela boja s 85% prozirnosti */
+  color: rgba(255, 255, 255, 0.85); 
   font-size: 0.9rem;
   cursor: pointer;
   display: flex;
@@ -209,5 +235,13 @@ export default {
   left: 15px;
   text-align: left;
   display: block;
+}
+
+.bottom-title {
+  position: absolute;
+  bottom: 10px;
+  width: 100%;
+  text-align: center;
+  opacity: 50%;
 }
 </style>
