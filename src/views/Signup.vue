@@ -284,7 +284,7 @@ export default {
   top: calc(100% + 10px);
   left: 0;
   width: 100%;
-  background-color: rgba(0, 0, 0, 0.7);
+  background-color: rgba(0, 0, 0, 0.5);
   color: white;
   padding: 20px;
   border-radius: 15px;
