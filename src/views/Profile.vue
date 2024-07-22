@@ -11,14 +11,15 @@
       </div>
 
       <div v-if="showMenu" class="options-menu" ref="menuContainer">
-        <button @click.stop="changePicture" class="menu-item">Change Picture</button>
-        <button @click.stop="removeImage" class="menu-item">Remove Picture</button>
+        <button @click.stop="changePicture" class="menu-item">Change Photo</button>
+        <button @click.stop="removeImage" class="menu-item">Remove Photo</button>
       </div>
     </div>
 
     <input type="file" ref="fileInput" style="display: none" @change="handleFileChange">
 
     <div class="transparent-box"></div>
+    <div class="transparent-box-2"></div>
   </div>
 </template>
 
@@ -108,7 +109,7 @@ export default {
   text-transform: uppercase;
   color: rgba(255, 255, 255, 0.85);
   transform: rotate(-90deg);
-  bottom: 167px;
+  bottom: 185px;
   left: -258px;
   opacity: 40%;
 }
@@ -128,16 +129,17 @@ export default {
 
 .profile-picture {
   position: relative; 
-  width: 250px;
-  height: 300px;
-  bottom: 7px;
+  width: 220px;
+  height: 250px;
+  bottom: 30px;
   overflow: hidden;
   display: flex;
   justify-content: center;
   align-items: center;
   background-color: rgba(0, 0, 0, 0.10); 
   cursor: pointer;
-  border-radius: 40%;
+  border-radius: 48%;
+  z-index: 1;
 }
 
 .profile-image {
@@ -149,7 +151,7 @@ export default {
 
 .options-menu {
   position: absolute;
-  top: 100%;
+  top: 93%;
   left: 50%;
   transform: translateX(-50%); 
   background-color: rgba(0, 0, 0, 0.1);
@@ -229,5 +231,20 @@ export default {
   top: 0;
   left: 50%;
   transform: translateX(-50%);
+}
+
+.transparent-box-2 {
+  position: relative; 
+  width: 250px;
+  height: 270px;
+  bottom: 266px;
+  left: 254px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.10); 
+  cursor: pointer;
+  border-radius: 48%;
 }
 </style>
