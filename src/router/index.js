@@ -32,6 +32,26 @@ const routes = [
     name: 'schedule',
     component: () => import('../views/Schedule.vue')
   },
+  { 
+    path: '/weaponsencyclopedia',
+    name: 'weaponsencyclopedia',
+    component: () => import('../views/WeaponsEncyclopedia.vue')
+  },
+  { 
+    path: '/vehicleencyclopedia',
+    name: 'vehicleencyclopedia',
+    component: () => import('../views/VehicleEncyclopedia.vue')
+  },
+  { 
+    path: '/equipmentessentials',
+    name: 'equipmentessentials',
+    component: () => import('../views/EquipmentEssentials.vue')
+  },
+  { 
+    path: '/armoryessentials',
+    name: 'armoryessentials',
+    component: () => import('../views/ArmoryEssentials.vue')
+  },
 ]
 
 const router = createRouter({

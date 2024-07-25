@@ -237,7 +237,7 @@ export default {
   position: relative; 
   width: 250px;
   height: 270px;
-  bottom: 266px;
+  bottom: 240px;
   left: 254px;
   overflow: hidden;
   display: flex;
