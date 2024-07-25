@@ -27,6 +27,11 @@ const routes = [
     name: 'profile',
     component: () => import('../views/Profile.vue')
   },
+  { 
+    path: '/schedule',
+    name: 'schedule',
+    component: () => import('../views/Schedule.vue')
+  },
 ]
 
 const router = createRouter({
