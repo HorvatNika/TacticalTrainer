@@ -3,7 +3,6 @@
     <h2 class="subtitle">LOGIN</h2>
     <div class="container">
       <div class="row">
-
         <div class="col-md"></div>
         <div class="col-md-6 d-flex justify-content-center">
           <div class="transparent-box with-shadow compact rounded-40">
@@ -65,7 +64,7 @@
 
     <div class="bottom-title">
       <h1 class="title mb-0">
-        <span class="blue">T</span>actical <span class="blue">T</span>rainer
+        <span class="blue">T</span>ACTICAL <span class="blue">T</span>RAINER
       </h1>
     </div>
   </div>
@@ -113,7 +112,6 @@ export default {
 
 .title {
   font-size: 3rem;
-  text-transform: uppercase;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
@@ -164,8 +162,8 @@ export default {
 }
 
 .btn-primary {
-  background-color: #007d8a;
-  border-color: #007d8a;
+  background-color: #007c8a42;
+  border-color: #007c8a42;
   margin-top: 10px;
   border-radius: 40px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
@@ -173,8 +171,8 @@ export default {
 }
 
 .btn-primary:hover {
-  background-color: #00566b;
-  border-color: #00566b;
+  background-color: #007c8a89;
+  border-color: #007c8a89;
 }
 
 .forget-password {
@@ -204,13 +202,13 @@ export default {
   left: -15px;
   height: 20px;
   width: 20px;
-  background-color: #00adb5;
+  background-color: #007c8a85;
   border-radius: 50%;
   margin-right: -7px;
 }
 
 .form-check-label:hover .checkmark {
-  background-color: #007d8a;
+  background-color: #007c8a85;
 }
 
 .form-check-input {
@@ -240,7 +238,8 @@ export default {
 .bottom-title {
   position: absolute;
   bottom: 10px;
-  width: 100%;
+  left: 0;
+  right: 0;
   text-align: center;
   opacity: 50%;
 }

@@ -7,27 +7,29 @@
 
       <div class="circle circle1" @mouseover="increaseOpacity(1)" @mouseleave="resetOpacity(1)">
         <img src="@/assets/menuProfil.svg" alt="Vektorski oblik" class="circle-img">
-        <div class="circle-label">Profile</div>
+        <div class="circle-label">PROFILE</div>
       </div>
 
       <div class="circle circle2" @mouseover="increaseOpacity(2)" @mouseleave="resetOpacity(2)">
         <img src="@/assets/menuKaciga.svg" alt="Vektorski oblik" class="circle-img">
-        <div class="circle-label">Lectures</div>
+        <div class="circle-label">LECTURES</div>
       </div>
 
       <div class="circle circle3" @mouseover="increaseOpacity(3)" @mouseleave="resetOpacity(3)">
         <img src="@/assets/menuZvijezda.svg" alt="Vektorski oblik" class="circle-img">
-        <div class="circle-label">Score Rank</div>
+        <div class="circle-label">SCORE RANK</div>
       </div>
 
       <div class="circle circle4" @mouseover="increaseOpacity(4)" @mouseleave="resetOpacity(4)">
         <img src="@/assets/menuUteg.svg" alt="Vektorski oblik" class="circle-img">
-        <div class="circle-label">Schedule</div>
+        <div class="circle-label">SCHEDULE</div>
       </div>
     </div>
 
     <div class="footer">
-      <h1 class="title mb-0"><span class="blue">T</span>actical <span class="blue">T</span>rainer</h1>
+      <h1 class="title mb-0">
+        <span class="blue">T</span><span class="title-part">ACTICAL</span> <span class="blue">T</span><span class="title-part">RAINER</span>
+      </h1>
     </div>
 
     <svg width="0" height="0">
@@ -35,7 +37,7 @@
         <feComponentTransfer in="SourceAlpha">
           <feFuncA type="table" tableValues="1 0" />
         </feComponentTransfer>
-        <feGaussianBlur stdDeviation="1.5" /> 
+        <feGaussianBlur stdDeviation="5" /> 
         <feOffset dx="1" dy="1" result="offsetblur" /> 
         <feFlood flood-color="rgba(0, 0, 0, 0.5)" result="color" /> 
         <feComposite in2="offsetblur" operator="in" />
@@ -90,14 +92,23 @@ export default {
 
 .title {
   font-size: 3rem;
-  text-transform: uppercase;
   color: rgba(255, 255, 255, 0.85);
-  text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
   opacity: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.title-part {
+  font-size: 3rem; /* Ili bilo koja veličina koja odgovara dizajnu */
+  color: rgba(255, 255, 255, 0.85);
 }
 
 .blue {
   color: #00adb5;
+  font-size: 3rem; /* Ovo može biti različito u zavisnosti od dizajna */
 }
 
 .menu-text {
@@ -105,7 +116,7 @@ export default {
   font-size: 4rem;
   text-transform: uppercase;
   color: rgba(255, 255, 255, 0.85);
-  text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
   margin-top: -80px;
   z-index: 3;
   position: relative;
@@ -176,11 +187,11 @@ export default {
 
 .circle-label {
   position: absolute;
-  bottom: -30px;
+  bottom: -40px;
   left: 50%;
   transform: translateX(-50%);
   font-size: 1.2rem;
-  color: white;
+  color: rgba(255, 255, 255, 0.85);
   font-family: 'mojFont', sans-serif;
   white-space: nowrap; 
 }

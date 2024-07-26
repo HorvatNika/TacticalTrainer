@@ -6,7 +6,6 @@
         <div class="col-lg-6 d-flex justify-content-center">
           <div class="transparent-box with-shadow rounded-40 expanded-width">
             <form @submit.prevent="handleSubmit">
-
               <div class="row">
                 <div class="col-md-6">
                   <div class="form-group">
@@ -15,8 +14,11 @@
                   </div>
 
                   <div class="form-group">
-                    <label for="exampleInputSurname" class="text-left">Surname</label>
-                    <input type="text" class="form-control rounded-40" id="exampleInputSurname" placeholder="Enter surname" v-model="formData.surname" required />
+                    <label for="exampleInputEmail" class="text-left">Email</label>
+                    <input type="email" class="form-control rounded-40" id="exampleInputEmail" placeholder="Enter email" v-model="formData.email" @input="validateEmail" required />
+                    <div v-if="emailError" class="error-message">
+                      Invalid email address.
+                    </div>
                   </div>
 
                   <div class="form-group">
@@ -95,7 +97,7 @@
 
       <div class="row mt-4 justify-content-center">
         <div class="col-lg-6 text-center">
-          <h1 class="title mb-0"><span class="blue">T</span>actical <span class="blue">T</span>rainer</h1>
+          <h1 class="title mb-0"><span class="blue">T</span>ACTICAL <span class="blue">T</span>RAINER</h1>
         </div>
       </div>
     </div>
@@ -108,7 +110,7 @@ export default {
     return {
       formData: {
         name: '',
-        surname: '',
+        email: '',
         gender: '',
         nationality: '',
         rank: '',
@@ -120,15 +122,17 @@ export default {
       showPasswordHint: false,
       formErrors: [],
       passwordValidated: false,
-      passwordsMatch: false
+      passwordsMatch: false,
+      emailError: false
     };
   },
   
   methods: {
     handleSubmit() {
       this.formErrors = [];
+      this.emailError = false;
 
-      if (!this.formData.name || !this.formData.surname || !this.formData.gender || !this.formData.nationality || !this.formData.rank || !this.formData.unit || !this.formData.password || !this.formData.confirmPassword) {
+      if (!this.formData.name || !this.formData.email || !this.formData.gender || !this.formData.nationality || !this.formData.rank || !this.formData.unit || !this.formData.password || !this.formData.confirmPassword) {
         this.formErrors.push("All fields are required.");
       }
 
@@ -140,7 +144,11 @@ export default {
         this.formErrors.push("Password must contain at least one uppercase letter, one number, and be at least 5 characters long.");
       }
 
-      if (this.formErrors.length > 0) {
+      if (!this.isEmailValid(this.formData.email)) {
+        this.emailError = true;
+      }
+
+      if (this.formErrors.length > 0 || this.emailError) {
         return;
       }
 
@@ -161,6 +169,14 @@ export default {
     },
     validateConfirmPassword() {
       this.passwordsMatch = this.formData.password === this.formData.confirmPassword;
+    },
+    validateEmail() {
+      this.emailError = !this.isEmailValid(this.formData.email);
+    },
+    isEmailValid(email) {
+      // Simple email validation regex
+      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      return emailPattern.test(email);
     }
   }
 };
@@ -183,9 +199,13 @@ export default {
 
 .title {
   font-size: 3rem;
-  text-transform: uppercase;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
   opacity: 50%;
+  position: absolute;
+  bottom: 10px;
+  left: 0;
+  right: 0;
+  text-align: center;
 }
 
 .blue {
@@ -237,8 +257,8 @@ export default {
 }
 
 .btn-primary {
-  background-color: #007d8a;
-  border-color: #007d8a;
+  background-color: #007c8a64;
+  border-color: #007c8a64;
   margin-top: 20px;
   border-radius: 40px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
@@ -246,8 +266,8 @@ export default {
 }
 
 .btn-primary:hover {
-  background-color: #00566b;
-  border-color: #00566b;
+  background-color: #007c8a89;
+  border-color: #007c8a89;
 }
 
 .placeholder-text {
@@ -295,5 +315,11 @@ export default {
 
 .position-relative:hover .password-hint {
   display: block;
+}
+
+.error-message {
+  color: #dc3545;
+  font-size: 0.8rem;
+  margin-top: 5px;
 }
 </style>
