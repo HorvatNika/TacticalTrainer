@@ -199,7 +199,6 @@ export default {
 
 .title {
   font-size: 3rem;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
   opacity: 50%;
   position: absolute;
   bottom: 10px;

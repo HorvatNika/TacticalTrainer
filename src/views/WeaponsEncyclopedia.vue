@@ -45,7 +45,7 @@
     top: 50%;
     width: 25px;
     height: 2px;
-    background-color: #d4af37; /* Žuta boja */
+    background-color: #d4af37;
     transform: translateY(-50%);
   }
   
@@ -60,17 +60,17 @@
   .image-container {
     display: flex;
     justify-content: center;
-    gap: 70px; /* Povećan razmak između slika */
+    gap: 90px;
   }
   
   .image-box {
     display: flex;
-    flex-direction: column; /* Vertikalno raspoređivanje slike i teksta */
-    justify-content: center; /* Centriranje sadržaja unutar .image-box */
-    align-items: center; /* Centriranje sadržaja horizontalno */
+    flex-direction: column; 
+    justify-content: center; 
+    align-items: center; 
     text-align: center;
-    margin-top: 50px; /* Razmak od vrha kontejnera ako je potrebno */
-    transition: transform 0.3s ease; /* Glatka animacija za transformaciju */
+    margin-top: 50px;
+    transition: transform 0.3s ease; 
   }
   
   .image-box img {
@@ -85,11 +85,11 @@
     margin-top: 10px;
     font-size: 1.2em;
     font-weight: bold;
-    font-family: 'mojFont', sans-serif;
+    font-family: 'drugiFont', sans-serif;
   }
   
   .image-box:hover {
-    transform: scale(1.1); /* Malo povećanje cijelog okvira pri prelazu miša */
+    transform: scale(1.1);
   }
   </style>
   

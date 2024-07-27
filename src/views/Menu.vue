@@ -26,9 +26,9 @@
       </div>
     </div>
 
-    <div class="footer">
+    <div class="bottom-title">
       <h1 class="title mb-0">
-        <span class="blue">T</span><span class="title-part">ACTICAL</span> <span class="blue">T</span><span class="title-part">RAINER</span>
+        <span class="blue">T</span>ACTICAL <span class="blue">T</span>RAINER
       </h1>
     </div>
 
@@ -80,35 +80,6 @@ export default {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-}
-
-.footer {
-  position: absolute;
-  bottom: 10px;
-  width: 100%;
-  text-align: center;
-  font-family: 'mojFont', sans-serif;
-}
-
-.title {
-  font-size: 3rem;
-  color: rgba(255, 255, 255, 0.85);
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-  opacity: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
-}
-
-.title-part {
-  font-size: 3rem; /* Ili bilo koja veličina koja odgovara dizajnu */
-  color: rgba(255, 255, 255, 0.85);
-}
-
-.blue {
-  color: #00adb5;
-  font-size: 3rem; /* Ovo može biti različito u zavisnosti od dizajna */
 }
 
 .menu-text {
@@ -194,5 +165,25 @@ export default {
   color: rgba(255, 255, 255, 0.85);
   font-family: 'mojFont', sans-serif;
   white-space: nowrap; 
+}
+
+.bottom-title {
+  position: absolute;
+  bottom: 10px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  opacity: 50%;
+}
+
+.title {
+  font-size: 3rem;
+  color: rgba(255, 255, 255, 0.85);
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  font-family: 'mojFont', sans-serif;
+}
+
+.blue {
+  color: #00adb5;
 }
 </style>

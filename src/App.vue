@@ -15,8 +15,26 @@
 </template>
 
 <style lang="scss">
+@font-face {
+  font-family: 'mojFont';
+  src: url('@/assets/font/mojFont.ttf') format('truetype'); 
+  font-weight: 400; 
+  font-style: normal; 
+}
+
+@font-face {
+  font-family: 'drugiFont';
+  src: url('@/assets/font/drugiFont.ttf') format('truetype'); 
+  font-weight: 400; 
+  font-style: normal; 
+}
+
+body {
+  font-family: 'mojFont', sans-serif; 
+}
+
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: 'drugiFont', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
@@ -35,16 +53,4 @@ nav {
     }
   }
 }
-
-@font-face {
-  font-family: 'mojFont';
-  src: url('~@/assets/font/mojFont.ttf') format('truetype'); 
-  font-weight: 400; 
-  font-style: normal; 
-}
-
-body {
-  font-family: 'mojFont', sans-serif; 
-}
-
 </style>

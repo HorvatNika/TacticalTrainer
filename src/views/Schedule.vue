@@ -1,6 +1,6 @@
 <template>
   <div class="schedule">
-    <h1>Schedule</h1>
+    <h1 class="schedule-title">Schedule</h1>
     <div class="input-container">
       <input v-model="newTaskTitle" placeholder="Enter task title...">
       <textarea v-model="newTaskContent" placeholder="Enter task content..."></textarea>
@@ -101,7 +101,6 @@
   </div>
 </template>
 
-
 <script>
 export default {
   data() {
@@ -188,16 +187,35 @@ export default {
 };
 </script>
 
-
-
 <style scoped>
+@font-face {
+  font-family: 'mojFont';
+  src: url('@/assets/font/mojFont.ttf') format('truetype'); 
+  font-weight: 400; 
+  font-style: normal; 
+}
+
+@font-face {
+  font-family: 'drugiFont';
+  src: url('@/assets/font/drugiFont.ttf') format('truetype'); 
+  font-weight: 400; 
+  font-style: normal; 
+}
+
+body {
+  font-family: 'drugiFont', sans-serif; 
+}
+
+.schedule-title {
+  font-family: 'mojFont', sans-serif;
+}
+
 .schedule {
   width: 100%;
   height: 100vh;
   position: relative;
   padding: 20px;
   background: #f5f5f5;
-  font-family: 'mojFont', sans-serif; 
 }
 
 .input-container {
@@ -205,7 +223,7 @@ export default {
   margin: auto; 
   padding: 10px; 
   background: #fff;
-  border-radius: 40px;
+  border-radius: 0px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
@@ -215,7 +233,7 @@ input[type="text"], textarea, input[type="date"], input[type="time"] {
   margin-bottom: 8px; 
   border: 1px solid #ddd;
   border-radius: 40px;
-  font-family: 'mojFont', sans-serif; 
+  font-family: 'drugiFont', sans-serif; 
 }
 
 textarea {
@@ -236,7 +254,7 @@ button {
   background-color: transparent; 
   color: white;
   cursor: pointer;
-  font-family: 'mojFont', sans-serif;
+  font-family: 'drugiFont', sans-serif;
   margin-top: 10px; 
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
@@ -262,7 +280,7 @@ button:hover {
   display: flex;
   flex-direction: column;
   cursor: move;
-  font-family: 'mojFont', sans-serif; 
+  font-family: 'drugiFont', sans-serif; 
   background-color: #fff;
   overflow: hidden; 
   box-sizing: border-box; 
