@@ -52,6 +52,11 @@ const routes = [
     name: 'armoryessentials',
     component: () => import('../views/ArmoryEssentials.vue')
   },
+  { 
+    path: '/proba',
+    name: 'proba',
+    component: () => import('../views/Proba.vue')
+  },
 ]
 
 const router = createRouter({

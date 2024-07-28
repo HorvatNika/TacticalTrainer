@@ -9,7 +9,8 @@
     <router-link to="/weaponsencyclopedia">Weapons Encyclopedia</router-link> |
     <router-link to="/vehicleencyclopedia">Vehicle Encyclopedia</router-link> |
     <router-link to="/equipmentessentials">Equipment Essentials</router-link> |
-    <router-link to="/armoryessentials">Armory Essentials</router-link>
+    <router-link to="/armoryessentials">Armory Essentials</router-link> |
+    <router-link to="/proba">Proba</router-link>
   </nav>
   <router-view/>
 </template>
