@@ -106,6 +106,7 @@
 
 <script>
 export default {
+  name: "Signup",
   data() {
     return {
       formData: {
@@ -174,7 +175,6 @@ export default {
       this.emailError = !this.isEmailValid(this.formData.email);
     },
     isEmailValid(email) {
-      // Simple email validation regex
       const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       return emailPattern.test(email);
     }

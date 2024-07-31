@@ -56,7 +56,7 @@ h1::after {
 .image-container {
   display: flex;
   justify-content: center;
-  gap: 50px;
+  gap: 50px; 
 }
 
 .image-box {
@@ -66,7 +66,7 @@ h1::after {
   align-items: center; 
   text-align: center;
   margin: 20px; 
-  transition: transform 0.3s ease; 
+  transition: transform 0.3s ease;
 }
 
 .image-box img {

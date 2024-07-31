@@ -57,6 +57,11 @@ const routes = [
     name: 'proba',
     component: () => import('../views/Proba.vue')
   },
+  { 
+    path: '/infantry',
+    name: 'infantry',
+    component: () => import('../views/Infantry.vue')
+  },
 ]
 
 const router = createRouter({
