@@ -33,10 +33,9 @@
 
             <div class="navigation">
                 <button @click="prevQuestion" :disabled="currentQuestion === 0">Previous</button>
-                <button @click="nextQuestion" :disabled="currentQuestion === questions.length - 1">Next</button>
+                <button v-if="currentQuestion < questions.length - 1" @click="nextQuestion">Next</button>
+                <button v-if="currentQuestion === questions.length - 1" @click="submitAnswers">SEND</button>
             </div>
-
-            <button v-if="currentQuestion === questions.length - 1" @click="submitAnswers">SEND</button>
 
             <!-- Validation -->
             <div v-if="showError" class="error">
@@ -113,7 +112,7 @@ export default {
                     correctAnswer: 'Smith & Wesson Model 29'
                 }
             ],
-            answers: Array(5).fill(''), // Initialize with empty strings for each question
+            answers: Array(5).fill(''), 
             submitted: false,
             showError: false,
             score: 0
@@ -187,7 +186,7 @@ h1, h2, button {
 .progress-bar-fill {
     height: 100%;
     width: 0; 
-    background-color: #fef2b1; 
+    background-color: #007c8a85; 
     border-radius: 3px;
     transition: width 0.3s;
 }
@@ -255,8 +254,8 @@ h1, h2, button {
 }
 
 .radio-option input:checked + label::before {
-    background-color: #fef2b1; 
-    border-color: #fef2b1;
+    background-color: #007c8a85; 
+    border-color: #007c8a85;
 }
 
 .navigation {
@@ -267,9 +266,9 @@ h1, h2, button {
 button {
     margin: 0 10px;
     padding: 10px 20px;
-    border: 1px solid #fef2b1;
-    border-radius: 30px; /* Rounded corners */
-    background-color: #fef2b1;
+    border: 1px solid #007c8a85;
+    border-radius: 30px;
+    background-color: #007c8a85;
     cursor: pointer;
     transition: background-color 0.3s, border-color 0.3s;
 }
@@ -281,8 +280,8 @@ button:disabled {
 }
 
 button:hover:not(:disabled) {
-    background-color: #f1e4a1;
-    border-color: #f1e4a1;
+    background-color: #007c8a85;
+    border-color: #007c8a85;
 }
 
 .error {

@@ -73,7 +73,6 @@ h1::after {
   width: 180px;
   height: 180px;
   object-fit: cover;
-  border-radius: 40px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
@@ -81,7 +80,7 @@ h1::after {
   margin-top: 10px;
   font-size: 1.2em;
   font-weight: bold;
-  font-family: 'drugiFont', sans-serif;
+  font-family: 'mojFont', sans-serif;
 }
 
 .image-box:hover {
