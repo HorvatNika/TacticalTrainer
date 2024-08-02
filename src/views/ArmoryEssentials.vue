@@ -2,14 +2,14 @@
   <div class="armory-essentials">
     <h1>ARMORY ESSENTIALS</h1>
     <div class="image-container">
-      <div class="image-box">
+      <router-link to="/disassembly" class="image-box">
         <img src="@/assets/aeDisassembly.jpg" alt="Disassembly">
         <p>DISASSEMBLY</p>
-      </div>
-      <div class="image-box">
+      </router-link>
+      <router-link to="/ammunition" class="image-box">
         <img src="@/assets/aeAmmunition.jpg" alt="Ammunition">
         <p>AMMUNITION</p>
-      </div>
+      </router-link>
     </div>
   </div>
 </template>
@@ -27,11 +27,12 @@ export default {
 }
 
 h1 {
-  font-size: 2.5em;
+  font-size: 3em;
   margin-bottom: 20px;
   font-family: 'mojFont', sans-serif;
   position: relative;
   display: inline-block;
+  color: #7c7c7c;
 }
 
 h1::before,
@@ -56,34 +57,47 @@ h1::after {
 .image-container {
   display: flex;
   justify-content: center;
-  gap: 50px; 
+  gap: 80px; 
+  padding: 0 20px; 
+  margin-top: 40px; 
 }
 
 .image-box {
   display: flex;
-  flex-direction: column; 
-  justify-content: center; 
-  align-items: center; 
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   text-align: center;
   margin: 20px; 
-  transition: transform 0.3s ease;
+  transition: transform 0.3s ease, opacity 0.3s ease; 
+  width: 250px; 
+  text-decoration: none; 
+  color: #7c7c7c; 
+  position: relative;
+  top: -10px; 
 }
 
 .image-box img {
-  width: 180px;
-  height: 180px;
+  width: 230px; 
+  height: 230px; 
   object-fit: cover;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  opacity: 0.7; 
+}
+
+.image-box:hover img {
+  opacity: 1; 
 }
 
 .image-box p {
   margin-top: 10px;
-  font-size: 1.2em;
+  font-size: 1.3rem; 
   font-weight: bold;
   font-family: 'mojFont', sans-serif;
+  color: inherit; 
 }
 
 .image-box:hover {
-  transform: scale(1.1); 
+  transform: scale(1.1);
 }
 </style>

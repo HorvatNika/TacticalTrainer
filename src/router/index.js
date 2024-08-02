@@ -53,9 +53,9 @@ const routes = [
     component: () => import('../views/ArmoryEssentials.vue')
   },
   { 
-    path: '/proba',
-    name: 'proba',
-    component: () => import('../views/Proba.vue')
+    path: '/testpistols',
+    name: 'testpistols',
+    component: () => import('../views/TestPistols.vue')
   },
   { 
     path: '/infantry',

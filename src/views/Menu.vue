@@ -5,25 +5,26 @@
     <div class="menu-text">MENU</div>
     <div class="circle-container">
 
-      <div class="circle circle1" @mouseover="increaseOpacity(1)" @mouseleave="resetOpacity(1)">
+      <router-link to="/profile" class="circle circle1">
         <img src="@/assets/menuProfil.svg" alt="Vektorski oblik" class="circle-img">
         <div class="circle-label">PROFILE</div>
-      </div>
+      </router-link>
 
-      <div class="circle circle2" @mouseover="increaseOpacity(2)" @mouseleave="resetOpacity(2)">
+      <router-link to="/infantry" class="circle circle2">
         <img src="@/assets/menuKaciga.svg" alt="Vektorski oblik" class="circle-img">
         <div class="circle-label">LECTURES</div>
-      </div>
+      </router-link>
 
-      <div class="circle circle3" @mouseover="increaseOpacity(3)" @mouseleave="resetOpacity(3)">
+      <router-link to="/score-rank" class="circle circle3">
         <img src="@/assets/menuZvijezda.svg" alt="Vektorski oblik" class="circle-img">
         <div class="circle-label">SCORE RANK</div>
-      </div>
+      </router-link>
 
-      <div class="circle circle4" @mouseover="increaseOpacity(4)" @mouseleave="resetOpacity(4)">
+      <router-link to="/schedule" class="circle circle4">
         <img src="@/assets/menuUteg.svg" alt="Vektorski oblik" class="circle-img">
         <div class="circle-label">SCHEDULE</div>
-      </div>
+      </router-link>
+
     </div>
 
     <div class="bottom-title">
@@ -53,17 +54,7 @@
 
 <script>
 export default {
-  name: 'Menu',
-  methods: {
-    increaseOpacity(index) {
-      const circle = document.querySelector(`.circle${index}`);
-      circle.style.opacity = '1';
-    },
-    resetOpacity(index) {
-      const circle = document.querySelector(`.circle${index}`);
-      circle.style.opacity = '0.6';
-    }
-  }
+  name: 'Menu'
 };
 </script>
 
@@ -84,7 +75,7 @@ export default {
 
 .menu-text {
   font-family: 'mojFont', sans-serif;
-  font-size: 4rem;
+  font-size: 3rem;
   text-transform: uppercase;
   color: rgba(255, 255, 255, 0.85);
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
@@ -117,19 +108,23 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 50px;
+  margin-top: 30px;
   position: relative;
 }
 
 .circle {
-  width: 160px;
-  height: 160px;
+  width: 180px; 
+  height: 180px; 
   border-radius: 50%;
   margin: 0 30px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
   position: relative;
   transition: transform 0.3s ease, opacity 0.3s ease;
   opacity: 0.95;
+  text-decoration: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .circle:hover {
@@ -142,7 +137,7 @@ export default {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 55%;
+  width: 60%; 
   height: auto;
   filter: invert(17%) sepia(55%) saturate(2250%) hue-rotate(155deg) brightness(210%) contrast(112%) url(#inner-shadow);
   transition: transform 0.3s ease;
@@ -158,10 +153,10 @@ export default {
 
 .circle-label {
   position: absolute;
-  bottom: -40px;
+  bottom: -47px;
   left: 50%;
   transform: translateX(-50%);
-  font-size: 1.2rem;
+  font-size: 1.7rem; 
   color: rgba(255, 255, 255, 0.85);
   font-family: 'mojFont', sans-serif;
   white-space: nowrap; 

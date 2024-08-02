@@ -1,5 +1,6 @@
 <template>
   <div class="about">
+    <div class="overlay"></div>
     <h2 class="subtitle">SIGNUP</h2>
     <div class="container">
       <div class="row justify-content-center">
@@ -197,6 +198,17 @@ export default {
   font-family: 'mojFont', sans-serif;
 }
 
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4); 
+  backdrop-filter: blur(10px); 
+  z-index: 1;
+}
+
 .title {
   font-size: 3rem;
   opacity: 50%;
@@ -205,6 +217,7 @@ export default {
   left: 0;
   right: 0;
   text-align: center;
+  z-index: 2; 
 }
 
 .blue {
@@ -213,9 +226,10 @@ export default {
 
 .subtitle {
   color: rgba(255, 255, 255, 0.85); 
-  font-size: 2rem;
+  font-size: 2.5rem;
   margin-bottom: 10px;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); 
+  z-index: 2;
 }
 
 .transparent-box {
@@ -223,6 +237,7 @@ export default {
   padding: 40px;
   border-radius: 40px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  z-index: 2; 
 }
 
 .form-control {
@@ -248,11 +263,12 @@ export default {
   right: 105px; 
   transform: translateY(-50%);
   cursor: pointer;
-  color: #d4af37;
+  color: #d4af37; 
+  transition: color 0.3s; 
 }
 
 .toggle-password:hover {
-  color: #000;
+  color: #d4af37;
 }
 
 .btn-primary {
@@ -309,7 +325,7 @@ export default {
   border-radius: 15px;
   font-size: 0.8rem;
   display: none;
-  z-index: 1;
+  z-index: 2; 
 }
 
 .position-relative:hover .password-hint {
@@ -320,5 +336,6 @@ export default {
   color: #dc3545;
   font-size: 0.8rem;
   margin-top: 5px;
+  z-index: 2; 
 }
 </style>

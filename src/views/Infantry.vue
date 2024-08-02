@@ -124,8 +124,8 @@ export default {
 }
 
 .image-box img {
-  width: 300px;
-  height: 300px;
+  width: 270px;
+  height: 270px;
   object-fit: cover;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   opacity: 0.7; 

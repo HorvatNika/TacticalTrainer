@@ -1,5 +1,6 @@
 <template>
   <div class="login">
+    <div class="overlay"></div>
     <h2 class="subtitle">LOGIN</h2>
     <div class="container">
       <div class="row">
@@ -52,7 +53,7 @@
                   Remember me
                 </label>
               </div>
-              <button type="submit" class="btn btn-primary btn-block rounded-40">
+              <button type="submit" class="btn btn-primary rounded-40">
                 LOGIN
               </button>
             </form>
@@ -110,6 +111,17 @@ export default {
   font-family: 'mojFont', sans-serif;
 }
 
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4); 
+  backdrop-filter: blur(10px); 
+  z-index: 1; 
+}
+
 .title {
   font-size: 3rem;
 }
@@ -120,9 +132,10 @@ export default {
 
 .subtitle {
   color: rgba(255, 255, 255, 0.85); 
-  font-size: 2rem;
+  font-size: 2.5rem;
   margin-bottom: 10px;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); 
+  z-index: 2; 
 }
 
 .transparent-box {
@@ -130,6 +143,7 @@ export default {
   padding: 40px;
   border-radius: 40px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  z-index: 2; 
 }
 
 .compact {
@@ -161,12 +175,18 @@ export default {
 }
 
 .btn-primary {
-  background-color: #007c8a42;
-  border-color: #007c8a42;
-  margin-top: 10px;
+  background-color: #007c8a64;
+  border-color: #007c8a64;
   border-radius: 40px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
   padding: 10px 30px;
+  font-size: 16px;
+  text-align: center;
+  color: white;
+  text-decoration: none;
+  transition: background-color 0.3s;
+  margin: 4px 2px;
+  z-index: 2; 
 }
 
 .btn-primary:hover {
@@ -241,5 +261,6 @@ export default {
   right: 0;
   text-align: center;
   opacity: 50%;
+  z-index: 2; 
 }
 </style>
