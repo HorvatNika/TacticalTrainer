@@ -15,7 +15,7 @@
         This guide aims to provide military personnel with the knowledge required to select and effectively use pistols in various operational contexts. By understanding the strengths and limitations of different pistol types, users can make informed decisions that enhance their effectiveness and safety during missions.
       </p>
       <div class="gallery-section">
-        <a href="#" class="link-gallery">GALLERY</a>
+        <a href="#" class="link-gallery" @click.prevent="handleGalleryClick">GALLERY</a>
         <div class="blue-line"></div>
         <h2 class="test-title">TEST</h2>
         <p class="test-description">
@@ -29,10 +29,39 @@
             <li><strong>Hard:</strong> Advanced questions requiring a comprehensive understanding of operational principles and tactical advantages. Includes 20 questions with a 20-minute time limit.</li>
           </ul>
         </div>
-        <a href="#" class="link-start-test">START TEST</a> 
+        <a href="#" class="link-start-test" @click.prevent="toggleTestOptions">START TEST</a>
+        <div v-if="showTestOptions" class="test-options">
+          <a href="#" class="link-option" @click.prevent="startTest('easy')">EASY</a>
+          <a href="#" class="link-option" @click.prevent="startTest('medium')">MEDIUM</a>
+          <a href="#" class="link-option" @click.prevent="startTest('hard')">HARD</a>
+          <a href="#" class="link-option cancel" @click.prevent="toggleTestOptions">CANCEL</a>
+        </div>
       </div>
     </div>
-  </template>  
+  </template>
+  
+  <script>
+  export default {
+    data() {
+      return {
+        showTestOptions: false
+      };
+    },
+    methods: {
+      handleGalleryClick() {
+        // Handle the gallery click event
+        console.log("Gallery clicked");
+      },
+      toggleTestOptions() {
+        this.showTestOptions = !this.showTestOptions;
+      },
+      startTest(level) {
+        console.log(`Start test: ${level}`);
+        // Handle the test start logic here
+      }
+    }
+  };
+  </script>
   
   <style scoped>
   .pistols-page {
@@ -50,7 +79,7 @@
     content: '';
     display: block;
     width: 30%;
-    height: 5px;
+    height: 4px;
     background-color: #00adb5;
     margin: 10px auto;
     border-radius: 30px;
@@ -81,17 +110,20 @@
     margin-bottom: 20px;
   }
   
-  .link-gallery {
+  .link-gallery, .link-start-test, .link-option {
     display: inline-block;
     font-size: 1.5rem;
     color: #00adb5;
     text-decoration: none;
-    margin-bottom: 10px;
+    margin: 10px 15px;
   }
   
-  .link-gallery:hover {
-    background-color: #00adb5;
-    color: white;
+  .link-gallery:hover, .link-start-test:hover, .link-option:hover {
+    cursor: pointer;
+  }
+  
+  .link-option.cancel {
+    color: #676767;
   }
   
   .blue-line {
@@ -139,19 +171,14 @@
     margin-bottom: 10px;
   }
   
-  .link-start-test {
-    display: inline-block;
-    font-size: 1.5rem;
-    color: #00adb5;
-    text-decoration: none;
-    margin-top: 30px; 
-    margin-bottom: 10px;
+  .test-options {
+    display: flex;
+    justify-content: center;
+    margin-top: 5px;
   }
   
-  .link-start-test:hover {
-    background-color: #00adb5;
-    color: white;
+  .test-options .link-option {
+    margin: 0 10px;
   }
   </style>
-  
   
