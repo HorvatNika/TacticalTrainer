@@ -34,20 +34,18 @@
       </div>
 
       <div class="navigation">
-        <button class="btn btn-primary rounded-40" @click="prevQuestion" :disabled="currentQuestion === 0">Previous</button>
-        <button class="btn btn-primary rounded-40" @click="nextQuestion" :disabled="currentQuestion === questions.length - 1">Next</button>
+        <span class="nav-link" @click="prevQuestion" :class="{ 'disabled': currentQuestion === 0 }">PREVIOUS</span>
+        <span class="nav-link" @click="nextQuestion" :class="{ 'disabled': currentQuestion === questions.length - 1 }">NEXT</span>
+        <span v-if="currentQuestion === questions.length - 1" class="nav-link" @click="submitAnswers">SEND</span>
       </div>
 
-      <button v-if="currentQuestion === questions.length - 1" class="btn btn-primary rounded-40" @click="submitAnswers">SEND</button>
-
       <div v-if="showError" class="error">
-        Molimo vas da proverite svoje odgovore pre nego što pošaljete test.
       </div>
     </div>
 
     <div v-if="submitted">
-      <h2>Rezultat: {{ score }}/{{ questions.length }}</h2>
-      <button class="btn btn-primary rounded-40" @click="restartQuiz">Restart</button>
+      <h2>SCORE: {{ score }}/{{ questions.length }}</h2>
+      <span class="nav-link" @click="restartQuiz">RESTART</span>
     </div>
   </div>
 </template>
@@ -198,151 +196,169 @@ export default {
 
 <style scoped>
 body, #app, h1, h2, button, input, label {
-font-family: 'mojFont', sans-serif;
+  font-family: 'mojFont', sans-serif;
 }
 
 h1 {
-color: #676767;
-font-size: 2.5rem; 
+  color: #676767;
+  font-size: 2.5rem; 
 }
 
 h2 {
-color: #676767
+  color: #676767
 }
 
 .progress-bar-container {
-display: flex;
-justify-content: center;
-margin-bottom: 10px; 
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px; 
 }
 
 .progress-bar {
-height: 10px;
-width: 30%;
-background-color: #eee;
-border-radius: 30px;
-position: relative;
+  height: 10px;
+  width: 30%;
+  background-color: #eee;
+  border-radius: 30px;
+  position: relative;
 }
 
 .progress-bar-fill {
-height: 100%;
-width: 0;
-background-color: #007c8a85;
-border-radius: 3px;
-transition: width 0.3s;
+  height: 100%;
+  width: 0;
+  background-color: #007c8a85;
+  border-radius: 3px;
+  transition: width 0.3s;
 }
 
 .progress-segment {
-height: 100%;
-flex: 1;
-background-color: #ddd;
-border-right: 2px solid #eee;
-display: inline-block;
+  height: 100%;
+  flex: 1;
+  background-color: #ddd;
+  border-right: 2px solid #eee;
+  display: inline-block;
 }
 
 .progress-segment:last-child {
-border-right: none;
+  border-right: none;
 }
 
 .countdown-timer {
-display: flex;
-justify-content: center;
-margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
 }
 
 .countdown-timer h2 {
-font-size: 20px;
-color: #7c7c7c;
-margin: 0;
-margin-left: 517px;
+  font-size: 20px;
+  color: #7c7c7c;
+  margin: 0;
+  margin-left: 517px;
 }
 
 .radio-container {
-display: flex;
-justify-content: center;
+  display: flex;
+  justify-content: center;
 }
 
 .radio-group {
-display: flex;
-flex-direction: column;
-align-items: flex-start;
-width: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 300px;
 }
 
 .radio-option {
-margin-bottom: 10px;
-display: flex;
-align-items: center;
-position: relative;
-right: 130px;
-top: 20px;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  position: relative;
+  right: 130px;
+  top: 20px;
 }
 
 .radio-option input[type="radio"] {
-appearance: none;
--webkit-appearance: none;
-border-radius: 50%;
-border: 2px solid #007c8a89;
-width: 20px;
-height: 20px;
-background-color: #fff;
-cursor: pointer;
-position: relative;
-margin-right: 10px;
-box-sizing: border-box;
+  appearance: none;
+  -webkit-appearance: none;
+  border-radius: 50%;
+  border: 2px solid #007c8a89;
+  width: 20px;
+  height: 20px;
+  background-color: #fff;
+  cursor: pointer;
+  position: relative;
+  margin-right: 10px;
+  box-sizing: border-box;
 }
 
 .radio-option input[type="radio"]::before {
-content: '';
-display: block;
-width: 100%;
-height: 100%;
-border-radius: 50%;
-background-color: #007c8a64;
-position: absolute;
-top: 0;
-left: 0;
-transition: opacity 0.3s;
-opacity: 0;
+  content: '';
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background-color: #007c8a64;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transition: opacity 0.3s;
+  opacity: 0;
 }
 
 .radio-option input[type="radio"]:checked::before {
-opacity: 1;
+  opacity: 1;
 }
 
 .radio-option label {
-color: #676767;
-cursor: pointer;
+  color: #676767;
+  cursor: pointer;
 }
 
 .navigation {
-display: flex;
-justify-content: center;
-margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.nav-link {
+  font-size: 16px;
+  color: #007c8a64;
+  cursor: pointer;
+  margin: 0 20px;
+  text-decoration: none; /* Ukloni podcrtavanje */
+  transition: color 0.3s;
+}
+
+.nav-link:hover {
+  color: #007c8a89;
+}
+
+.nav-link.disabled {
+  color: #ddd;
+  cursor: not-allowed;
 }
 
 .btn-primary {
-background-color: #007c8a64;
-border-color: #007c8a64;
-border-radius: 40px;
-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-padding: 10px 30px;
-font-size: 16px;
-text-align: center;
-color: white;
-text-decoration: none;
-transition: background-color 0.3s;
-margin: 4px 2px;
+  background-color: #007c8a64;
+  border-color: #007c8a64;
+  border-radius: 40px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  padding: 10px 30px;
+  font-size: 16px;
+  text-align: center;
+  color: white;
+  text-decoration: none;
+  transition: background-color 0.3s;
+  margin: 4px 2px;
 }
 
 .btn-primary:hover {
-background-color: #007c8a89;
-border-color: #007c8a89;
+  background-color: #007c8a89;
+  border-color: #007c8a89;
 }
 
 .error {
-color: red;
-margin-top: 20px;
-text-align: center;
+  color: red;
+  margin-top: 20px;
+  text-align: center;
 }
 </style>
