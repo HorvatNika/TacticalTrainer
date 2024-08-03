@@ -23,7 +23,7 @@ export default {
 }
 
 h1 {
-  font-size: 3em;
+  font-size: 3rem;
   margin-bottom: 20px;
   font-family: 'mojFont', sans-serif;
   position: relative;

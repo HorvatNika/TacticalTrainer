@@ -27,7 +27,7 @@ export default {
 }
 
 h1 {
-  font-size: 3em;
+  font-size: 3rem;
   margin-bottom: 20px;
   font-family: 'mojFont', sans-serif;
   position: relative;
@@ -78,8 +78,8 @@ h1::after {
 }
 
 .image-box img {
-  width: 230px; 
-  height: 230px; 
+  width: 250px; 
+  height: 250px; 
   object-fit: cover;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   opacity: 0.7; 

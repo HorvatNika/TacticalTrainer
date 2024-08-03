@@ -6,13 +6,12 @@
   <router-link to="/signup">Registracija</router-link>
   <router-link to="/menu">Menu</router-link>
   <router-link to="/testpistols">Test Pistols</router-link>
+  <router-link to="pistols">Pistols</router-link>
 </nav>
     <router-view/>
 
-    <!-- Audio element to play continuously -->
     <audio ref="backgroundAudio" :src="currentAudioSrc" autoplay loop></audio>
 
-    <!-- Button to open audio control -->
     <div class="audio-controls" v-if="showControls">
       <button @click="prevAudio" class="control-button">◀</button>
       <span class="current-audio-name">{{ currentAudioName }}</span>

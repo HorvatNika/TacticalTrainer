@@ -118,14 +118,14 @@ export default {
   transition: transform 0.3s ease, opacity 0.3s ease; 
   width: 250px; 
   text-decoration: none; 
-  color: #7c7c7c; 
+  color: #676767; 
   position: relative;
   top: -10px; 
 }
 
 .image-box img {
-  width: 270px;
-  height: 270px;
+  width: 280px;
+  height: 280px;
   object-fit: cover;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   opacity: 0.7; 

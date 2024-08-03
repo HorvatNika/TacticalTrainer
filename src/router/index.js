@@ -62,6 +62,11 @@ const routes = [
     name: 'infantry',
     component: () => import('../views/Infantry.vue')
   },
+  { 
+    path: '/pistols',
+    name: 'pistols',
+    component: () => import('../views/Pistols.vue')
+  },
 ]
 
 const router = createRouter({

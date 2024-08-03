@@ -1,348 +1,348 @@
 <template>
-    <div id="app">
-      <h1><strong>PISTOLS</strong></h1>
-  
-      <div class="progress-bar-container" v-if="!submitted">
-        <div class="progress-bar">
-          <div class="progress-bar-fill" :style="{ width: progressBarWidth + '%' }"></div>
-          <div v-for="(question, index) in questions" :key="index" class="progress-segment" :class="{ 'active': index <= currentQuestion }"></div>
-        </div>
-      </div>
-  
-      <div v-if="!submitted" class="countdown-timer">
-        <h2>{{ formattedTime }}</h2>
-      </div>
-  
-      <div v-if="!submitted && currentQuestion >= 0 && currentQuestion < questions.length">
-        <h2 v-html="questions[currentQuestion].text"></h2>
-  
-        <div class="radio-container">
-          <div class="radio-group">
-            <div v-for="(option, optionIndex) in questions[currentQuestion].options" :key="optionIndex" class="radio-option">
-              <input
-                type="radio"
-                :id="'option-' + currentQuestion + '-' + optionIndex"
-                :name="'question' + currentQuestion"
-                :value="option"
-                v-model="answers[currentQuestion]"
-              />
-              <label :for="'option-' + currentQuestion + '-' + optionIndex">
-                {{ option }}
-              </label>
-            </div>
-          </div>
-        </div>
-  
-        <div class="navigation">
-          <button class="btn btn-primary rounded-40" @click="prevQuestion" :disabled="currentQuestion === 0">Previous</button>
-          <button class="btn btn-primary rounded-40" @click="nextQuestion" :disabled="currentQuestion === questions.length - 1">Next</button>
-        </div>
-  
-        <button v-if="currentQuestion === questions.length - 1" class="btn btn-primary rounded-40" @click="submitAnswers">SEND</button>
-  
-        <div v-if="showError" class="error">
-          Molimo vas da proverite svoje odgovore pre nego što pošaljete test.
-        </div>
-      </div>
-  
-      <div v-if="submitted">
-        <h2>Rezultat: {{ score }}/{{ questions.length }}</h2>
-        <button class="btn btn-primary rounded-40" @click="restartQuiz">Restart</button>
+  <div id="app">
+    <h1><strong>PISTOLS</strong></h1>
+
+    <div class="progress-bar-container" v-if="!submitted">
+      <div class="progress-bar">
+        <div class="progress-bar-fill" :style="{ width: progressBarWidth + '%' }"></div>
+        <div v-for="(question, index) in questions" :key="index" class="progress-segment" :class="{ 'active': index <= currentQuestion }"></div>
       </div>
     </div>
-  </template>
-  
-  <script>
-  export default {
-    data() {
-      return {
-        currentQuestion: 0,
-        questions: [
-          {
-            text: 'Which type of action mechanism is used in a Glock 17?',
-            type: 'radio',
-            options: [
-              'Striker-fired',
-              'Hammer-fired',
-              'Revolving',
-              'Bolt-action'
-            ],
-            correctAnswer: 'Striker-fired'
-          },
-          {
-            text: 'What is a common feature of the Colt 1911?',
-            type: 'radio',
-            options: [
-              'Single-action trigger',
-              'Double-action trigger',
-              'Revolver cylinder',
-              'Integrated laser sight'
-            ],
-            correctAnswer: 'Single-action trigger'
-          },
-          {
-            text: 'Which of the following is a characteristic of a .357 Magnum revolver?',
-            type: 'radio',
-            options: [
-              'High recoil and power',
-              'Low capacity',
-              'Semi-automatic',
-              'Compact design'
-            ],
-            correctAnswer: 'High recoil and power'
-          },
-          {
-            text: 'The Beretta 92 is known for which of the following?',
-            type: 'radio',
-            options: [
-              'Double-action/single-action mechanism',
-              'Revolver mechanism',
-              'Single-shot capability',
-              'Break-action design'
-            ],
-            correctAnswer: 'Double-action/single-action mechanism'
-          },
-          {
-            text: 'Which of the following is <strong>NOT</strong> a type of semi-automatic pistol?',
-            type: 'radio',
-            options: [
-              '1911',
-              'Glock',
-              'Beretta',
-              'Smith & Wesson Model 29'
-            ],
-            correctAnswer: 'Smith & Wesson Model 29'
-          }
-        ],
-        answers: Array(5).fill(''), 
-        submitted: false,
-        showError: false,
-        score: 0,
-        timeRemaining: 300,
-        timer: null
-      };
+
+    <div v-if="!submitted" class="countdown-timer">
+      <h2>{{ formattedTime }}</h2>
+    </div>
+
+    <div v-if="!submitted && currentQuestion >= 0 && currentQuestion < questions.length">
+      <h2 v-html="questions[currentQuestion].text"></h2>
+
+      <div class="radio-container">
+        <div class="radio-group">
+          <div v-for="(option, optionIndex) in questions[currentQuestion].options" :key="optionIndex" class="radio-option">
+            <input
+              type="radio"
+              :id="'option-' + currentQuestion + '-' + optionIndex"
+              :name="'question' + currentQuestion"
+              :value="option"
+              v-model="answers[currentQuestion]"
+            />
+            <label :for="'option-' + currentQuestion + '-' + optionIndex">
+              {{ option }}
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div class="navigation">
+        <button class="btn btn-primary rounded-40" @click="prevQuestion" :disabled="currentQuestion === 0">Previous</button>
+        <button class="btn btn-primary rounded-40" @click="nextQuestion" :disabled="currentQuestion === questions.length - 1">Next</button>
+      </div>
+
+      <button v-if="currentQuestion === questions.length - 1" class="btn btn-primary rounded-40" @click="submitAnswers">SEND</button>
+
+      <div v-if="showError" class="error">
+        Molimo vas da proverite svoje odgovore pre nego što pošaljete test.
+      </div>
+    </div>
+
+    <div v-if="submitted">
+      <h2>Rezultat: {{ score }}/{{ questions.length }}</h2>
+      <button class="btn btn-primary rounded-40" @click="restartQuiz">Restart</button>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      currentQuestion: 0,
+      questions: [
+        {
+          text: 'Which type of action mechanism is used in a Glock 17?',
+          type: 'radio',
+          options: [
+            'Striker-fired',
+            'Hammer-fired',
+            'Revolving',
+            'Bolt-action'
+          ],
+          correctAnswer: 'Striker-fired'
+        },
+        {
+          text: 'What is a common feature of the Colt 1911?',
+          type: 'radio',
+          options: [
+            'Single-action trigger',
+            'Double-action trigger',
+            'Revolver cylinder',
+            'Integrated laser sight'
+          ],
+          correctAnswer: 'Single-action trigger'
+        },
+        {
+          text: 'Which of the following is a characteristic of a .357 Magnum revolver?',
+          type: 'radio',
+          options: [
+            'High recoil and power',
+            'Low capacity',
+            'Semi-automatic',
+            'Compact design'
+          ],
+          correctAnswer: 'High recoil and power'
+        },
+        {
+          text: 'The Beretta 92 is known for which of the following?',
+          type: 'radio',
+          options: [
+            'Double-action/single-action mechanism',
+            'Revolver mechanism',
+            'Single-shot capability',
+            'Break-action design'
+          ],
+          correctAnswer: 'Double-action/single-action mechanism'
+        },
+        {
+          text: 'Which of the following is <strong>NOT</strong> a type of semi-automatic pistol?',
+          type: 'radio',
+          options: [
+            '1911',
+            'Glock',
+            'Beretta',
+            'Smith & Wesson Model 29'
+          ],
+          correctAnswer: 'Smith & Wesson Model 29'
+        }
+      ],
+      answers: Array(5).fill(''), 
+      submitted: false,
+      showError: false,
+      score: 0,
+      timeRemaining: 300,
+      timer: null
+    };
+  },
+  computed: {
+    progressBarWidth() {
+      return ((this.currentQuestion + 1) / this.questions.length) * 100;
     },
-    computed: {
-      progressBarWidth() {
-        return ((this.currentQuestion + 1) / this.questions.length) * 100;
-      },
-      formattedTime() {
-        const minutes = Math.floor(this.timeRemaining / 60);
-        const seconds = this.timeRemaining % 60;
-        return `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+    formattedTime() {
+      const minutes = Math.floor(this.timeRemaining / 60);
+      const seconds = this.timeRemaining % 60;
+      return `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+    }
+  },
+  methods: {
+    prevQuestion() {
+      if (this.currentQuestion > 0) {
+        this.currentQuestion--;
       }
     },
-    methods: {
-      prevQuestion() {
-        if (this.currentQuestion > 0) {
-          this.currentQuestion--;
-        }
-      },
-      nextQuestion() {
-        if (this.currentQuestion < this.questions.length - 1) {
-          this.currentQuestion++;
-        }
-      },
-      submitAnswers() {
-        if (this.answers.includes('')) {
-          this.showError = true;
+    nextQuestion() {
+      if (this.currentQuestion < this.questions.length - 1) {
+        this.currentQuestion++;
+      }
+    },
+    submitAnswers() {
+      if (this.answers.includes('')) {
+        this.showError = true;
+      } else {
+        this.calculateScore();
+        this.submitted = true;
+        this.stopTimer();
+      }
+    },
+    calculateScore() {
+      this.score = this.questions.reduce((total, question, index) => {
+        if (this.answers[index] === question.correctAnswer) {
+          return total + 1;
         } else {
-          this.calculateScore();
-          this.submitted = true;
-          this.stopTimer();
+          return total;
         }
-      },
-      calculateScore() {
-        this.score = this.questions.reduce((total, question, index) => {
-          if (this.answers[index] === question.correctAnswer) {
-            return total + 1;
-          } else {
-            return total;
-          }
-        }, 0);
-      },
-      restartQuiz() {
-        this.currentQuestion = 0;
-        this.answers = Array(this.questions.length).fill('');
-        this.submitted = false;
-        this.showError = false;
-        this.score = 0;
-        this.timeRemaining = 300; 
-        this.startTimer(); 
-      },
-      startTimer() {
-        this.stopTimer(); 
-        this.timer = setInterval(() => {
-          if (this.timeRemaining > 0) {
-            this.timeRemaining--;
-          } else {
-            this.submitAnswers(); 
-          }
-        }, 1000);
-      },
-      stopTimer() {
-        if (this.timer) {
-          clearInterval(this.timer);
-          this.timer = null;
-        }
-      }
+      }, 0);
     },
-    mounted() {
+    restartQuiz() {
+      this.currentQuestion = 0;
+      this.answers = Array(this.questions.length).fill('');
+      this.submitted = false;
+      this.showError = false;
+      this.score = 0;
+      this.timeRemaining = 300; 
       this.startTimer(); 
     },
-    beforeDestroy() {
+    startTimer() {
       this.stopTimer(); 
+      this.timer = setInterval(() => {
+        if (this.timeRemaining > 0) {
+          this.timeRemaining--;
+        } else {
+          this.submitAnswers(); 
+        }
+      }, 1000);
+    },
+    stopTimer() {
+      if (this.timer) {
+        clearInterval(this.timer);
+        this.timer = null;
+      }
     }
-  };
-  </script>
-  
-  <style scoped>
+  },
+  mounted() {
+    this.startTimer(); 
+  },
+  beforeDestroy() {
+    this.stopTimer(); 
+  }
+};
+</script>
+
+<style scoped>
 body, #app, h1, h2, button, input, label {
-  font-family: 'mojFont', sans-serif;
+font-family: 'mojFont', sans-serif;
 }
 
 h1 {
-  color: #7c7c7c;
-  font-size: 3rem; 
+color: #676767;
+font-size: 2.5rem; 
 }
 
 h2 {
-  color: #7c7c7c;
+color: #676767
 }
 
 .progress-bar-container {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 10px; 
+display: flex;
+justify-content: center;
+margin-bottom: 10px; 
 }
 
 .progress-bar {
-  height: 10px;
-  width: 30%;
-  background-color: #eee;
-  border-radius: 30px;
-  position: relative;
+height: 10px;
+width: 30%;
+background-color: #eee;
+border-radius: 30px;
+position: relative;
 }
 
 .progress-bar-fill {
-  height: 100%;
-  width: 0;
-  background-color: #007c8a85;
-  border-radius: 3px;
-  transition: width 0.3s;
+height: 100%;
+width: 0;
+background-color: #007c8a85;
+border-radius: 3px;
+transition: width 0.3s;
 }
 
 .progress-segment {
-  height: 100%;
-  flex: 1;
-  background-color: #ddd;
-  border-right: 2px solid #eee;
-  display: inline-block;
+height: 100%;
+flex: 1;
+background-color: #ddd;
+border-right: 2px solid #eee;
+display: inline-block;
 }
 
 .progress-segment:last-child {
-  border-right: none;
+border-right: none;
 }
 
 .countdown-timer {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 20px;
+display: flex;
+justify-content: center;
+margin-bottom: 20px;
 }
 
 .countdown-timer h2 {
-  font-size: 20px;
-  color: #7c7c7c;
-  margin: 0;
-  margin-left: 517px;
+font-size: 20px;
+color: #7c7c7c;
+margin: 0;
+margin-left: 517px;
 }
 
 .radio-container {
-  display: flex;
-  justify-content: center;
+display: flex;
+justify-content: center;
 }
 
 .radio-group {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  width: 300px;
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+width: 300px;
 }
 
 .radio-option {
-  margin-bottom: 10px;
-  display: flex;
-  align-items: center;
-  position: relative;
-  right: 130px;
-  top: 20px;
+margin-bottom: 10px;
+display: flex;
+align-items: center;
+position: relative;
+right: 130px;
+top: 20px;
 }
 
 .radio-option input[type="radio"] {
-  appearance: none;
-  -webkit-appearance: none;
-  border-radius: 50%;
-  border: 2px solid #007c8a89;
-  width: 20px;
-  height: 20px;
-  background-color: #fff;
-  cursor: pointer;
-  position: relative;
-  margin-right: 10px;
-  box-sizing: border-box;
+appearance: none;
+-webkit-appearance: none;
+border-radius: 50%;
+border: 2px solid #007c8a89;
+width: 20px;
+height: 20px;
+background-color: #fff;
+cursor: pointer;
+position: relative;
+margin-right: 10px;
+box-sizing: border-box;
 }
 
 .radio-option input[type="radio"]::before {
-  content: '';
-  display: block;
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-  background-color: #007c8a64;
-  position: absolute;
-  top: 0;
-  left: 0;
-  transition: opacity 0.3s;
-  opacity: 0;
+content: '';
+display: block;
+width: 100%;
+height: 100%;
+border-radius: 50%;
+background-color: #007c8a64;
+position: absolute;
+top: 0;
+left: 0;
+transition: opacity 0.3s;
+opacity: 0;
 }
 
 .radio-option input[type="radio"]:checked::before {
-  opacity: 1;
+opacity: 1;
 }
 
 .radio-option label {
-  color: #7c7c7c;
-  cursor: pointer;
+color: #676767;
+cursor: pointer;
 }
 
 .navigation {
-  display: flex;
-  justify-content: center;
-  margin-top: 20px;
+display: flex;
+justify-content: center;
+margin-top: 20px;
 }
 
 .btn-primary {
-  background-color: #007c8a64;
-  border-color: #007c8a64;
-  border-radius: 40px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-  padding: 10px 30px;
-  font-size: 16px;
-  text-align: center;
-  color: white;
-  text-decoration: none;
-  transition: background-color 0.3s;
-  margin: 4px 2px;
+background-color: #007c8a64;
+border-color: #007c8a64;
+border-radius: 40px;
+box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+padding: 10px 30px;
+font-size: 16px;
+text-align: center;
+color: white;
+text-decoration: none;
+transition: background-color 0.3s;
+margin: 4px 2px;
 }
 
 .btn-primary:hover {
-  background-color: #007c8a89;
-  border-color: #007c8a89;
+background-color: #007c8a89;
+border-color: #007c8a89;
 }
 
 .error {
-  color: red;
-  margin-top: 20px;
-  text-align: center;
+color: red;
+margin-top: 20px;
+text-align: center;
 }
 </style>
