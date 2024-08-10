@@ -7,6 +7,8 @@
   <router-link to="/menu">Menu</router-link>
   <router-link to="/testpistols">Test Pistols</router-link>
   <router-link to="pistols">Pistols</router-link>
+  <router-link to="pistols">Pistols</router-link>
+  <router-link to="scorerank">ScoreRank</router-link>
 </nav>
     <router-view/>
 

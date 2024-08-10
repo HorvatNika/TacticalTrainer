@@ -67,6 +67,11 @@ const routes = [
     name: 'pistols',
     component: () => import('../views/Pistols.vue')
   },
+  { 
+    path: '/scorerank',
+    name: 'scorerank',
+    component: () => import('../views/ScoreRank.vue')
+  },
 ]
 
 const router = createRouter({
