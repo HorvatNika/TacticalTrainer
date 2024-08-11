@@ -68,9 +68,19 @@ const routes = [
     component: () => import('../views/Pistols.vue')
   },
   { 
-    path: '/scorerank',
-    name: 'scorerank',
-    component: () => import('../views/ScoreRank.vue')
+    path: '/scorerank1',
+    name: 'scorerank1',
+    component: () => import('../views/ScoreRank1.vue')
+  },
+  { 
+    path: '/scorerank2',
+    name: 'scorerank2',
+    component: () => import('../views/ScoreRank2.vue')
+  },
+  { 
+    path: '/scorerank3',
+    name: 'scorerank3',
+    component: () => import('../views/ScoreRank3.vue')
   },
 ]
 
