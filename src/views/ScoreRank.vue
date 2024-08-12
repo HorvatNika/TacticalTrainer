@@ -14,20 +14,18 @@
   
       <!-- Tablice -->
       <div v-if="filterCategory === 'all'" class="table-section">
-        <div class="table-container">
-          <h3 class="table-title">Overall Scores</h3>
-          <table class="score-table main-table">
-            <thead>
-              <tr class="table-header">
-                <th>Rank</th>
-                <th>User</th>
-                <th>Total Score</th>
-              </tr>
-            </thead>
-            <tbody>
-            </tbody>
-          </table>
-        </div>
+        <h3 class="table-title">Overall Scores</h3>
+        <table class="score-table main-table">
+          <thead>
+            <tr class="table-header">
+              <th>Rank</th>
+              <th>User</th>
+              <th>Total Score</th>
+            </tr>
+          </thead>
+          <tbody>
+          </tbody>
+        </table>
       </div>
   
       <div v-else-if="filterCategory === 'military-library'" class="table-section">
@@ -55,7 +53,7 @@
               </label>
             </div>
   
-            <div v-if="libraryFilterCategory === 'weapons'" class="table-container">
+            <div v-if="libraryFilterCategory === 'weapons'" class="table-section">
               <h3 class="table-title">Weapons Encyclopedia</h3>
               <table class="score-table main-table">
                 <thead>
@@ -70,7 +68,7 @@
               </table>
             </div>
   
-            <div v-if="libraryFilterCategory === 'vehicles'" class="table-container">
+            <div v-if="libraryFilterCategory === 'vehicles'" class="table-section">
               <h3 class="table-title">Vehicle Encyclopedia</h3>
               <table class="score-table main-table">
                 <thead>
@@ -109,7 +107,7 @@
               </label>
             </div>
   
-            <div v-if="essentialsFilterCategory === 'equipment'" class="table-container">
+            <div v-if="essentialsFilterCategory === 'equipment'" class="table-section">
               <h3 class="table-title">Equipment Essentials</h3>
               <table class="score-table main-table">
                 <thead>
@@ -124,7 +122,7 @@
               </table>
             </div>
   
-            <div v-if="essentialsFilterCategory === 'armory'" class="table-container">
+            <div v-if="essentialsFilterCategory === 'armory'" class="table-section">
               <h3 class="table-title">Armory Essentials</h3>
               <table class="score-table main-table">
                 <thead>
@@ -192,6 +190,8 @@
   }
   
   .table-container {
+    width: 48%; 
+    box-sizing: border-box; 
     margin-bottom: 20px;
   }
   
@@ -204,10 +204,6 @@
     border-collapse: collapse;
     border-radius: 5px;
     overflow: hidden;
-  }
-  
-  .main-table {
-    width: 100%;
   }
   
   .table-header th {
