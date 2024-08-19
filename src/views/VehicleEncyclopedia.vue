@@ -2,7 +2,7 @@
   <div class="vehicle-encyclopedia">
     <h1>VEHICLE ENCYCLOPEDIA</h1>
     <div class="image-container">
-      <router-link to="/infantry-transport-vehicles" class="image-box">
+      <router-link to="/infantrytransportvehicles" class="image-box">
         <img src="@/assets/veVehicles.jpg" alt="Infantry Transport Vehicles">
         <p>INFANTRY TRANSPORT VEHICLES</p>
       </router-link>

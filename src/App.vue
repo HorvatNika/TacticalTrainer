@@ -6,8 +6,7 @@
   <router-link to="/signup">Registracija</router-link>
   <router-link to="/menu">Menu</router-link>
   <router-link to="/testpistols">Test Pistols</router-link>
-  <router-link to="pistols">Pistols</router-link>
-  <router-link to="scorerank">Score Rank</router-link>
+  <router-link to="/scorerank">Score Rank</router-link>
 </nav>
     <router-view/>
 

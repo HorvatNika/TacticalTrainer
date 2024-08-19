@@ -72,6 +72,36 @@ const routes = [
     name: 'scorerank',
     component: () => import('../views/ScoreRank.vue')
   },
+  { 
+    path: '/rifles',
+    name: 'rifles',
+    component: () => import('../views/Rifles.vue')
+  },
+  { 
+    path: '/snipers',
+    name: 'snipers',
+    component: () => import('../views/Snipers.vue')
+  },
+  { 
+    path: '/infantrytransportvehicles',
+    name: 'infantrytransportvehicles',
+    component: () => import('../views/InfantryTransportVehicles.vue')
+  },
+  { 
+    path: '/tacticalgearoverview',
+    name: 'tacticalgearoverview',
+    component: () => import('../views/TacticalGearOverview.vue')
+  },
+  { 
+    path: '/disassembly',
+    name: 'disassembly',
+    component: () => import('../views/Disassembly.vue')
+  },
+  { 
+    path: '/ammunition',
+    name: 'ammunition',
+    component: () => import('../views/Ammunition.vue')
+  },
 ]
 
 const router = createRouter({

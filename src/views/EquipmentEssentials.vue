@@ -2,7 +2,7 @@
   <div class="equipment-essentials">
     <h1>EQUIPMENT ESSENTIALS</h1>
     <div class="image-container">
-      <router-link to="/tacticalgear" class="image-box">
+      <router-link to="/tacticalgearoverview" class="image-box">
         <img src="@/assets/eeGear.jpg" alt="Tactical Gear Overview">
         <p>TACTICAL GEAR OVERVIEW</p>
       </router-link>
