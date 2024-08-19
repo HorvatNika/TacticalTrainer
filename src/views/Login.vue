@@ -117,9 +117,9 @@ export default {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.4); 
-  backdrop-filter: blur(10px); 
-  z-index: 1; 
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(10px); /* Dodavanje zamućenja */
+  z-index: 1; /* Postavljanje z-index-a da se nalazi ispod sadržaja */
 }
 
 .title {

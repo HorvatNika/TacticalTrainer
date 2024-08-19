@@ -1,14 +1,14 @@
 <template>
   <div id="app">
     <nav>
-  <router-link to="/">Home</router-link>
-  <router-link to="/login">Prijava</router-link>
-  <router-link to="/signup">Registracija</router-link>
-  <router-link to="/menu">Menu</router-link>
-  <router-link to="/testpistols">Test Pistols</router-link>
-  <router-link to="/scorerank">Score Rank</router-link>
-</nav>
-    <router-view/>
+      <router-link to="/">Home</router-link>
+      <router-link to="/login">Prijava</router-link>
+      <router-link to="/signup">Registracija</router-link>
+      <router-link to="/menu">Menu</router-link>
+      <router-link to="/testpistols">Test Pistols</router-link>
+      <router-link to="/scorerank">Score Rank</router-link>
+    </nav>
+    <router-view />
 
     <audio ref="backgroundAudio" :src="currentAudioSrc" autoplay loop></audio>
 
@@ -27,6 +27,7 @@
     </div>
   </div>
 </template>
+
 <style lang="scss">
 @font-face {
   font-family: 'mojFont';
@@ -60,6 +61,7 @@ nav {
   flex-wrap: wrap;
   justify-content: center;
   gap: 10px;
+
   a {
     font-weight: bold;
     color: #2c3e50;
@@ -77,81 +79,96 @@ nav {
   }
 }
 
-audio {
-  display: none; 
+.audio-controls,
+.sound-controls {
+  position: fixed;
+  z-index: 1000;
+}
+
+.audio-controls {
+  bottom: 60px;
+  right: 20px;
 }
 
 .sound-controls {
-  position: fixed;
   bottom: 20px;
   right: 20px;
   display: flex;
   align-items: center;
-  z-index: 1000;
 }
 
+.control-button,
+.volume-button,
 .toggle-controls-button {
   background-color: transparent; 
-  color: rgb(255, 255, 255, 0.85);
-  border: none;
-  border-radius: 5px;
-  padding: 10px 10px;
-  font-size: 16px;
-  cursor: pointer;
-  font-family: 'mojFont', sans-serif;
-  margin: 0; 
-}
-
-.volume-button {
-  background-color: transparent;
-  color: rgb(255, 255, 255, 0.85); 
-  border: none;
-  border-radius: 5px;
-  padding: 5px; 
-  font-size: 20px;
-  cursor: pointer;
-  margin: 0; 
-}
-
-.toggle-controls-button:hover,
-.volume-button:hover {
-  background-color: transparent; 
-  color: #00adb5; 
-}
-
-.audio-controls {
-  position: fixed;
-  bottom: 60px;
-  right: 20px;
-  display: flex;
-  align-items: center;
-  z-index: 1000;
-}
-
-.control-button {
-  background-color: transparent; 
-  color: rgb(255, 255, 255, 0.85); 
+  color: rgba(255, 255, 255, 0.85);
   border: none;
   border-radius: 5px;
   padding: 10px;
-  font-size: 20px;
+  font-size: 16px;
   cursor: pointer;
-  margin: 0 5px;
-}
-
-.current-audio-name {
-  color: rgb(255, 255, 255, 0.85); 
-  font-size: 15px;
-  margin: 0 10px;
   font-family: 'mojFont', sans-serif;
 }
 
 .control-button:hover,
+.volume-button:hover,
 .toggle-controls-button:hover {
-  background-color: transparent; 
   color: #00adb5; 
 }
 
+/* Responsive Styles */
+@media (max-width: 768px) {
+  nav {
+    flex-direction: column;
+    padding: 10px;
+    a {
+      padding: 10px 15px;
+      font-size: 14px;
+    }
+  }
+
+  .control-button,
+  .volume-button,
+  .toggle-controls-button {
+    padding: 8px;
+    font-size: 14px;
+  }
+
+  .audio-controls {
+    bottom: 50px;
+  }
+
+  .sound-controls {
+    bottom: 10px;
+    right: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  nav {
+    padding: 5px;
+    a {
+      padding: 8px 12px;
+      font-size: 12px;
+    }
+  }
+
+  .control-button,
+  .volume-button,
+  .toggle-controls-button {
+    padding: 6px;
+    font-size: 12px;
+  }
+
+  .audio-controls {
+    bottom: 40px;
+  }
+
+  .sound-controls {
+    bottom: 5px;
+    right: 5px;
+  }
+}
 </style>
 
 <script>

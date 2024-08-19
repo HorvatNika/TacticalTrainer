@@ -256,7 +256,7 @@ export default {
 
 .filter-button {
   display: inline-block;
-  font-size: 1rem;
+  font-size: 1.3rem;
   color: #898989;
   text-decoration: none;
   margin-right: 15px;

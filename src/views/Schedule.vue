@@ -6,9 +6,9 @@
     </h1>
     <div class="input-container" v-if="showTaskForm">
       <input v-model="newTaskTitle" class="task-title-input" placeholder="Enter task title...">
-      <textarea v-model="newTaskContent" placeholder="Enter task content..."></textarea>
-      <input type="date" v-model="newTaskDate">
-      <input type="time" v-model="newTaskTime">
+      <textarea v-model="newTaskContent" class="task-content-input" placeholder="Enter task content..."></textarea>
+      <input type="date" v-model="newTaskDate" class="task-date-input">
+      <input type="time" v-model="newTaskTime" class="task-time-input">
       <div class="priority-selector">
         <label>Priority:</label>
         <div class="priority-options">
@@ -52,17 +52,17 @@
         @mousedown="startDrag($event, task)"
       >
         <div v-if="!task.editing">
-          <h3>{{ task.title }}</h3>
-          <p>{{ task.content }}</p>
+          <h3 class="task-title">{{ task.title }}</h3>
+          <p class="task-content">{{ task.content }}</p>
           <p><strong>Date:</strong> {{ task.date }}</p>
           <p><strong>Time:</strong> {{ task.time }}</p>
           <p><strong>Priority:</strong> {{ task.priority }}</p>
         </div>
         <div v-else>
           <input v-model="task.title" class="task-title-input" placeholder="Enter task title...">
-          <textarea v-model="task.content" placeholder="Enter task content..."></textarea>
-          <input type="date" v-model="task.date">
-          <input type="time" v-model="task.time">
+          <textarea v-model="task.content" class="task-content-input" placeholder="Enter task content..."></textarea>
+          <input type="date" v-model="task.date" class="task-date-input">
+          <input type="time" v-model="task.time" class="task-time-input">
           <div class="priority-selector">
             <label>Priority:</label>
             <div class="priority-options">
@@ -196,20 +196,14 @@ export default {
 </script>
 
 <style scoped>
-@font-face {
-  font-family: 'drugiFont';
-  src: url('@/assets/font/drugiFont.ttf') format('truetype');
-  font-weight: 400;
-  font-style: normal;
-}
-
 body {
-  font-family: 'drugiFont', sans-serif;
+  font-family: 'mojFont', sans-serif;
   margin: 0;
   overflow: hidden;
 }
 
 .schedule {
+  font-family: 'mojFont', sans-serif;
   width: 100%;
   min-height: 100vh;
   padding: 20px;
@@ -218,8 +212,7 @@ body {
 }
 
 .schedule-title {
-  font-family: 'drugiFont', sans-serif;
-  font-size: 2em;
+  font-size: 3rem;
   text-align: center;
   margin: 20px 0;
   font-weight: bold;
@@ -230,6 +223,7 @@ body {
 
 .schedule-text {
   margin-right: 10px;
+  color: #676767;
 }
 
 .schedule-circle {
@@ -241,39 +235,56 @@ body {
   align-items: center;
   justify-content: center;
   color: white;
-  font-size: 20px;
+  font-size: 1.25rem;
   cursor: pointer;
 }
 
 .input-container {
   max-width: 500px;
   margin: 20px auto;
-  padding: 15px;
+  padding: 20px;
   background: #fff;
-  border-radius: 40px;
+  border-radius: 20px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-input[type="text"], textarea, input[type="date"], input[type="time"] {
-  width: calc(100% - 20px);
-  padding: 10px;
-  margin-bottom: 10px;
+.task-title-input {
+  font-size: 1.5rem;
   border: 1px solid #ddd;
+  padding: 10px;
+  margin-bottom: 15px;
   border-radius: 20px;
-  box-sizing: border-box;
+  color: #676767;
+  width: 100%;
 }
 
-textarea {
-  height: 70px;
+.task-content-input {
+  font-size: 1.2rem;
+  border: 1px solid #ddd;
+  padding: 10px;
+  margin-bottom: 15px;
+  border-radius: 20px;
+  color: #676767;
+  width: 100%;
+  height: 100px;
   resize: none;
-  margin-top: 15px;
-  text-align: center; 
+}
+
+.task-date-input, .task-time-input {
+  font-size: 1.2rem;
+  border: 1px solid #ddd;
+  padding: 10px;
+  margin-bottom: 15px;
+  border-radius: 20px;
+  color: #676767;
+  width: 100%;
 }
 
 button {
-  padding: 8px 14px;
+  font-size: 1rem;
+  padding: 10px 20px;
   border: none;
-  border-radius: 40px;
+  border-radius: 20px;
   background-color: #007bff;
   color: white;
   cursor: pointer;
@@ -294,24 +305,25 @@ button:hover {
 .task-box {
   position: absolute;
   width: 300px;
-  padding: 15px;
+  padding: 20px;
   border: 1px solid #ddd;
-  border-radius: 40px;
+  border-radius: 20px;
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
   display: flex;
   flex-direction: column;
-  align-items: center; 
+  align-items: center;
   justify-content: center;
   cursor: move;
   background-color: #fff;
   overflow: hidden;
   box-sizing: border-box;
-  text-align: center; 
+  text-align: center;
+  color: #676767;
 }
 
 .task-box h3, .task-box p {
   margin: 0;
-  padding: 5px 0; 
+  padding: 5px 0;
 }
 
 .task-box input[type="checkbox"] {
@@ -326,12 +338,14 @@ button:hover {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 12px;
+  margin-bottom: 20px;
 }
 
 .priority-selector label {
-  margin-bottom: 12px;
-  font-size: 1.2em;
+  margin-bottom: 10px;
+  font-size: 1.2rem;
+  color: #676767;
+  text-transform: uppercase;
 }
 
 .priority-options {
@@ -356,8 +370,9 @@ button:hover {
 }
 
 .priority-label {
-  text-align: center;
-  font-size: 14px;
+  font-size: 0.875rem;
+  color: #676767;
+  text-transform: uppercase;
 }
 
 .low-priority .priority-circle {
@@ -374,20 +389,5 @@ button:hover {
 
 .priority-option.selected .priority-circle {
   filter: brightness(105%);
-}
-
-.task-title-input {
-  border: none;
-  background: #fff;
-  padding: 10px;
-  text-align: center; 
-}
-
-.task-title-input::placeholder {
-  text-align: center; 
-}
-
-.task-title-input:focus {
-  outline: none;
 }
 </style>
