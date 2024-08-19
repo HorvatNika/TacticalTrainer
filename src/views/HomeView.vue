@@ -76,7 +76,7 @@ export default {
   100% {
     opacity: 0;
   }
-}
+} ----
 
 .hidden {
   display: none;
