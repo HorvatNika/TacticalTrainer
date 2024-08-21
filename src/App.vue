@@ -83,6 +83,11 @@ nav {
 .sound-controls {
   position: fixed;
   z-index: 1000;
+  background-color: transparent; 
+  border-radius: 0; 
+  padding: 10px;
+  font-family: 'mojFont', sans-serif; 
+  color: #000; 
 }
 
 .audio-controls {
@@ -101,22 +106,20 @@ nav {
 .volume-button,
 .toggle-controls-button {
   background-color: transparent; 
-  color: rgba(255, 255, 255, 0.85);
-  border: none;
-  border-radius: 5px;
+  color: #000; 
+  border: none; 
   padding: 10px;
   font-size: 16px;
   cursor: pointer;
-  font-family: 'mojFont', sans-serif;
+  font-family: 'mojFont', sans-serif; 
 }
 
 .control-button:hover,
 .volume-button:hover,
 .toggle-controls-button:hover {
-  color: #00adb5; 
+  color: #000;
 }
 
-/* Responsive Styles */
 @media (max-width: 768px) {
   nav {
     flex-direction: column;
