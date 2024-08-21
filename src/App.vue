@@ -1,10 +1,8 @@
 <template>
   <div id="app">
     <nav>
-      <router-link to="/">Home</router-link>
-      <router-link to="/login">Prijava</router-link>
-      <router-link to="/signup">Registracija</router-link>
-      <router-link to="/menu">Menu</router-link>
+      <router-link to="/">TACTICAL TRAINER</router-link>
+      <router-link to="/menu">MENU</router-link>
       <router-link to="/testpistols">Test Pistols</router-link>
       <router-link to="/scorerank">Score Rank</router-link>
     </nav>

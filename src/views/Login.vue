@@ -118,8 +118,8 @@ export default {
   width: 100%;
   height: 100%;
   background: rgba(0, 0, 0, 0.4);
-  backdrop-filter: blur(10px); /* Dodavanje zamućenja */
-  z-index: 1; /* Postavljanje z-index-a da se nalazi ispod sadržaja */
+  backdrop-filter: blur(10px); 
+  z-index: 1;
 }
 
 .title {
@@ -190,8 +190,7 @@ export default {
 }
 
 .btn-primary:hover {
-  background-color: #007c8a89;
-  border-color: #007c8a89;
+  text-decoration: underline;
 }
 
 .forget-password {
@@ -204,7 +203,8 @@ export default {
 }
 
 .forget-password:hover {
-  text-decoration: underline;
+  text-decoration: none;
+  color: #d4af37; 
 }
 
 .form-check-label {

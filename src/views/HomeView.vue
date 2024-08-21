@@ -4,16 +4,14 @@
       <h1 class="title mb-0">
         <span class="blue">T</span>ACTICAL <span class="blue">T</span>RAINER
       </h1>
+      <div class="explosion-animation"></div>
     </div>
     <div v-if="isTitleHidden" class="overlay"></div>
-    <div v-if="isTitleHidden" class="background-title">
-      <h2>
-        <span class="blue">T</span>ACTICAL
-        <br />
-        <span class="blue">T</span>RAINER
-      </h2>
-    </div>
-    <div v-if="isTitleHidden" class="transparent-box">
+    <div v-if="isTitleHidden" class="buttons-box">
+      <div class="buttons-container">
+        <button class="btn neon-button" @click="goToLogin">ALREADY HAVE AN ACCOUNT? LOGIN</button>
+        <button class="btn neon-button" @click="goToSignup">CREATE YOUR ACCOUNT</button>
+      </div>  
     </div>
   </div>
 </template>
@@ -43,6 +41,12 @@ export default {
       bottomTitle.classList.add('fade-out');
       bottomTitle.classList.add('hidden');
       this.isTitleHidden = true;
+    },
+    goToLogin() {
+      this.$router.push({ name: 'login' });
+    },
+    goToSignup() {
+      this.$router.push({ name: 'signup' });
     }
   }
 };
@@ -121,51 +125,44 @@ export default {
   }
 }
 
-.background-title {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 0;
-  text-align: center;
-  opacity: 0;
-  animation: fadeIn 2s 1s forwards; 
-}
-
-.background-title h2 {
-  font-size: 25rem;
-  color: rgba(255, 255, 255, 0.85);
-  margin: 0;
-}
-
-.transparent-box {
+.buttons-box {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: rgba(0, 0, 0, 0.20);
-  padding: 40px;
-  border-radius: 50px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   z-index: 2;
   width: 500px;
-  height: 300px;
-  opacity: 0;
-  animation: slideIn 2s 1s forwards; 
+  text-align: center;
 }
 
-@keyframes slideIn {
-  0% {
-    opacity: 0;
-    transform: translate(-50%, -60%); 
-  }
-  100% {
-    opacity: 1;
-    transform: translate(-50%, -50%); 
-  }
+.buttons-container {
+  display: flex;
+  justify-content: space-around;
+  gap: 30px;
+}
+
+.neon-button {
+  font-family: 'mojFont', sans-serif;
+  font-size: 1.1rem;
+  padding: 15px 25px;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  position: relative;
+  z-index: 1;
+  transition: color 0.3s ease;
+  overflow: hidden;
+}
+
+.neon-button:hover {
+  color: #00adb5;
+  transition: none;
+}
+
+.neon-button:focus {
+  outline: none;
 }
 </style>
