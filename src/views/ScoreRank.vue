@@ -5,7 +5,7 @@
     <!-- Filteri -->
     <div class="filters">
       <label class="filter-button">
-        <input type="radio" v-model="filterCategory" value="all" /> ALL
+        <input type="radio" v-model="filterCategory" value="all" /> OVERALL SCORES
       </label>
       <label class="filter-button">
         <input type="radio" v-model="filterCategory" value="military-library" /> MILITARY LIBRARY
@@ -185,7 +185,7 @@ export default {
       filterCategory: 'all',
       libraryFilterCategory: 'weapons',
       essentialsFilterCategory: 'equipment',
-      // Dummy data for testing
+      // Dummy podaci za testiranje
       users: [
         { name: 'User A', weapons: 500, vehicles: 400, equipment: 300, armory: 200 },
         { name: 'User B', weapons: 450, vehicles: 400, equipment: 350, armory: 250 },
@@ -241,6 +241,14 @@ export default {
 </script>
 
 <style scoped>
+.header {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #676767;
+  text-align: center;
+  margin: 20px 0;
+}
+
 .score-rank {
   font-family: 'mojFont', sans-serif;
   width: 80%;

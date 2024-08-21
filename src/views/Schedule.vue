@@ -5,12 +5,13 @@
       <span class="schedule-circle" @click="toggleTaskForm">+</span>
     </h1>
     <div class="input-container" v-if="showTaskForm">
-      <input v-model="newTaskTitle" class="task-title-input" placeholder="Enter task title...">
+      <input v-model="newTaskTitle" class="task-title-input" placeholder="ENTER TASK TITLE...">
       <textarea v-model="newTaskContent" class="task-content-input" placeholder="Enter task content..."></textarea>
-      <input type="date" v-model="newTaskDate" class="task-date-input">
-      <input type="time" v-model="newTaskTime" class="task-time-input">
+      <div class="date-time-container">
+        <input type="text" v-model="formattedDate" class="task-date-input" placeholder="DD.MM.YYYY" @input="updateDate">
+        <input type="text" v-model="formattedTime" class="task-time-input" placeholder="HH:MM" @input="updateTime">
+      </div>
       <div class="priority-selector">
-        <label>Priority:</label>
         <div class="priority-options">
           <div 
             class="priority-option low-priority"
@@ -18,7 +19,6 @@
             @click="selectedPriority = 'low'"
             title="Low"
           >
-            <div class="priority-circle"></div>
             <span class="priority-label">Low</span>
           </div>
           <div 
@@ -27,7 +27,6 @@
             @click="selectedPriority = 'medium'"
             title="Medium"
           >
-            <div class="priority-circle"></div>
             <span class="priority-label">Medium</span>
           </div>
           <div 
@@ -36,12 +35,11 @@
             @click="selectedPriority = 'high'"
             title="High"
           >
-            <div class="priority-circle"></div>
             <span class="priority-label">High</span>
           </div>
         </div>
       </div>
-      <button @click="addTask">Add Task</button>
+      <button @click="addTask">ADD TASK</button>
     </div>
     <div class="tasks-container">
       <div
@@ -54,47 +52,14 @@
         <div v-if="!task.editing">
           <h3 class="task-title">{{ task.title }}</h3>
           <p class="task-content">{{ task.content }}</p>
-          <p><strong>Date:</strong> {{ task.date }}</p>
-          <p><strong>Time:</strong> {{ task.time }}</p>
-          <p><strong>Priority:</strong> {{ task.priority }}</p>
+          <p>{{ formatDate(task.date) }}</p>
+          <p>{{ formatTime(task.time) }}</p>
         </div>
         <div v-else>
           <input v-model="task.title" class="task-title-input" placeholder="Enter task title...">
           <textarea v-model="task.content" class="task-content-input" placeholder="Enter task content..."></textarea>
-          <input type="date" v-model="task.date" class="task-date-input">
-          <input type="time" v-model="task.time" class="task-time-input">
-          <div class="priority-selector">
-            <label>Priority:</label>
-            <div class="priority-options">
-              <div 
-                class="priority-option low-priority"
-                :class="{ selected: task.priority === 'low' }"
-                @click="task.priority = 'low'; task.color = '#fef2b1'"
-                title="Low"
-              >
-                <div class="priority-circle"></div>
-                <span class="priority-label">Low</span>
-              </div>
-              <div 
-                class="priority-option medium-priority"
-                :class="{ selected: task.priority === 'medium' }"
-                @click="task.priority = 'medium'; task.color = '#a9d98e'"
-                title="Medium"
-              >
-                <div class="priority-circle"></div>
-                <span class="priority-label">Medium</span>
-              </div>
-              <div 
-                class="priority-option high-priority"
-                :class="{ selected: task.priority === 'high' }"
-                @click="task.priority = 'high'; task.color = '#f9a1a1'"
-                title="High"
-              >
-                <div class="priority-circle"></div>
-                <span class="priority-label">High</span>
-              </div>
-            </div>
-          </div>
+          <input type="text" v-model="task.formattedDate" class="task-date-input" placeholder="DD.MM.YYYY" @input="updateTaskDate(task)">
+          <input type="text" v-model="task.formattedTime" class="task-time-input" placeholder="HH:MM" @input="updateTaskTime(task)">
         </div>
         <input type="checkbox" v-model="task.completed">
         <button @click.stop="toggleEdit(task)">{{ task.editing ? 'Save' : 'Edit' }}</button>
@@ -103,6 +68,7 @@
     </div>
   </div>
 </template>
+
 
 <script>
 export default {
@@ -118,7 +84,9 @@ export default {
       draggingTask: null,
       offsetX: 0,
       offsetY: 0,
-      showTaskForm: false
+      showTaskForm: false,
+      formattedDate: '',
+      formattedTime: ''
     };
   },
   methods: {
@@ -128,7 +96,7 @@ export default {
       let color;
       switch (this.selectedPriority) {
         case 'low':
-          color = '#fef2b1'; 
+          color = '#ffa500'; 
           break;
         case 'medium':
           color = '#a9d98e'; 
@@ -190,6 +158,37 @@ export default {
     },
     toggleTaskForm() {
       this.showTaskForm = !this.showTaskForm;
+    },
+    formatDate(date) {
+      if (!date) return '';
+      const [year, month, day] = date.split('-');
+      return `${day}.${month}.${year}`;
+    },
+    formatTime(time) {
+      if (!time) return '';
+      const [hours, minutes] = time.split(':');
+      return `${hours}:${minutes}`;
+    },
+    updateDate(event) {
+      const value = event.target.value;
+      this.newTaskDate = this.convertToISODate(value);
+    },
+    updateTime(event) {
+      const value = event.target.value;
+      this.newTaskTime = this.convertToISOTime(value);
+    },
+    convertToISODate(value) {
+      const [day, month, year] = value.split('.');
+      return `${year}-${month}-${day}`;
+    },
+    convertToISOTime(value) {
+      return value;
+    },
+    updateTaskDate(task) {
+      task.date = this.convertToISODate(task.formattedDate);
+    },
+    updateTaskTime(task) {
+      task.time = this.convertToISOTime(task.formattedTime);
     }
   }
 };
@@ -207,12 +206,12 @@ body {
   width: 100%;
   min-height: 100vh;
   padding: 20px;
-  background: #f5f5f5;
+  background-size: cover;
   box-sizing: border-box;
 }
 
 .schedule-title {
-  font-size: 3rem;
+  font-size: 2rem;
   text-align: center;
   margin: 20px 0;
   font-weight: bold;
@@ -229,12 +228,11 @@ body {
 .schedule-circle {
   width: 25px;
   height: 25px;
-  background-color: #007bff;
-  border-radius: 50%;
+  background-color: transparent; 
   display: flex;
   align-items: center;
   justify-content: center;
-  color: white;
+  color: black; 
   font-size: 1.25rem;
   cursor: pointer;
 }
@@ -242,50 +240,75 @@ body {
 .input-container {
   max-width: 500px;
   margin: 20px auto;
-  padding: 20px;
+  padding: 40px;
   background: #fff;
-  border-radius: 20px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  font-size: 1rem; 
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .task-title-input {
-  font-size: 1.5rem;
-  border: 1px solid #ddd;
-  padding: 10px;
-  margin-bottom: 15px;
-  border-radius: 20px;
-  color: #676767;
+  font-size: 1.2rem;
   width: 100%;
+  max-width: 400px;
+  margin-bottom: 5px;
+  border: none;
+  padding: 8px;
+  box-sizing: border-box;
+  text-align: center;
+  color: #676767;
+}
+
+.task-title-input:focus {
+  outline: none;
 }
 
 .task-content-input {
-  font-size: 1.2rem;
-  border: 1px solid #ddd;
-  padding: 10px;
-  margin-bottom: 15px;
-  border-radius: 20px;
-  color: #676767;
+  font-size: 1rem; 
   width: 100%;
-  height: 100px;
+  max-width: 400px;
+  margin-bottom: 10px;
+  padding: 8px;
+  box-sizing: border-box;
+  border: 1px solid #ddd;
   resize: none;
+  color: #676767;
+}
+
+.task-content-input:focus {
+  outline: none;
+}
+
+.date-time-container {
+  display: flex;
+  justify-content: center;
+  gap: 10px; 
+  margin-bottom: 10px;
 }
 
 .task-date-input, .task-time-input {
-  font-size: 1.2rem;
-  border: 1px solid #ddd;
-  padding: 10px;
-  margin-bottom: 15px;
-  border-radius: 20px;
+  font-size: 1rem; 
+  border: 1px solid #ddd; 
+  padding: 8px;
+  box-sizing: border-box;
+  width: 120px; 
   color: #676767;
-  width: 100%;
+  text-align: center; 
+  border: none;
+}
+
+.task-date-input:focus, .task-time-input:focus {
+  outline: none;
 }
 
 button {
-  font-size: 1rem;
+  font-size: 1rem; 
   padding: 10px 20px;
   border: none;
-  border-radius: 20px;
-  background-color: #007bff;
+  background-color: #00adb5;
   color: white;
   cursor: pointer;
   margin-top: 10px;
@@ -293,7 +316,7 @@ button {
 }
 
 button:hover {
-  background-color: #0056b3;
+  background-color: #38b8bf;
 }
 
 .tasks-container {
@@ -305,9 +328,8 @@ button:hover {
 .task-box {
   position: absolute;
   width: 300px;
-  padding: 20px;
+  padding: 40px;
   border: 1px solid #ddd;
-  border-radius: 20px;
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
   display: flex;
   flex-direction: column;
@@ -319,9 +341,16 @@ button:hover {
   box-sizing: border-box;
   text-align: center;
   color: #676767;
+  font-size: 1rem;
 }
 
-.task-box h3, .task-box p {
+.task-box h3 {
+  font-size: 1.1rem;
+  margin: 0;
+  padding: 5px 0;
+}
+
+.task-box p {
   margin: 0;
   padding: 5px 0;
 }
@@ -332,62 +361,41 @@ button:hover {
 
 .task-box button {
   margin: 5px 0;
+  font-size: 1rem;
 }
 
 .priority-selector {
   display: flex;
-  flex-direction: column;
   align-items: center;
   margin-bottom: 20px;
-}
-
-.priority-selector label {
-  margin-bottom: 10px;
-  font-size: 1.2rem;
-  color: #676767;
-  text-transform: uppercase;
+  margin-top: 20px;
 }
 
 .priority-options {
   display: flex;
-  justify-content: center;
-  gap: 15px;
+  align-items: center;
+  gap: 20px;
 }
 
 .priority-option {
-  display: flex;
-  align-items: center;
-  gap: 10px;
   cursor: pointer;
-  position: relative;
-  transition: filter 0.3s ease;
+  padding: 5px 10px;
+  border-radius: 50px;
 }
 
-.priority-circle {
-  width: 25px;
-  height: 25px;
-  border-radius: 50%;
+.priority-option.selected {
+  border: 1px solid #676767; 
 }
 
-.priority-label {
-  font-size: 0.875rem;
-  color: #676767;
-  text-transform: uppercase;
+.low-priority .priority-label {
+  color: #ffa500; 
 }
 
-.low-priority .priority-circle {
-  background-color: #fef2b1;
+.medium-priority .priority-label {
+  color: #a9d98e; 
 }
 
-.medium-priority .priority-circle {
-  background-color: #a9d98e;
-}
-
-.high-priority .priority-circle {
-  background-color: #f9a1a1;
-}
-
-.priority-option.selected .priority-circle {
-  filter: brightness(105%);
+.high-priority .priority-label {
+  color: #f9a1a1; 
 }
 </style>
