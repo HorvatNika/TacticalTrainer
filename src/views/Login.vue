@@ -176,7 +176,6 @@ export default {
 
 .btn-primary {
   background-color: #007c8a64;
-  border-color: #007c8a64;
   border-radius: 40px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
   padding: 10px 30px;
@@ -187,10 +186,13 @@ export default {
   transition: background-color 0.3s;
   margin: 4px 2px;
   z-index: 2; 
+  border: none;
 }
 
 .btn-primary:hover {
-  text-decoration: underline;
+  text-decoration: none;
+  border: none;
+  background-color: #007c8a89;
 }
 
 .forget-password {

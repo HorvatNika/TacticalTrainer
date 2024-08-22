@@ -259,16 +259,15 @@ export default {
 
 .toggle-password {
   position: absolute;
-  top: 50%;
-  right: 105px; 
+  top: 55%;
+  left: 67%;
   transform: translateY(-50%);
   cursor: pointer;
-  color: #d4af37; 
-  transition: color 0.3s; 
+  color: #d4af37;  
 }
 
 .toggle-password:hover {
-  color: #d4af37;
+  color: #000;
 }
 
 .btn-primary {
@@ -278,11 +277,13 @@ export default {
   border-radius: 40px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
   padding: 10px 30px;
+  border: none;
 }
 
 .btn-primary:hover {
+  text-decoration: none;
+  border: none;
   background-color: #007c8a89;
-  border-color: #007c8a89;
 }
 
 .placeholder-text {
