@@ -33,7 +33,7 @@
   width: 30%;
   height: 5px;
   background-color: #00adb5;
-  margin: 10px auto;
+  margin: 5px auto;
   border-radius: 30px;
 }
 

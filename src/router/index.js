@@ -102,6 +102,41 @@ const routes = [
     name: 'ammunition',
     component: () => import('../views/Ammunition.vue')
   },
+  { 
+    path: '/pistolslearnmore',
+    name: 'pistolslearnmore',
+    component: () => import('../views/PistolsLearnMore.vue')
+  },
+  { 
+    path: '/rifleslearnmore',
+    name: 'rifleslearnmore',
+    component: () => import('../views/RiflesLearnMore.vue')
+  },
+  { 
+    path: '/sniperslearnmore',
+    name: 'sniperslearnmore',
+    component: () => import('../views/SnipersLearnMore.vue')
+  },
+  { 
+    path: '/vehicleslearnmore',
+    name: 'vehicleslearnmore',
+    component: () => import('../views/VehiclesLearnMore.vue')
+  },
+  { 
+    path: '/gearlearnmore',
+    name: 'gearlearnmore',
+    component: () => import('../views/GearLearnMore.vue')
+  },
+  { 
+    path: '/ammunitionlearnmore',
+    name: 'ammunitionlearnmore',
+    component: () => import('../views/AmmunitionLearnMore.vue')
+  },
+  { 
+    path: '/disassemblylearnmore',
+    name: 'disassemblylearnmore',
+    component: () => import('../views/DisassemblyLearnMore.vue')
+  },
 ]
 
 const router = createRouter({
