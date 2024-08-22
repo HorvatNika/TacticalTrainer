@@ -12,31 +12,29 @@
         <input type="text" v-model="formattedTime" class="task-time-input" placeholder="HH:MM" @input="updateTime">
       </div>
       <div class="priority-selector">
-        <div class="priority-options">
-          <div 
-            class="priority-option low-priority"
-            :class="{ selected: selectedPriority === 'low' }"
-            @click="selectedPriority = 'low'"
-            title="Low"
-          >
-            <span class="priority-label">Low</span>
-          </div>
-          <div 
-            class="priority-option medium-priority"
-            :class="{ selected: selectedPriority === 'medium' }"
-            @click="selectedPriority = 'medium'"
-            title="Medium"
-          >
-            <span class="priority-label">Medium</span>
-          </div>
-          <div 
-            class="priority-option high-priority"
-            :class="{ selected: selectedPriority === 'high' }"
-            @click="selectedPriority = 'high'"
-            title="High"
-          >
-            <span class="priority-label">High</span>
-          </div>
+        <div 
+          class="priority-option low-priority"
+          :class="{ selected: selectedPriority === 'low' }"
+          @click="selectedPriority = 'low'"
+          title="Low"
+        >
+          <span class="priority-label">Low</span>
+        </div>
+        <div 
+          class="priority-option medium-priority"
+          :class="{ selected: selectedPriority === 'medium' }"
+          @click="selectedPriority = 'medium'"
+          title="Medium"
+        >
+          <span class="priority-label">Medium</span>
+        </div>
+        <div 
+          class="priority-option high-priority"
+          :class="{ selected: selectedPriority === 'high' }"
+          @click="selectedPriority = 'high'"
+          title="High"
+        >
+          <span class="priority-label">High</span>
         </div>
       </div>
       <button @click="addTask">ADD TASK</button>
@@ -61,14 +59,11 @@
           <input type="text" v-model="task.formattedDate" class="task-date-input" placeholder="DD.MM.YYYY" @input="updateTaskDate(task)">
           <input type="text" v-model="task.formattedTime" class="task-time-input" placeholder="HH:MM" @input="updateTaskTime(task)">
         </div>
-        <input type="checkbox" v-model="task.completed">
-        <button @click.stop="toggleEdit(task)">{{ task.editing ? 'Save' : 'Edit' }}</button>
         <button @click.stop="removeTask(task.id)">Remove</button>
       </div>
     </div>
   </div>
 </template>
-
 
 <script>
 export default {
@@ -118,26 +113,20 @@ export default {
         top: 100, 
         left: 100, 
         color: color,
-        priority: this.selectedPriority, 
-        editing: false 
+        priority: this.selectedPriority
       });
 
       this.newTaskTitle = '';
       this.newTaskContent = '';
       this.newTaskDate = '';
       this.newTaskTime = '';
+      this.formattedDate = '';
+      this.formattedTime = '';
       this.selectedPriority = ''; 
       this.showTaskForm = false;
     },
     removeTask(taskId) {
       this.tasks = this.tasks.filter(task => task.id !== taskId);
-    },
-    toggleEdit(task) {
-      task.editing = !task.editing;
-      if (!task.editing) {
-        task.title = task.title.trim();
-        task.content = task.content.trim();
-      }
     },
     startDrag(event, task) {
       this.draggingTask = task;
@@ -157,6 +146,15 @@ export default {
       window.removeEventListener('mouseup', this.stopDrag);
     },
     toggleTaskForm() {
+      if (this.showTaskForm) {
+        this.newTaskTitle = '';
+        this.newTaskContent = '';
+        this.newTaskDate = '';
+        this.newTaskTime = '';
+        this.formattedDate = '';
+        this.formattedTime = '';
+        this.selectedPriority = '';
+      }
       this.showTaskForm = !this.showTaskForm;
     },
     formatDate(date) {
@@ -170,12 +168,12 @@ export default {
       return `${hours}:${minutes}`;
     },
     updateDate(event) {
-      const value = event.target.value;
-      this.newTaskDate = this.convertToISODate(value);
+      this.formattedDate = event.target.value;
+      this.newTaskDate = this.convertToISODate(this.formattedDate);
     },
     updateTime(event) {
-      const value = event.target.value;
-      this.newTaskTime = this.convertToISOTime(value);
+      this.formattedTime = event.target.value;
+      this.newTaskTime = this.convertToISOTime(this.formattedTime);
     },
     convertToISODate(value) {
       const [day, month, year] = value.split('.');
@@ -199,6 +197,7 @@ body {
   font-family: 'mojFont', sans-serif;
   margin: 0;
   overflow: hidden;
+  background-color: rgba(255, 255, 255, 0.85);
 }
 
 .schedule {
@@ -228,11 +227,11 @@ body {
 .schedule-circle {
   width: 25px;
   height: 25px;
-  background-color: transparent; 
+  background-color: transparent;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: black; 
+  color: black;
   font-size: 1.25rem;
   cursor: pointer;
 }
@@ -243,7 +242,7 @@ body {
   padding: 40px;
   background: #fff;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  font-size: 1rem; 
+  font-size: 1rem;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -267,7 +266,7 @@ body {
 }
 
 .task-content-input {
-  font-size: 1rem; 
+  font-size: 1rem;
   width: 100%;
   max-width: 400px;
   margin-bottom: 10px;
@@ -285,19 +284,18 @@ body {
 .date-time-container {
   display: flex;
   justify-content: center;
-  gap: 10px; 
+  gap: 5px; 
   margin-bottom: 10px;
 }
 
 .task-date-input, .task-time-input {
-  font-size: 1rem; 
-  border: 1px solid #ddd; 
+  font-size: 1rem;
+  border: none;
   padding: 8px;
   box-sizing: border-box;
-  width: 120px; 
+  width: 100px; 
   color: #676767;
-  text-align: center; 
-  border: none;
+  text-align: center;
 }
 
 .task-date-input:focus, .task-time-input:focus {
@@ -305,7 +303,7 @@ body {
 }
 
 button {
-  font-size: 1rem; 
+  font-size: 1rem;
   padding: 10px 20px;
   border: none;
   background-color: #00adb5;
@@ -329,14 +327,14 @@ button:hover {
   position: absolute;
   width: 300px;
   padding: 40px;
-  border: 1px solid #ddd;
+  border: 1px solid rgba(255, 255, 255, 0.85);
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   cursor: move;
-  background-color: #fff;
+  background-color: rgba(255, 255, 255, 0.85);
   overflow: hidden;
   box-sizing: border-box;
   text-align: center;
@@ -368,13 +366,7 @@ button:hover {
   display: flex;
   align-items: center;
   margin-bottom: 20px;
-  margin-top: 20px;
-}
-
-.priority-options {
-  display: flex;
-  align-items: center;
-  gap: 20px;
+  margin-top: 0px;
 }
 
 .priority-option {
@@ -384,18 +376,18 @@ button:hover {
 }
 
 .priority-option.selected {
-  border: 1px solid #676767; 
+  border: 1px solid #676767;
 }
 
 .low-priority .priority-label {
-  color: #ffa500; 
+  color: #ffa500;
 }
 
 .medium-priority .priority-label {
-  color: #a9d98e; 
+  color: #a9d98e;
 }
 
 .high-priority .priority-label {
-  color: #f9a1a1; 
+  color: #f9a1a1;
 }
 </style>

@@ -184,7 +184,8 @@ export default {
       ],
       currentAudioIndex: 0,
       showControls: false,
-      isMuted: false 
+      isMuted: false,
+      userInteracted: false
     };
   },
   computed: {
@@ -202,7 +203,7 @@ export default {
     changeAudio() {
       const audio = this.$refs.backgroundAudio;
       if (audio) {
-        audio.src = this.currentAudioSrc; 
+        audio.src = this.currentAudioSrc;
         audio.play().catch(error => {
           console.log("Error while changing audio:", error);
         });
@@ -223,7 +224,18 @@ export default {
       const audio = this.$refs.backgroundAudio;
       if (audio) {
         this.isMuted = !this.isMuted;
-        audio.muted = this.isMuted; 
+        audio.muted = this.isMuted;
+      }
+    },
+    userInteraction() {
+      if (!this.userInteracted) {
+        this.userInteracted = true;
+        const audio = this.$refs.backgroundAudio;
+        if (audio) {
+          audio.play().catch(error => {
+            console.log("Autoplay blocked or error occurred:", error);
+          });
+        }
       }
     }
   },
@@ -231,11 +243,18 @@ export default {
     const audio = this.$refs.backgroundAudio;
     if (audio) {
       audio.volume = 1.0;
-      audio.addEventListener('ended', this.nextAudio); 
+      audio.addEventListener('ended', this.nextAudio);
       audio.addEventListener('canplaythrough', () => {
-        audio.play().catch(error => {
-          console.log("Autoplay blocked or error occurred:", error);
-        });
+        if (this.userInteracted) {
+          audio.play().catch(error => {
+            console.log("Autoplay blocked or error occurred:", error);
+          });
+        }
+      });
+
+      audio.play().catch(error => {
+        console.log("Autoplay blocked or error occurred:", error);
+        window.addEventListener('click', this.userInteraction, { once: true });
       });
     }
   }
