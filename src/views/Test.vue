@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <h1><strong>PISTOLS</strong></h1>
+    <h1><strong>TEST</strong></h1>
 
     <div class="progress-bar-container" v-if="!submitted">
       <div class="progress-bar">

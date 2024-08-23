@@ -7,11 +7,8 @@
       Semi-Automatic Pistols: These pistols are renowned for their ability to fire multiple rounds with a single pull of the trigger. They use the energy from the fired round to chamber the next one, allowing for faster follow-up shots. Semi-automatic pistols are favored for their reliability, higher magazine capacities, and ease of reloading. They are commonly used in both military and law enforcement settings.
       Revolvers: Revolvers are known for their rotating cylinder that holds ammunition. They are typically more robust and have fewer moving parts compared to semi-automatic pistols, which can enhance their reliability. However, they generally have a lower magazine capacity and require manual operation to reload. Revolvers are valued for their durability and simplicity.
       Machine Pistols: These are fully-automatic pistols capable of firing continuously as long as the trigger is held. They offer high firepower and are effective in close-quarters combat. Machine pistols are less common due to their recoil and ammunition consumption but are useful in specialized tactical scenarios.
-      <br /><br />
-      Additionally, we will discuss important features such as barrel length, firing mechanisms, and ergonomic considerations. The choice of a pistol often depends on factors such as the intended application, operational environment, and personal preference. Understanding the operational principles and tactical advantages of each type of pistol is crucial for optimizing performance in the field.
-      This guide aims to provide military personnel with the knowledge required to select and effectively use pistols in various operational contexts. By understanding the strengths and limitations of different pistol types, users can make informed decisions that enhance their effectiveness and safety during missions.
     </p>
-    <a href="#" class="learn-more">LEARN MORE</a>
+    <router-link to="/pistolslearnmore" class="learn-more">LEARN MORE</router-link>
   </div>
 </template>
 

@@ -7,11 +7,8 @@
         Cartridge Types: Ammunition cartridges come in various calibers and types, including full metal jacket (FMJ), hollow point (HP), and armor-piercing (AP). Each type has unique characteristics and applications, from target shooting to self-defense and military operations.
         Ballistics: Understanding ballistics is crucial for accurate shooting and effective ammunition selection. Ballistics involves the study of the motion of projectiles, including internal ballistics (within the firearm), external ballistics (in flight), and terminal ballistics (upon impact).
         Ammunition Storage and Handling: Proper storage and handling of ammunition are vital for safety and performance. Ammunition should be stored in a cool, dry place and handled with care to prevent damage. Regular checks and proper maintenance ensure reliability and longevity.
-        <br /><br />
-        Additionally, we will discuss the importance of selecting the right ammunition for specific missions and the implications of ammunition choices on firearm performance. By understanding the various types of ammunition and their applications, you can make informed decisions that enhance your effectiveness and safety.
-        This guide aims to provide valuable insights into ammunition types and handling practices, helping you to optimize your use of firearms and ensure operational readiness.
       </p>
-      <a href="#" class="learn-more">LEARN MORE</a>
+      <router-link to="/ammunitionlearnmore" class="learn-more">LEARN MORE</router-link>
     </div>
   </template>
   

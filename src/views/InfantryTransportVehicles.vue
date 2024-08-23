@@ -7,9 +7,6 @@
         Armored Personnel Carriers (APCs): APCs are designed to transport infantry while providing protection from small arms fire and explosive threats. They feature armor plating and can be equipped with additional protective measures such as mine-resistant capabilities. APCs are essential for ensuring the safety of troops during movement through hostile areas.
         Infantry Fighting Vehicles (IFVs): IFVs are versatile vehicles that not only transport infantry but also provide combat support with their integrated weapon systems. They are armed with autocannons, machine guns, and sometimes missiles, allowing them to engage enemy forces while supporting dismounted troops. IFVs enhance both offensive and defensive capabilities on the battlefield.
         Military Trucks: These vehicles are primarily used for logistical purposes, including transporting supplies, equipment, and personnel. They vary in size and capacity, from light tactical trucks to heavy-duty cargo vehicles. Military trucks are vital for maintaining supply lines and ensuring that infantry units are equipped and ready for operations.
-        <br /><br />
-        Additionally, we will delve into critical features such as vehicle armor, mobility, and load capacity. Selecting the right transport vehicle is dependent on mission requirements, terrain conditions, and the level of threat. Understanding the specific roles and capabilities of different transport vehicles is crucial for effective deployment and operation.
-        This guide aims to provide military personnel with the insights needed to select and utilize infantry transport vehicles effectively. By comprehending the operational strengths and limitations of various vehicles, users can make informed decisions that enhance mission success and troop safety.
       </p>
       <a href="#" class="learn-more">LEARN MORE</a>
     </div>

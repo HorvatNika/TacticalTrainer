@@ -8,11 +8,8 @@
         Helmets: Tactical helmets offer protection for the head against impact, ballistic threats, and fragmentation. They are often equipped with additional features such as night vision mounts and communication systems. Helmets are vital for ensuring the safety and operational capability of personnel in combat situations.
         Load-Bearing Equipment: Load-bearing equipment, including tactical vests and belts, is designed to carry essential gear and ammunition. It allows for efficient organization and quick access to equipment while maintaining mobility. This gear is crucial for sustaining operations and ensuring that personnel have the necessary tools readily available.
         Communication Devices: Effective communication is critical for coordinating operations and ensuring situational awareness. Tactical communication devices, such as radios and headsets, facilitate real-time communication between team members and command units. These devices are essential for successful mission execution and maintaining operational cohesion.
-        <br /><br />
-        Additionally, we will discuss important factors such as gear durability, functionality, and ergonomics. Selecting the appropriate tactical gear depends on the mission requirements, environmental conditions, and personal preferences. Understanding the various types of gear and their applications is essential for optimizing performance and safety.
-        This guide aims to provide military personnel with comprehensive insights into tactical gear, helping them make informed decisions about their equipment choices. By understanding the capabilities and limitations of different gear types, users can enhance their operational effectiveness and ensure their readiness for various scenarios.
       </p>
-      <a href="#" class="learn-more">LEARN MORE</a>
+      <router-link to="gearlearnmore" class="learn-more">LEARN MORE</router-link>
     </div>
   </template>
   

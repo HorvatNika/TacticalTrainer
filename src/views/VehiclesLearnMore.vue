@@ -10,12 +10,19 @@
       <p><strong>Details:</strong> {{ selectedVehicle.details }}</p>
     </div>
     <div class="vehicle-container">
+      <button @click="prevPage" class="nav-button prev" :disabled="currentPage === 0">❮</button>
       <div class="vehicle-row">
-        <div v-for="vehicle in vehicles.slice(0, 4)" :key="vehicle.id" class="vehicle-box" @click="selectVehicle(vehicle)">
+        <div 
+          v-for="vehicle in vehiclesToShow"
+          :key="vehicle.id" 
+          class="vehicle-box" 
+          @click="selectVehicle(vehicle)"
+        >
           <img :src="vehicle.image" :alt="vehicle.name">
           <p>{{ vehicle.name }}</p>
         </div>
       </div>
+      <button @click="nextPage" class="nav-button next" :disabled="isLastPage">❯</button>
     </div>
   </div>
 </template>
@@ -29,7 +36,7 @@ export default {
         { 
           id: 1, 
           name: 'Humvee', 
-          image: require('@/assets/pozadina.jpg'),
+          image: require('@/assets/humvee.jpg'),
           manufacturer: 'AM General',
           type: '4x4 Utility Vehicle',
           armament: 'Optional weapon mounts',
@@ -38,7 +45,7 @@ export default {
         { 
           id: 2, 
           name: 'MRAP', 
-          image: require('@/assets/pozadina.jpg'),
+          image: require('@/assets/mrap.jpg'),
           manufacturer: 'Various',
           type: 'Mine-Resistant Ambush Protected Vehicle',
           armament: 'Various weapon configurations',
@@ -47,37 +54,43 @@ export default {
         { 
           id: 3, 
           name: 'Stryker', 
-          image: require('@/assets/pozadina.jpg'),
+          image: require('@/assets/stryker.jpg'),
           manufacturer: 'General Dynamics',
           type: 'Armored Fighting Vehicle',
           armament: 'Various, including 30mm cannon',
           details: 'The Stryker is an eight-wheeled armored vehicle that provides a balance of mobility, protection, and firepower. It is used for a variety of roles, including infantry transport and reconnaissance.'
         },
-        { 
-          id: 4, 
-          name: 'M113', 
-          image: require('@/assets/pozadina.jpg'),
-          manufacturer: 'Boeing',
-          type: 'Armored Personnel Carrier',
-          armament: 'Various, including M2 Browning machine gun',
-          details: 'The M113 is an iconic tracked armored personnel carrier used by many armed forces around the world. It is known for its simplicity and reliability in transporting troops and equipment.'
-        },
-        { 
-          id: 5, 
-          name: 'Cougar', 
-          image: require('@/assets/pozadina.jpg'),
-          manufacturer: 'Oshkosh Defense',
-          type: 'Mine-Resistant Ambush Protected Vehicle',
-          armament: 'Various weapon configurations',
-          details: 'The Cougar MRAP is designed to withstand IED blasts and provide protection to its occupants. It is used extensively in military operations and provides a high level of survivability.'
-        }
       ],
-      selectedVehicle: null
+      selectedVehicle: null,
+      currentPage: 0,
+      itemsPerPage: 4
     };
+  },
+  computed: {
+    totalPages() {
+      return Math.ceil(this.vehicles.length / this.itemsPerPage);
+    },
+    vehiclesToShow() {
+      const start = this.currentPage * this.itemsPerPage;
+      return this.vehicles.slice(start, start + this.itemsPerPage);
+    },
+    isLastPage() {
+      return this.currentPage === this.totalPages - 1;
+    }
   },
   methods: {
     selectVehicle(vehicle) {
       this.selectedVehicle = vehicle;
+    },
+    nextPage() {
+      if (!this.isLastPage) {
+        this.currentPage += 1;
+      }
+    },
+    prevPage() {
+      if (this.currentPage > 0) {
+        this.currentPage -= 1;
+      }
     }
   }
 };
@@ -108,15 +121,16 @@ h1::after {
 
 .vehicle-container {
   display: flex;
-  flex-direction: column;
-  gap: 30px; 
-  margin-top: 60px; 
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  margin-top: 110px; 
 }
 
 .vehicle-row {
   display: flex;
-  justify-content: center;
-  gap: 80px; 
+  gap: 50px;
+  flex-wrap: nowrap;
 }
 
 .vehicle-box {
@@ -133,7 +147,7 @@ h1::after {
 }
 
 .vehicle-box img {
-  width: 250px; 
+  width: 100%; 
   height: 250px; 
   object-fit: cover;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -202,5 +216,36 @@ h1::after {
   margin-top: 5px;
   margin-bottom: 7px;
   border-radius: 30px;
+}
+
+.nav-button {
+  background-color: transparent;
+  border: none;
+  font-size: 2.5rem;
+  cursor: pointer;
+  padding: 0 35px;
+  color: #676767;
+  transition: color 0.3s ease;
+  position: absolute; 
+  top: 40%;
+  transform: translateY(-50%);
+}
+
+.nav-button.prev {
+  left: 250px; 
+}
+
+.nav-button.next {
+  right: 250px;
+}
+
+.nav-button:hover {
+  color: #00adb5;
+}
+
+.nav-button:disabled {
+  color: #b0b0b0; 
+  cursor: not-allowed;
+  opacity: 0.5; 
 }
 </style>

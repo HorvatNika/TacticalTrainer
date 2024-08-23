@@ -7,11 +7,8 @@
         Bolt-Action Sniper Rifles: These rifles are renowned for their exceptional accuracy and reliability. The shooter manually operates the bolt to load and eject cartridges, which contributes to their precision. Bolt-action sniper rifles are often used in military and tactical situations where precision is crucial.
         Semi-Automatic Sniper Rifles: These rifles offer quicker follow-up shots compared to bolt-action rifles. They are used in scenarios where rapid engagement at long ranges is required. Semi-automatic sniper rifles balance accuracy with rate of fire.
         Designated Marksman Rifles: While not strictly sniper rifles, designated marksman rifles bridge the gap between standard rifles and sniper rifles. They offer enhanced accuracy and range compared to standard rifles, making them suitable for long-range engagements.
-        <br /><br />
-        Additionally, we will discuss important features such as barrel length, optics, and ergonomic considerations. The choice of a sniper rifle often depends on factors such as the intended application, operational environment, and personal preference. Understanding the operational principles and tactical advantages of each type of sniper rifle is crucial for optimizing performance in the field.
-        This guide aims to provide military personnel with the knowledge required to select and effectively use sniper rifles in various operational contexts. By understanding the strengths and limitations of different sniper rifle types, users can make informed decisions that enhance their effectiveness and safety during missions.
       </p>
-      <a href="#" class="learn-more">LEARN MORE</a>
+      <router-link to="/sniperslearnmore" class="learn-more">LEARN MORE</router-link>
     </div>
   </template>
   

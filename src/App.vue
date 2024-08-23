@@ -3,14 +3,8 @@
     <nav>
       <router-link to="/">TACTICAL TRAINER</router-link>
       <router-link to="/menu">MENU</router-link>
-      <router-link to="/testpistols">Test Pistols</router-link>
+      <router-link to="/test">Test</router-link>
       <router-link to="/scorerank">Score Rank</router-link>
-      <router-link to="/pistolslearnmore">Pistols LM</router-link>
-      <router-link to="/rifleslearnmore">Rifles LM</router-link>
-      <router-link to="/sniperslearnmore">Snipers LM</router-link>
-      <router-link to="/vehicleslearnmore">Vehicles LM</router-link>
-      <router-link to="/gearlearnmore">Gear LM</router-link>
-      <router-link to="/ammunitionlearnmore">Ammunition LM</router-link>
       <router-link to="/disassemblylearnmore">Disassembly LM</router-link>
     </nav>
     <router-view />

@@ -7,11 +7,8 @@
         Bolt-Action Rifles: These rifles are known for their accuracy and reliability. The shooter manually operates the bolt to load and eject cartridges. Bolt-action rifles are favored for their precision and are often used in long-range shooting.
         Semi-Automatic Rifles: These rifles automatically chamber a new round after each shot, allowing for quicker follow-up shots compared to bolt-action rifles. They are commonly used in both military and civilian settings for various applications.
         Assault Rifles: These are designed for rapid, automatic fire and are commonly used in military combat situations. Assault rifles are versatile and can be used in various conditions, offering a balance between firepower and accuracy.
-        <br /><br />
-        Additionally, we will discuss important features such as barrel length, firing mechanisms, and ergonomic considerations. The choice of a rifle often depends on factors such as the intended application, operational environment, and personal preference. Understanding the operational principles and tactical advantages of each type of rifle is crucial for optimizing performance in the field.
-        This guide aims to provide military personnel with the knowledge required to select and effectively use rifles in various operational contexts. By understanding the strengths and limitations of different rifle types, users can make informed decisions that enhance their effectiveness and safety during missions.
       </p>
-      <a href="#" class="learn-more">LEARN MORE</a>
+      <router-link to="/rifleslearnmore" class="learn-more">LEARN MORE</router-link>
     </div>
   </template>
   

@@ -10,18 +10,19 @@
       <p><strong>Details:</strong> {{ selectedSniper.details }}</p>
     </div>
     <div class="sniper-container">
+      <button @click="prevPage" class="nav-button prev" :disabled="currentPage === 0">❮</button>
       <div class="sniper-row">
-        <div v-for="sniper in snipers.slice(0, 4)" :key="sniper.id" class="sniper-box" @click="selectSniper(sniper)">
+        <div 
+          v-for="(sniper, index) in snipersToShow"
+          :key="sniper.id" 
+          class="sniper-box" 
+          @click="selectSniper(sniper)"
+        >
           <img :src="sniper.image" :alt="sniper.name">
           <p>{{ sniper.name }}</p>
         </div>
       </div>
-      <div class="sniper-row">
-        <div v-for="sniper in snipers.slice(4, 7)" :key="sniper.id" class="sniper-box" @click="selectSniper(sniper)">
-          <img :src="sniper.image" :alt="sniper.name">
-          <p>{{ sniper.name }}</p>
-        </div>
-      </div>
+      <button @click="nextPage" class="nav-button next" :disabled="isLastPage">❯</button>
     </div>
   </div>
 </template>
@@ -35,7 +36,7 @@ export default {
         { 
           id: 1, 
           name: 'M40A5', 
-          image: require('@/assets/pozadina.jpg'),
+          image: require('@/assets/m40a5.jpg'),
           manufacturer: 'Remington Arms',
           caliber: '7.62×51mm NATO',
           usedBy: 'U.S. Marine Corps, various military units',
@@ -43,65 +44,65 @@ export default {
         },
         { 
           id: 2, 
-          name: 'SVD Dragunov', 
-          image: require('@/assets/pozadina.jpg'),
-          manufacturer: 'Izhmash',
-          caliber: '7.62×54mmR',
-          usedBy: 'Russian Armed Forces, various military forces',
-          details: 'The SVD Dragunov is a semi-automatic sniper rifle known for its robust design and reliability. It is widely used in various conflicts and is favored for its long-range accuracy.'
-        },
-        { 
-          id: 3, 
-          name: 'Remington 700', 
-          image: require('@/assets/pozadina.jpg'),
-          manufacturer: 'Remington Arms',
-          caliber: 'Various calibers including .308 Win, .300 Win Mag',
-          usedBy: 'Law enforcement, military, civilian marksmen',
-          details: 'The Remington 700 is a popular bolt-action rifle renowned for its accuracy and versatility. It is available in a range of calibers and is often used for precision shooting.'
-        },
-        { 
-          id: 4, 
-          name: 'AWP', 
-          image: require('@/assets/pozadina.jpg'),
-          manufacturer: 'Accuracy International',
-          caliber: '7.62×51mm NATO, .338 Lapua Magnum',
-          usedBy: 'Various military and law enforcement agencies',
-          details: 'The AWP (Arctic Warfare Police) is a high-precision sniper rifle known for its powerful ammunition and excellent accuracy. It is used in extreme conditions and is highly regarded by snipers worldwide.'
-        },
-        { 
-          id: 5, 
           name: 'CheyTac M200', 
-          image: require('@/assets/pozadina.jpg'),
+          image: require('@/assets/cheytacm200.jpg'),
           manufacturer: 'CheyTac USA',
           caliber: '.408 CheyTac, .338 Lapua Magnum',
           usedBy: 'Various military and law enforcement units',
           details: 'The CheyTac M200 is a long-range precision rifle designed for extreme accuracy. It is capable of engaging targets at over 2,000 meters and is known for its innovative design and powerful ammunition.'
         },
         { 
-          id: 6, 
-          name: 'Barrett M82', 
-          image: require('@/assets/pozadina.jpg'),
-          manufacturer: 'Barrett Firearms Manufacturing',
-          caliber: '.50 BMG',
-          usedBy: 'Various military and law enforcement agencies worldwide',
-          details: 'The Barrett M82 is a semi-automatic anti-materiel rifle known for its devastating .50 BMG cartridge. It is used for long-range engagements and can disable vehicles and equipment.'
-        },
-        { 
-          id: 7, 
+          id: 3, 
           name: 'L96A1', 
-          image: require('@/assets/pozadina.jpg'),
+          image: require('@/assets/l96a1.jpg'),
           manufacturer: 'Accuracy International',
           caliber: '7.62×51mm NATO',
           usedBy: 'British Armed Forces, various military forces',
           details: 'The L96A1 is a bolt-action sniper rifle known for its accuracy and reliability. It has been widely used by the British Army and other military forces for its exceptional long-range performance.'
+        },
+        { 
+          id: 4, 
+          name: 'M82 Barrett', 
+          image: require('@/assets/m82barret.jpg'),
+          manufacturer: 'Barrett Firearms Manufacturing',
+          caliber: '.50 BMG',
+          usedBy: 'U.S. Armed Forces, various military and law enforcement units',
+          details: 'The M82 Barrett is a semi-automatic anti-materiel rifle chambered in .50 BMG. It is known for its high firepower and is used for long-range engagements and disabling equipment.'
         }
       ],
-      selectedSniper: null
+      selectedSniper: null,
+      currentPage: 0,
+      itemsPerPage: 4
     };
+  },
+  computed: {
+    sniperCount() {
+      return this.snipers.length;
+    },
+    totalPages() {
+      return Math.ceil(this.sniperCount / this.itemsPerPage);
+    },
+    snipersToShow() {
+      const start = this.currentPage * this.itemsPerPage;
+      return this.snipers.slice(start, start + this.itemsPerPage);
+    },
+    isLastPage() {
+      return this.currentPage === this.totalPages - 1;
+    }
   },
   methods: {
     selectSniper(sniper) {
       this.selectedSniper = sniper;
+    },
+    nextPage() {
+      if (!this.isLastPage) {
+        this.currentPage += 1;
+      }
+    },
+    prevPage() {
+      if (this.currentPage > 0) {
+        this.currentPage -= 1;
+      }
     }
   }
 };
@@ -132,15 +133,16 @@ h1::after {
 
 .sniper-container {
   display: flex;
-  flex-direction: column;
-  gap: 30px; 
-  margin-top: 60px; 
+  align-items: center;
+  justify-content: center;
+  position: relative; 
+  margin-top: 110px; 
 }
 
 .sniper-row {
   display: flex;
-  justify-content: center;
-  gap: 80px; 
+  gap: 50px;
+  flex-wrap: nowrap;
 }
 
 .sniper-box {
@@ -149,7 +151,7 @@ h1::after {
   justify-content: center;
   align-items: center;
   text-align: center;
-  width: 250px; 
+  width: 250px;
   transition: transform 0.3s ease, opacity 0.3s ease;
   text-decoration: none;
   color: #7c7c7c;
@@ -157,9 +159,9 @@ h1::after {
 }
 
 .sniper-box img {
-  width: 250px;
-  height: 250px;
-  object-fit: cover;
+  width: 100%; 
+  height: 250px; 
+  object-fit: contain;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   opacity: 0.7;
 }
@@ -192,7 +194,7 @@ h1::after {
 
 .info-box {
   position: fixed;
-  top: 20%;
+  top: 30%;
   left: 50%;
   transform: translate(-50%, 0);
   background: white;
@@ -227,4 +229,36 @@ h1::after {
   margin-bottom: 7px;
   border-radius: 30px;
 }
+
+.nav-button {
+  background-color: transparent;
+  border: none;
+  font-size: 2.5rem;
+  cursor: pointer;
+  padding: 0 35px;
+  color: #676767;
+  transition: color 0.3s ease;
+  position: absolute; 
+  top: 40%;
+  transform: translateY(-50%);
+}
+
+.nav-button.prev {
+  left: 250px; 
+}
+
+.nav-button.next {
+  right: 250px;
+}
+
+.nav-button:hover {
+  color: #00adb5;
+}
+
+.nav-button:disabled {
+  color: #b0b0b0; 
+  cursor: not-allowed;
+  opacity: 0.5; 
+}
+
 </style>
