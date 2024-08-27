@@ -180,7 +180,7 @@ h1::after {
 .gear-box img {
   width: 100%; 
   height: 250px; 
-  object-fit: cover;
+  object-fit: contain;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   opacity: 0.7;
 }
