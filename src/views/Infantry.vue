@@ -52,7 +52,7 @@ export default {
 
 .infantry-title {
   font-size: 20em;
-  color: rgba(255, 255, 255, 0.591);
+  color: #260fab77;
   font-family: 'mojFont', sans-serif;
   margin: 0;
   position: absolute;
@@ -63,7 +63,7 @@ export default {
 }
 
 .section-title {
-  font-size: 6em;
+  font-size: 7em;
   color: #9b9b9b77;
   font-family: 'mojFont', sans-serif;
   margin-bottom: 20px; 
@@ -118,7 +118,7 @@ export default {
   transition: transform 0.3s ease, opacity 0.3s ease; 
   width: 250px; 
   text-decoration: none; 
-  color: #676767; 
+  color: #7b7b7b; 
   position: relative;
   top: -10px; 
 }

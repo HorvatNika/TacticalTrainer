@@ -103,8 +103,8 @@ export default {
 }
 
 h1 {
-  font-size: 2.5rem; 
-  color: #676767; 
+  font-size: 2.5rem;
+  color: #676767;
   font-family: 'mojFont', sans-serif;
   margin-bottom: 20px;
 }
@@ -114,7 +114,7 @@ h1::after {
   display: block;
   width: 30%;
   height: 5px;
-  background-color: #00adb5;
+  background-color: #007c8a64;
   margin: 5px auto;
   border-radius: 30px;
 }
@@ -124,7 +124,7 @@ h1::after {
   align-items: center;
   justify-content: center;
   position: relative;
-  margin-top: 110px; 
+  margin-top: 110px;
 }
 
 .vehicle-row {
@@ -142,13 +142,13 @@ h1::after {
   width: 250px;
   transition: transform 0.3s ease, opacity 0.3s ease;
   text-decoration: none;
-  color: #7c7c7c;
+  color: #7b7b7b;
   cursor: pointer;
 }
 
 .vehicle-box img {
-  width: 100%; 
-  height: 250px; 
+  width: 100%;
+  height: 250px;
   object-fit: cover;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   opacity: 0.7;
@@ -182,7 +182,7 @@ h1::after {
 
 .info-box {
   position: fixed;
-  top: 20%;
+  top: 30%;
   left: 50%;
   transform: translate(-50%, 0);
   background: white;
@@ -190,21 +190,21 @@ h1::after {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
   z-index: 11;
   text-align: left;
-  font-family: 'mojFont', sans-serif; 
+  font-family: 'mojFont', sans-serif;
 }
 
 .info-box p {
   margin-top: 10px;
   font-size: 1.2rem;
-  color: #676767; 
+  color: #7b7b7b;
 }
 
 .vehicle-name {
   font-size: 2rem;
   font-weight: bold;
-  color: #333;
+  color: #676767;
   position: relative;
-  padding-bottom: 5px; 
+  padding-bottom: 5px;
 }
 
 .vehicle-name::after {
@@ -212,7 +212,7 @@ h1::after {
   display: block;
   width: 40%;
   height: 3px;
-  background-color: #00adb5;
+  background-color: #007c8a64;
   margin-top: 5px;
   margin-bottom: 7px;
   border-radius: 30px;
@@ -226,13 +226,13 @@ h1::after {
   padding: 0 35px;
   color: #676767;
   transition: color 0.3s ease;
-  position: absolute; 
+  position: absolute;
   top: 40%;
   transform: translateY(-50%);
 }
 
 .nav-button.prev {
-  left: 250px; 
+  left: 250px;
 }
 
 .nav-button.next {
@@ -240,12 +240,12 @@ h1::after {
 }
 
 .nav-button:hover {
-  color: #00adb5;
+  color: #007c8a89;
 }
 
 .nav-button:disabled {
-  color: #b0b0b0; 
+  color: #b0b0b0;
   cursor: not-allowed;
-  opacity: 0.5; 
+  opacity: 0.5;
 }
 </style>

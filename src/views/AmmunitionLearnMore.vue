@@ -97,7 +97,7 @@ h1::after {
   display: block;
   width: 30%;
   height: 5px;
-  background-color: #00adb5;
+  background-color: #007c8a64;
   margin: 5px auto;
   border-radius: 30px;
 }
@@ -125,14 +125,14 @@ h1::after {
   width: 250px;
   transition: transform 0.3s ease, opacity 0.3s ease;
   text-decoration: none;
-  color: #7c7c7c;
+  color: #7b7b7b;
   cursor: pointer;
 }
 
 .ammo-box img {
   width: 100%; 
   height: 250px; 
-  object-fit: contain;
+  object-fit: cover;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   opacity: 0.7;
 }
@@ -179,13 +179,13 @@ h1::after {
 .info-box p {
   margin-top: 10px;
   font-size: 1.2rem;
-  color: #676767; 
+  color: #7b7b7b; 
 }
 
 .ammo-name {
   font-size: 2rem;
   font-weight: bold;
-  color: #333;
+  color: #676767;
   position: relative;
   padding-bottom: 5px; 
 }
@@ -195,7 +195,7 @@ h1::after {
   display: block;
   width: 40%;
   height: 3px;
-  background-color: #00adb5;
+  background-color: #007c8a64;
   margin-top: 5px;
   margin-bottom: 7px;
   border-radius: 30px;
@@ -223,7 +223,7 @@ h1::after {
 }
 
 .nav-button:hover {
-  color: #00adb5;
+  color: #007c8a89;
 }
 
 .nav-button:disabled {

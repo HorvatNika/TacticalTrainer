@@ -17,7 +17,7 @@
 
       <router-link to="/score-rank" class="circle circle3">
         <img src="@/assets/menuZvijezda.svg" alt="Vektorski oblik" class="circle-img">
-        <div class="circle-label">SCORE RANK</div>
+        <div class="circle-label">TEST</div>
       </router-link>
 
       <router-link to="/schedule" class="circle circle4">
@@ -153,10 +153,10 @@ export default {
 
 .circle-label {
   position: absolute;
-  bottom: -47px;
+  bottom: -43px;
   left: 50%;
   transform: translateX(-50%);
-  font-size: 1.7rem; 
+  font-size: 1.5rem; 
   color: rgba(255, 255, 255, 0.85);
   font-family: 'mojFont', sans-serif;
   white-space: nowrap; 

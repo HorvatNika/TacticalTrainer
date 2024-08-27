@@ -57,7 +57,7 @@
                   </div>
                 </div>
               </div>
-              <button type="submit" class="btn btn-primary btn-block rounded-40">REGISTER</button>
+              <button type="button" class="btn btn-primary btn-block rounded-40">REGISTER</button>
             </form>
           </div>
         </div>
@@ -259,15 +259,15 @@ export default {
 
 .toggle-password {
   position: absolute;
-  top: 55%;
-  left: 67%;
+  top: 50%;
+  left: 38%;
   transform: translateY(-50%);
   cursor: pointer;
   color: #d4af37;  
 }
 
 .toggle-password:hover {
-  color: #000;
+  color: #d4af37;
 }
 
 .btn-primary {

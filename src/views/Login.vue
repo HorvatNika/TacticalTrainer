@@ -123,7 +123,7 @@ export default {
 }
 
 .title {
-  font-size: 3rem;
+  font-size: 3em;
 }
 
 .blue {
@@ -167,11 +167,11 @@ export default {
   right: 10px;
   transform: translateY(-50%);
   cursor: pointer;
-  color: #00adb5;
+  color: #007c8a64;
 }
 
 .toggle-password:hover {
-  color: #000;
+  color: #007c8a89;
 }
 
 .btn-primary {
@@ -181,7 +181,7 @@ export default {
   padding: 10px 30px;
   font-size: 16px;
   text-align: center;
-  color: white;
+  color: rgba(255, 255, 255, 0.85);
   text-decoration: none;
   transition: background-color 0.3s;
   margin: 4px 2px;
@@ -246,7 +246,7 @@ export default {
   height: 8px;
   width: 8px;
   border-radius: 50%;
-  background-color: white;
+  background-color: rgba(255, 255, 255, 0.85);
 }
 
 .text-left {

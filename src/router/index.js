@@ -137,6 +137,11 @@ const routes = [
     name: 'disassemblylearnmore',
     component: () => import('../views/DisassemblyLearnMore.vue')
   },
+  { 
+    path: '/testscorerank',
+    name: 'testscorerank',
+    component: () => import('../views/TestScoreRank.vue')
+  },
 ]
 
 const router = createRouter({

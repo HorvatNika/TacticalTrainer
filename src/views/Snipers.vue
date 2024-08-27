@@ -29,7 +29,7 @@
     display: block;
     width: 30%;
     height: 5px;
-    background-color: #00adb5;
+    background-color: #007c8a64;
     margin: 5px auto;
     border-radius: 30px;
   }
@@ -40,20 +40,20 @@
     padding: 0 3%;
     font-size: 1rem;
     line-height: 1.6;
-    color: #676767; 
+    color: #7b7b7b; 
     margin-bottom: 40px;
   }
   
   .learn-more {
     display: inline;
     font-size: 1.7rem;
-    color: #00adb5;
+    color: #007c8a64;
     text-decoration: none; 
     margin-top: 20px; 
   }
   
   .learn-more:hover {
-    color: #007a8d; 
+    color: #007c8a89; 
   }
   </style>
   

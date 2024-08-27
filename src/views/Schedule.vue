@@ -209,7 +209,7 @@ body {
 }
 
 .schedule-title {
-  font-size: 2rem;
+  font-size: 2.5rem;
   text-align: center;
   margin: 20px 0;
   font-weight: bold;
@@ -240,7 +240,7 @@ body {
   margin: 20px auto;
   padding: 40px;
   background: #fff;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   font-size: 1rem;
   display: flex;
   flex-direction: column;
@@ -305,7 +305,7 @@ button {
   font-size: 1rem;
   padding: 10px 20px;
   border: none;
-  background-color: #00adb5;
+  background-color: #007c8a64;
   color: white;
   cursor: pointer;
   margin-top: 10px;
@@ -313,7 +313,7 @@ button {
 }
 
 button:hover {
-  background-color: #38b8bf;
+  background-color: #007c8a89;
 }
 
 .tasks-container {

@@ -135,7 +135,7 @@ h1::after {
   display: block;
   width: 30%;
   height: 5px;
-  background-color: #00adb5;
+  background-color: #007c8a64;
   margin: 5px auto;
   border-radius: 30px;
 }
@@ -223,7 +223,7 @@ h1::after {
 .rifle-name {
   font-size: 2rem;
   font-weight: bold;
-  color: #333;
+  color: #676767;
   position: relative;
   padding-bottom: 5px; 
 }
@@ -233,7 +233,7 @@ h1::after {
   display: block;
   width: 40%;
   height: 3px;
-  background-color: #00adb5;
+  background-color: #007c8a64;
   margin-top: 5px;
   margin-bottom: 7px;
   border-radius: 30px;
@@ -261,7 +261,7 @@ h1::after {
 }
 
 .nav-button:hover {
-  color: #00adb5;
+  color: #007c8a89;
 }
 
 .nav-button:disabled {

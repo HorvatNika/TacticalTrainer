@@ -5,7 +5,7 @@
       <router-link to="/menu">MENU</router-link>
       <router-link to="/test">Test</router-link>
       <router-link to="/scorerank">Score Rank</router-link>
-      <router-link to="/disassemblylearnmore">Disassembly LM</router-link>
+      <router-link to="/testscorerank">TSR</router-link>
     </nav>
     <router-view />
 

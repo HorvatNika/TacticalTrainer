@@ -126,7 +126,7 @@ h1::after {
   display: block;
   width: 30%;
   height: 5px;
-  background-color: #00adb5;
+  background-color: #007c8a64;
   margin: 5px auto;
   border-radius: 30px;
 }
@@ -208,13 +208,13 @@ h1::after {
 .info-box p {
   margin-top: 10px;
   font-size: 1.2rem;
-  color: #676767; 
+  color: #7b7b7b; 
 }
 
 .sniper-name {
   font-size: 2rem;
   font-weight: bold;
-  color: #333;
+  color: #676767;
   position: relative;
   padding-bottom: 5px; 
 }
@@ -252,7 +252,7 @@ h1::after {
 }
 
 .nav-button:hover {
-  color: #00adb5;
+  color: #007c8a89;
 }
 
 .nav-button:disabled {

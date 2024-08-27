@@ -36,7 +36,7 @@ h1 {
   font-family: 'mojFont', sans-serif;
   position: relative;
   display: inline-block;
-  color: #7c7c7c;
+  color: #676767;
 }
 
 h1::before,
@@ -76,7 +76,7 @@ h1::after {
   transition: transform 0.3s ease, opacity 0.3s ease; 
   width: 250px; 
   text-decoration: none; 
-  color: #7c7c7c; 
+  color: #7b7b7b; 
   position: relative;
   top: -10px; 
 }

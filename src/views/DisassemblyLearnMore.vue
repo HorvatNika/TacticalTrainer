@@ -64,7 +64,7 @@ h1::after {
   display: block;
   width: 30%;
   height: 5px;
-  background-color: #00adb5;
+  background-color: #007c8a64;
   margin: 5px auto;
   border-radius: 30px;
 }
@@ -87,12 +87,12 @@ h1::after {
   font-size: 1.5rem;
   font-weight: bold;
   font-family: 'mojFont', sans-serif;
-  color: #7c7c7c;
+  color: #7b7b7b;
 }
 
 .video-container {
   width: 100%;
-  padding-top: 56.25%; 
+  padding-top: 56.25%;
   position: relative;
 }
 
@@ -127,7 +127,7 @@ h1::after {
 }
 
 .nav-button:hover {
-  color: #00adb5;
+  color: #007c8a89;
 }
 
 .nav-button:disabled {
