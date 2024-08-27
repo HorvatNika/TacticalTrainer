@@ -15,7 +15,7 @@
         <div class="circle-label">LECTURES</div>
       </router-link>
 
-      <router-link to="/score-rank" class="circle circle3">
+      <router-link to="/testscorerank" class="circle circle3">
         <img src="@/assets/menuZvijezda.svg" alt="Vektorski oblik" class="circle-img">
         <div class="circle-label">TEST</div>
       </router-link>

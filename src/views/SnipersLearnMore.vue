@@ -207,7 +207,7 @@ h1::after {
 
 .info-box p {
   margin-top: 10px;
-  font-size: 1.2rem;
+  font-size: 1rem;
   color: #7b7b7b; 
 }
 

@@ -60,7 +60,6 @@ export default {
         return 0;
       }
 
-      // Regular expression to match time in format "Xm Ys"
       const match = time.match(/(\d+)m\s*(\d+)s?/);
       if (match) {
         const minutes = parseInt(match[1], 10);
@@ -68,7 +67,6 @@ export default {
         return minutes + (seconds / 60);
       }
       
-      // If format not recognized, log a warning and return 0
       console.warn('Time format not recognized:', time);
       return 0;
     }

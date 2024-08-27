@@ -50,11 +50,11 @@
         <div v-if="submitted" class="submitted-container">
           <h2 class="score">SCORE: {{ score }}/{{ questions.length }}</h2>
           <span class="restart-button" @click="restartQuiz">RESTART</span>
-          <button class="btn-export" @click="exportToExcel">EXPORT TO EXCEL</button>
+          <span class="export-button" @click="exportToExcel">EXPORT TO EXCEL</span>
         </div>
       </div>
 
-      <div class="sidebar-box">
+      <div class="sidebar-box" v-show="!submitted">
         <div class="sidebar">
           <div class="question-status">
             <div
@@ -76,7 +76,7 @@
 </template>
 
 <script>
-import XLSX from 'xlsx';
+import * as XLSX from 'xlsx';
 
 export default {
   data() {
@@ -104,7 +104,8 @@ export default {
       isMarked: false,
       score: 0,
       elapsedTime: 0,
-      timer: null
+      timer: null,
+      sidebarVisible: true
     };
   },
   computed: {
@@ -115,6 +116,11 @@ export default {
       const minutes = Math.floor(this.elapsedTime / 60);
       const seconds = this.elapsedTime % 60;
       return `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+    },
+    mainContainerClass() {
+      return {
+        'full-width': !this.sidebarVisible
+      };
     }
   },
   methods: {
@@ -131,6 +137,7 @@ export default {
     submitAnswers() {
       this.calculateScore();
       this.submitted = true;
+      this.sidebarVisible = false;
       this.stopTimer();
     },
     calculateScore() {
@@ -170,8 +177,30 @@ export default {
       this.currentQuestion = 0;
       this.answers = Array(this.questions.length).fill('');
       this.submitted = false;
-      this.score = 0;
+      this.sidebarVisible = true;
       this.startTimer();
+    },
+    exportToExcel() {
+      const wb = XLSX.utils.book_new();
+      
+      const questionsData = this.questions.map((q, index) => ({
+        Question: q.text,
+        YourAnswer: this.answers[index] || 'Not Answered',
+        CorrectAnswer: q.correctAnswer
+      }));
+      
+      const ws1 = XLSX.utils.json_to_sheet(questionsData);
+      XLSX.utils.book_append_sheet(wb, ws1, 'Questions and Answers');
+      
+      const summaryData = [
+        { Label: 'Total Score', Value: this.score },
+        { Label: 'Time', Value: this.formattedTime }
+      ];
+      
+      const ws2 = XLSX.utils.json_to_sheet(summaryData);
+      XLSX.utils.book_append_sheet(wb, ws2, 'Summary');
+
+      XLSX.writeFile(wb, 'TT-Test.xlsx');
     },
     startTimer() {
       this.timer = setInterval(() => {
@@ -180,17 +209,6 @@ export default {
     },
     stopTimer() {
       clearInterval(this.timer);
-    },
-    exportToExcel() {
-      const wb = XLSX.utils.book_new();
-      const ws = XLSX.utils.json_to_sheet(this.questions.map((question, index) => ({
-        Question: question.text,
-        Answer: this.answers[index],
-        CorrectAnswer: question.correctAnswer,
-        Status: this.answers[index] === question.correctAnswer ? 'Correct' : 'Incorrect'
-      })));
-      XLSX.utils.book_append_sheet(wb, ws, 'Test Results');
-      XLSX.writeFile(wb, 'Test_Results.xlsx');
     }
   },
   mounted() {
@@ -415,7 +433,6 @@ body, #app, h1, h2, button, input, label {
   width: 200px; 
 }
 
-
 .question-status {
   display: flex;
   flex-wrap: wrap;
@@ -491,5 +508,42 @@ body, #app, h1, h2, button, input, label {
 
 .restart-button:hover {
   color: #007c8a89;
+}
+
+.export-button {
+  font-size: 18px;
+  color: #7b7b7b;
+  cursor: pointer;
+  margin-top: 20px;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.export-button:hover {
+  color: #676767;
+}
+
+.main-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 40px;
+  padding: 0 20px;
+  width: 100%; 
+}
+
+.sidebar-box {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin-left: 30px;
+}
+
+.sidebar-box.hidden {
+  display: none; 
+}
+
+.main-container.full-width {
+  justify-content: center;
 }
 </style>
