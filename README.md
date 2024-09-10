@@ -1,8 +1,8 @@
 # TACTICAL TRAINER
 --------------------
-Kolegij: Programsko inženjerstvo
-Mentor: doc. dr. sc. Nikola TankoviĆ
-Studentica: Nika Horvat (FIPU)
+**Kolegij:** _Programsko inženjerstvo_  
+**Mentor:** _doc. dr. sc. Nikola Tanković_  
+**Studentica:** _Nika Horvat (FIPU)_  
 
 --------------------
 ## Project setup
