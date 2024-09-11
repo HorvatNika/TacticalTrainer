@@ -38,7 +38,7 @@
               </div>
 
               <div class="form-group">
-                <a href="#" class="forget-password">Forgot password?</a>
+                <a href="#" @click.prevent="handleForgotPassword" class="forget-password">Forgot password?</a>
               </div>
 
               <div class="form-group form-check d-flex align-items-center remember-me">
@@ -72,29 +72,56 @@
 </template>
 
 <script>
+import { getAuth, signInWithEmailAndPassword, sendPasswordResetEmail } from 'firebase/auth';
+import router from '@/router/index';
+
 export default {
+  name: 'Login',
   data() {
     return {
       formData: {
         email: '',
-        password: ''
+        password: '',
       },
       showPassword: false,
-      rememberMe: false
+      firebaseError: null,
     };
   },
-  
   methods: {
-    handleSubmit() {
-      console.log('Form submitted with data:', this.formData);
-      console.log('Remember me:', this.rememberMe);
+    async handleSubmit() {
+      this.firebaseError = null;
+
+      signInWithEmailAndPassword(getAuth(), this.formData.email, this.formData.password)
+        .then((userCredential) => {
+          // Signed in successfully
+          const user = userCredential.user;
+          console.log('User signed in:', user);
+          router.push('/menu')
+        })
+        .catch((error) => {
+          // Handle possible errors
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          console.error('Error logging in:', errorCode, errorMessage);
+        });
     },
     togglePasswordVisibility() {
       this.showPassword = !this.showPassword;
+    },
+    async handleForgotPassword() {
+      try {
+        const auth = getAuth();
+        await sendPasswordResetEmail(auth, this.formData.email);
+        alert('Password reset email sent. Please check your inbox.');
+      } catch (error) {
+        console.error('Error sending password reset email:', error);
+        alert('Error sending password reset email. Please try again later.');
+      }
     }
   }
 };
 </script>
+
 
 <style scoped>
 .login {

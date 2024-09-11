@@ -1,13 +1,14 @@
 <template>
   <div id="app">
-    <nav>
-      <router-link to="/">TACTICAL TRAINER</router-link>
+    <nav v-if="isLoggedIn">
+      <!-- <router-link to="/" v-if="isLoggedIn === false">TACTICAL TRAINER</router-link> -->
       <router-link to="/menu">MENU</router-link>
+      <router-link to="/" @click="handleSignOut">SIGN OUT</router-link>
     </nav>
     <router-view />
 
     <audio ref="backgroundAudio" :src="currentAudioSrc" autoplay loop></audio>
-
+    
     <div class="audio-controls" v-if="showControls">
       <button @click="prevAudio" class="control-button">◀</button>
       <span class="current-audio-name">{{ currentAudioName }}</span>
@@ -48,7 +49,6 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
 }
 
 nav {
@@ -57,20 +57,25 @@ nav {
   flex-wrap: wrap;
   justify-content: center;
   gap: 10px;
-
+  font-family: 'mojFont', sans-serif;
+  font-size: 20px;
+  
   a {
     font-weight: bold;
-    color: #2c3e50;
+    color: #676767;
     text-decoration: none;
     padding: 5px 10px;
     transition: color 0.3s;
+    background: none;
+    border: none;
+    cursor: pointer;
 
     &.router-link-exact-active {
-      color: #42b983;
+      color: #00adb5;
     }
 
     &:hover {
-      color: #42b983;
+      color: #007c8a64;
     }
   }
 }
@@ -170,8 +175,41 @@ nav {
 }
 </style>
 
+
 <script>
+import { ref, onMounted } from "vue";
+import { getAuth, onAuthStateChanged, signOut } from 'firebase/auth';
+import { useRouter } from 'vue-router';
+import db from "./main.js";
+import { collection, addDoc } from "firebase/firestore";
+
 export default {
+  setup() {
+    const isLoggedIn = ref(false);
+    const router = useRouter();
+
+    onMounted(() => {
+      const auth = getAuth();
+      onAuthStateChanged(auth, (user) => {
+        isLoggedIn.value = !!user;
+      });
+    });
+
+    const handleSignOut = async () => {
+      try {
+        const auth = getAuth();
+        await signOut(auth);
+        router.push('/'); 
+      } catch (error) {
+        console.error("Error signing out:", error);
+      }
+    };
+
+    return {
+      isLoggedIn,
+      handleSignOut
+    };
+  },
   data() {
     return {
       audioFiles: [
@@ -249,7 +287,6 @@ export default {
           });
         }
       });
-
       audio.play().catch(error => {
         console.log("Autoplay blocked or error occurred:", error);
         window.addEventListener('click', this.userInteraction, { once: true });

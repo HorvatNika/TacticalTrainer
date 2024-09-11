@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "tacticaltrainernika",
+  "private_key_id": "354839d9cd91368c5ade12f4240dc5d020f77157",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQD6yzp526bzDQV5\nmNDQlfl9hTYl9Y4OKRHA6bmFKabNI5ThbNMV0bYwKDK0ZSE73JUoHiPSXMicygBi\nanve5oeNads5TG8tPUmuxfXN5EZ0mVwNYQ4TSPYLbnOJLhrxluxFm53kzsHVjNPs\nPGuk50HTGHOSpAYHc3OjCB/UW7BT8pBUQdk8/4PFh7gWvolI/9Dn6gXkLK3tb/RY\nLUHxVTNbQvd4MRLIAz9fhcZZDCMj11d5RMwwvrkPMIobMoEj0mpvyMgq9vYao4CJ\nl521HDEVz25WedomnWuZlJgDARbFb/ScM+56DxsNu5dz3qgBlfRs0qnQT5sIMrsA\nRIp7ZoRpAgMBAAECggEABFTtB8AW3NHXweJ3kNsKcIum0C9UEvywBJd5BiTJGjWY\ntx7eVN0lpZZ5yW4q7HM2f9+YEFsHKv0436mz2MLVUadq+EOcfEdKrsXIxrBARosS\nYuJm+GQBqww2Q56RireqNzbBu72Cx8s4pknipvoZNZb50wTXNkNKMkjMC/HLs2Wu\nN0qE1+O2OuusKhJw4UySHsX4llT9/PQFejAMW41LzgKx4t9gUdY1r7V2CIwD8Lqg\ninzsEf1gr8OsqUlnRxeH04p5koEA1GEz9joD4UbIW9Jkn1u68JPC3cTbPIYia/jI\nB4m+lbp042eR5++a9LjDFeTC5WQy8AlxgLgm+U0XtQKBgQD/Khc5UZaZVyzSkeEZ\nocyRbMWxoJWLKLrbSUERImFAtO+9Mx+/leek2wON5t2GDJtzrK8poVEwie0gs6IU\n1v8VApgv0D66WLsrh/KYCLgIFfSt/4uNbnxRtR10+lenVSgXd0E1cQzqPK/FNZwy\nrW/MS1BU02jK3o3oOuY7swiC1wKBgQD7nXlJwymdhU11cgQLUujdekznyHjzgXya\nnXMOphax94CodIr8oWHlJpQrlBYHQeyoUbxdnG1FfNjwQKAmxEEHhUdLQ+G8trOG\n6jJWSVPZvd+Gl5Ct3PwlVOTfF7r8unsb2eyFkvq2tyko30JQs4ZiMmE6DrzxGDXv\nZ9waXwOKvwKBgHx7KEFKUFIWeUNw74P1rzry+a8iTFJLWH1KS3f0ccWDf8Gpgz+P\n/iYqwp0jl8aht+TCxeFlVZp8bzaY6+WGzYKOdXg9+5wlVYpzFCKffkhTjb6lAIvK\n7tNdrDU5PDHiFWD9SM6tjENpv8ZR1RXUDsp3o4T+bg0qbchxk4hkWy6ZAoGBAJMZ\nKxFOgYPPrMsejvK309+3YkKXVu61Is2ZguxreRUuJw9UovSyvHKlLTaU6pPvnJWC\nw2bOzqszI/jBL1+6mHH3HwkHdG9JOIeFX0xGrji74nPjI/ghG2AP04YBb5XUx6gu\nrTIiDWTIi82TSEe5zLSX03OHrjoc91sxEuJv7bgtAoGATULG5R98mQJFyorHpfZg\nuxKQ88c07qTwr55cyVxoKh1OGPVj/tOTpC0JsCaCyiIBP3SccDsAS7ApQac/Uiyi\nHYz2fhuU3oC0qEkJaIsrtVamYA7vwY+xCAlzjJDBOyECbgN/cmUdtHVb6AxNiXxZ\n5qTkai/hRC8u2/PKgiM3Z0o=\n-----END PRIVATE KEY-----\n",
+  "client_email": "firebase-adminsdk-xbpzf@tacticaltrainernika.iam.gserviceaccount.com",
+  "client_id": "117914965201008271814",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-xbpzf%40tacticaltrainernika.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}

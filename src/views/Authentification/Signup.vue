@@ -17,9 +17,7 @@
                   <div class="form-group">
                     <label for="exampleInputEmail" class="text-left">Email</label>
                     <input type="email" class="form-control rounded-40" id="exampleInputEmail" placeholder="Enter email" v-model="formData.email" @input="validateEmail" required />
-                    <div v-if="emailError" class="error-message">
-                      Invalid email address.
-                    </div>
+                    <div v-if="emailError" class="error-message">{{ emailExistsMessage }}</div>
                   </div>
 
                   <div class="form-group">
@@ -57,7 +55,7 @@
                   </div>
                 </div>
               </div>
-              <button type="button" class="btn btn-primary btn-block rounded-40">REGISTER</button>
+              <button type="submit" class="btn btn-primary btn-block rounded-40">REGISTER</button>
             </form>
           </div>
         </div>
@@ -106,6 +104,11 @@
 </template>
 
 <script>
+import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
+import db from '../../main.js';
+import { doc, setDoc } from 'firebase/firestore';
+import { useRouter } from 'vue-router';
+
 export default {
   name: "Signup",
   data() {
@@ -118,63 +121,103 @@ export default {
         rank: '',
         unit: '',
         password: '',
-        confirmPassword: ''
+        confirmPassword: '',
+        isAdmin: false
       },
       showPassword: false,
       showPasswordHint: false,
       formErrors: [],
       passwordValidated: false,
       passwordsMatch: false,
-      emailError: false
+      emailError: false,
+      emailExistsMessage: '',
+      firebaseError: null
     };
   },
-  
+  setup() {
+    const router = useRouter();
+    return { router };
+  },
   methods: {
-    handleSubmit() {
+    async handleSubmit() {
       this.formErrors = [];
       this.emailError = false;
+      this.firebaseError = null;
 
-      if (!this.formData.name || !this.formData.email || !this.formData.gender || !this.formData.nationality || !this.formData.rank || !this.formData.unit || !this.formData.password || !this.formData.confirmPassword) {
-        this.formErrors.push("All fields are required.");
+      // Validate all fields
+      if (!this.formData.name || !this.formData.email || !this.formData.gender ||
+          !this.formData.nationality || !this.formData.rank || !this.formData.unit ||
+          !this.formData.password || !this.formData.confirmPassword) {
+          this.formErrors.push("All fields are required.");
       }
 
       if (this.formData.password !== this.formData.confirmPassword) {
-        this.formErrors.push("Passwords do not match.");
+          this.formErrors.push("Passwords do not match.");
       }
 
       if (!this.isPasswordComplex()) {
-        this.formErrors.push("Password must contain at least one uppercase letter, one number, and be at least 5 characters long.");
+          this.formErrors.push("Password must contain at least one uppercase letter, one number, and be at least 5 characters long.");
       }
 
       if (!this.isEmailValid(this.formData.email)) {
-        this.emailError = true;
+          this.emailError = true;
+          this.formErrors.push("Invalid email address.");
+      }
+      
+      if (this.formErrors.length > 0) {
+          console.log("Form validation failed:", this.formErrors);
+          return;
       }
 
-      if (this.formErrors.length > 0 || this.emailError) {
-        return;
+      try {
+        const { user } = await createUserWithEmailAndPassword(getAuth(), this.formData.email, this.formData.password);
+        console.log("Successful Registration:", user.displayName);
+        await setDoc(doc(db, "users", user.uid), {
+          name: this.formData.name,
+          email: this.formData.email,
+          gender: this.formData.gender,
+          nationality: this.formData.nationality,
+          rank: this.formData.rank,
+          unit: this.formData.unit,
+          image: null,
+          isAdmin: this.formData.isAdmin
+        });
+        this.router.push('/menu');
+      } catch (error) {
+        //console.error("Error registering:", error);
+        if (error.code === 'auth/email-already-in-use') {
+          this.emailError = true;
+          this.emailExistsMessage = 'Email already exists.';
+        } else {
+          this.firebaseError = error.message;
+        }
       }
-
-      console.log('Form submitted with data:', this.formData);
     },
+
     togglePasswordVisibility(field) {
       if (field === 'password1' || field === 'password2') {
         this.showPassword = !this.showPassword;
       }
       this.showPasswordHint = !this.showPasswordHint;
     },
+
     isPasswordComplex() {
       const password = this.formData.password;
       return /[A-Z]/.test(password) && /\d/.test(password) && password.length >= 5;
     },
+
     validatePassword() {
       this.passwordValidated = this.isPasswordComplex();
     },
+
     validateConfirmPassword() {
       this.passwordsMatch = this.formData.password === this.formData.confirmPassword;
     },
+
     validateEmail() {
       this.emailError = !this.isEmailValid(this.formData.email);
     },
+
     isEmailValid(email) {
       const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       return emailPattern.test(email);
