@@ -63,7 +63,7 @@ export default {
             const resultsRef = collection(testRef, 'results');
             const resultsSnapshot = await getDocs(resultsRef);
 
-            console.log("PASS 1")
+            console.log("PASS  NESTOOOO 1")
             console.log("PASS 2")
             return {
               id: testId,
