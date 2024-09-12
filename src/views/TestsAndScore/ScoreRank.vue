@@ -5,13 +5,14 @@
       <h3 class="table-title">OVERALL SCORES</h3>
       <div class="tabs">
         <div
-          v-for="(result, index) in testResults"
-          :key="index"
+          v-for="(test, index) in testIds"
+          :key="test.id"
           :class="['tab', { 'active': currentTab === index }]"
           @click="currentTab = index"
-        ><button>
-          Test {{ index + 1 }}
-        </button>
+        >
+          <button>
+            {{ test.name }}
+          </button>
         </div>
       </div>
       <table class="score-table overall-table">
@@ -40,7 +41,7 @@
 </template>
 
 <script>
-import { collection, getDocs, doc } from 'firebase/firestore';
+import { collection, getDocs, doc, getDoc } from 'firebase/firestore';
 import db from '@/main';
 
 export default {
@@ -82,6 +83,7 @@ export default {
       try {
         await this.fetchTestIds();
         await this.fetchTestResults();
+        await this.fetchUserData();
       } catch (error) {
         console.error('Error initializing component:', error);
       }
@@ -90,7 +92,14 @@ export default {
       try {
         const testsRef = collection(db, 'tests');
         const testsSnapshot = await getDocs(testsRef);
-        this.testIds = testsSnapshot.docs.map((doc) => doc.id);
+        
+        this.testIds = testsSnapshot.docs.map((doc) => ({
+          id: doc.id,
+          name: doc.data().title || 'Unnamed Test'
+        }));
+        testsSnapshot.docs.forEach((doc) => {
+          console.log(doc.data());
+        });
       } catch (error) {
         console.error('Error fetching test IDs:', error);
       }
@@ -128,18 +137,28 @@ export default {
           for (const user of testResult.users) {
             const userRef = doc(db, 'users', user.userId);
             const userSnapshot = await getDoc(userRef);
+
             if (userSnapshot.exists()) {
-              this.$set(this.users, user.userId, userSnapshot.data().name);
+              const userData = userSnapshot.data();
+              this.users[user.userId] = {
+                name: userData.name,
+                email: userData.email
+              };
             } else {
-              this.$set(this.users, user.userId, 'Unknown');
+              console.log(userSnapshot);
+              this.users[user.userId] = {
+                name: 'Unknown',
+                email: 'No email provided'
+              };
             }
           }
         }
-        console.log(this.users)
+        console.log(this.users);
       } catch (error) {
         console.error('Error fetching user data:', error);
       }
     },
+
     formatTime(time) {
       const minutes = Math.floor(time / 60);
       const seconds = time % 60;
@@ -162,9 +181,8 @@ export default {
       return 0;
     },
     getUserName(userId) {
-      return this.users[userId] || 'Unknown';
+      return (this.users[userId] && this.users[userId].name) || 'Unknown';
     }
-
   }
 };
 </script>

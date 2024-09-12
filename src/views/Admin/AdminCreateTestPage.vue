@@ -1,133 +1,125 @@
 <template>
-    <div class="admin-test-create-container">
-      <h1>CREATE TEST</h1>
-      <form @submit.prevent="createTest">
-        <div class="form-content">
-          <div class="form-left">
-            <div class="form-group">
-              <label for="test-title">TEST TITLE</label>
-              <input type="text" id="test-title" v-model="testTitle" required />
-            </div>
-            <div class="form-group">
-              <label for="test-description">TEST DESCRIPTION</label>
-              <textarea id="test-description" v-model="testDescription" required></textarea>
-            </div>
-            <button type="submit" class="create-test-btn">CREATE TEST</button>
+  <div class="admin-test-create-container">
+    <h1>CREATE TEST</h1>
+    <form @submit.prevent="createTest">
+      <div class="form-content">
+        <div class="form-left">
+          <div class="form-group">
+            <label for="test-title">TEST TITLE</label>
+            <input type="text" id="test-title" v-model="testTitle" required />
           </div>
-  
-          <div class="form-right">
-            <div v-for="(question, index) in questions" :key="index" class="question-container">
-              <div class="question-header" @click="toggleQuestionExpansion(index)">
-                <h2>QUESTION {{ index + 1 }}</h2>
-                <div class="question-actions">
-                  <span class="expand-icon">{{ isQuestionExpanded(index) ? '-' : '+' }}</span>
-                  <button type="button" @click.stop="removeQuestion(index)" class="remove-question-btn">
-                    REMOVE
-                  </button>
-                </div>
-              </div>
-              <div class="question-content" v-if="isQuestionExpanded(index)">
-                <div class="form-group">
-                  <label for="question-text">QUESTION TEXT</label>
-                  <textarea id="question-text" v-model="question.text" required></textarea>
-                </div>
-                <div class="form-group">
-                  <label>OPTIONS</label>
-                  <div v-for="(option, optionIndex) in question.options" :key="optionIndex" class="option-container">
-                    <input type="text" v-model="question.options[optionIndex]" required />
-                    <button type="button" @click="removeOption(index, optionIndex)" class="remove-option-btn">REMOVE</button>
-                  </div>
-                  <button type="button" @click="addOption(index)" class="add-option-btn">ADD OPTION</button>
-                </div>
-                <div class="form-group">
-                  <label for="correct-answer">CORRECT ANSWER</label>
-                  <select id="correct-answer" v-model="question.correctAnswer" required>
-                    <option v-for="(option, optionIndex) in question.options" :key="optionIndex" :value="option">
-                      {{ option }}
-                    </option>
-                  </select>
-                </div>
-              </div>
-            </div>
-            <button type="button" @click="addQuestion" class="add-question-btn">ADD QUESTION</button>
-          </div>
+          <button type="submit" class="create-test-btn">CREATE TEST</button>
         </div>
-      </form>
-    </div>
-  </template>
-  
-  
-  <script>
-  import { getFirestore, collection, addDoc } from 'firebase/firestore';
-  
-  export default {
-    name: 'AdminTestCreate',
-    data() {
-      return {
-        testTitle: '',
-        testDescription: '',
-        questions: [
+
+        <div class="form-right">
+          <div v-for="(question, index) in questions" :key="index" class="question-container">
+            <div class="question-header" @click="toggleQuestionExpansion(index)">
+              <h2>QUESTION {{ index + 1 }}</h2>
+              <div class="question-actions">
+                <span class="expand-icon">{{ isQuestionExpanded(index) ? '-' : '+' }}</span>
+                <button type="button" @click.stop="removeQuestion(index)" class="remove-question-btn">
+                  REMOVE
+                </button>
+              </div>
+            </div>
+            <div class="question-content" v-if="isQuestionExpanded(index)">
+              <div class="form-group">
+                <label for="question-text">QUESTION TEXT</label>
+                <textarea id="question-text" v-model="question.text" required></textarea>
+              </div>
+              <div class="form-group">
+                <label>OPTIONS</label>
+                <div v-for="(option, optionIndex) in question.options" :key="optionIndex" class="option-container">
+                  <input type="text" v-model="question.options[optionIndex]" required />
+                  <button type="button" @click="removeOption(index, optionIndex)" class="remove-option-btn">REMOVE</button>
+                </div>
+                <button type="button" @click="addOption(index)" class="add-option-btn">ADD OPTION</button>
+              </div>
+              <div class="form-group">
+                <label for="correct-answer">CORRECT ANSWER</label>
+                <select id="correct-answer" v-model="question.correctAnswer" required>
+                  <option v-for="(option, optionIndex) in question.options" :key="optionIndex" :value="option">
+                    {{ option }}
+                  </option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <button type="button" @click="addQuestion" class="add-question-btn">ADD QUESTION</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</template>
+
+<script>
+import { getFirestore, collection, addDoc } from 'firebase/firestore';
+
+export default {
+  name: 'AdminTestCreate',
+  data() {
+    return {
+      testTitle: '',
+      questions: [
+        {
+          text: '',
+          options: ['', ''],
+          correctAnswer: '',
+          expanded: true
+        }
+      ],
+      expandedQuestionIndex: 0
+    };
+  },
+  methods: {
+    addQuestion() {
+      this.questions.push({
+        text: '',
+        options: ['', ''],
+        correctAnswer: '',
+        expanded: false
+      });
+    },
+    removeQuestion(index) {
+      this.questions.splice(index, 1);
+    },
+    addOption(index) {
+      this.questions[index].options.push('');
+    },
+    removeOption(index, optionIndex) {
+      this.questions[index].options.splice(optionIndex, 1);
+    },
+    toggleQuestionExpansion(index) {
+      this.questions[index].expanded = !this.questions[index].expanded;
+      this.expandedQuestionIndex = this.questions[index].expanded ? index : -1;
+    },
+    isQuestionExpanded(index) {
+      return this.expandedQuestionIndex === index;
+    },
+    async createTest() {
+      try {
+        const firestore = getFirestore();
+        const testsRef = collection(firestore, 'tests');
+        await addDoc(testsRef, {
+          title: this.testTitle,
+          questions: this.questions
+        });
+        this.testTitle = '';
+        this.questions = [
           {
             text: '',
             options: ['', ''],
             correctAnswer: '',
             expanded: true
           }
-        ],
-        expandedQuestionIndex: 0
-      };
-    },
-    methods: {
-      addQuestion() {
-        this.questions.push({
-          text: '',
-          options: ['', ''],
-          correctAnswer: '',
-          expanded: false
-        });
-      },
-      removeQuestion(index) {
-        this.questions.splice(index, 1);
-      },
-      addOption(index) {
-        this.questions[index].options.push('');
-      },
-      removeOption(index, optionIndex) {
-        this.questions[index].options.splice(optionIndex, 1);
-      },
-      toggleQuestionExpansion(index) {
-        this.questions[index].expanded = !this.questions[index].expanded;
-        this.expandedQuestionIndex = this.questions[index].expanded ? index : -1;
-      },
-      isQuestionExpanded(index) {
-        return this.expandedQuestionIndex === index;
-      },
-      async createTest() {
-        try {
-          const firestore = getFirestore();
-          const testsRef = collection(firestore, 'tests');
-          await addDoc(testsRef, {
-            title: this.testTitle,
-            description: this.testDescription,
-            questions: this.questions
-          });
-          this.testTitle = '';
-          this.testDescription = '';
-          this.questions = [
-            {
-              text: '',
-              options: ['', ''],
-              correctAnswer: '',
-              expanded: true
-            }
-          ];
-          this.$router.push({ name: 'AdminPage' });
-        } catch (error) {
-          console.error('Error creating test:', error);
-        }
+        ];
+        this.$router.push({ name: 'AdminPage' });
+      } catch (error) {
+        console.error('Error creating test:', error);
       }
     }
-  };
+  }
+};
 </script>
   
 <style scoped>

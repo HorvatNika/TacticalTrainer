@@ -21,7 +21,7 @@
               <td>{{ user.name }}</td>
               <td>{{ user.email }}</td>
               <td>
-                <button class="btn-finish" @click="editUser(user)">Edit</button>
+                
                 <button class="btn-finish" @click="deleteUser(user)">Delete</button>
                 <button class="btn-finish" @click="viewUserSchedule(user)">View Schedule</button>
               </td>

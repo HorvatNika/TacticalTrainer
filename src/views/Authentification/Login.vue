@@ -93,13 +93,11 @@ export default {
 
       signInWithEmailAndPassword(getAuth(), this.formData.email, this.formData.password)
         .then((userCredential) => {
-          // Signed in successfully
           const user = userCredential.user;
           console.log('User signed in:', user);
           router.push('/menu')
         })
         .catch((error) => {
-          // Handle possible errors
           const errorCode = error.code;
           const errorMessage = error.message;
           console.error('Error logging in:', errorCode, errorMessage);

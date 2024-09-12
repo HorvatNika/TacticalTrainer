@@ -144,7 +144,6 @@ export default {
       this.emailError = false;
       this.firebaseError = null;
 
-      // Validate all fields
       if (!this.formData.name || !this.formData.email || !this.formData.gender ||
           !this.formData.nationality || !this.formData.rank || !this.formData.unit ||
           !this.formData.password || !this.formData.confirmPassword) {
@@ -184,7 +183,6 @@ export default {
         });
         this.router.push('/menu');
       } catch (error) {
-        //console.error("Error registering:", error);
         if (error.code === 'auth/email-already-in-use') {
           this.emailError = true;
           this.emailExistsMessage = 'Email already exists.';

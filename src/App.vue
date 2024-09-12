@@ -1,9 +1,9 @@
 <template>
   <div id="app">
     <nav v-if="isLoggedIn">
-      <!-- <router-link to="/" v-if="isLoggedIn === false">TACTICAL TRAINER</router-link> -->
       <router-link to="/menu">MENU</router-link>
       <router-link to="/" @click="handleSignOut">SIGN OUT</router-link>
+      <router-link to="/admin" v-if="isAdmin">ADMIN</router-link>
     </nav>
     <router-view />
 
@@ -24,6 +24,8 @@
     </div>
   </div>
 </template>
+
+
 
 <style lang="scss">
 @font-face {
@@ -177,21 +179,39 @@ nav {
 
 
 <script>
-import { ref, onMounted } from "vue";
 import { getAuth, onAuthStateChanged, signOut } from 'firebase/auth';
 import { useRouter } from 'vue-router';
-import db from "./main.js";
-import { collection, addDoc } from "firebase/firestore";
+import { doc, getDoc } from 'firebase/firestore';
+import { ref, onMounted } from 'vue'; 
+import db from "@/main.js";
 
 export default {
   setup() {
-    const isLoggedIn = ref(false);
+    const isLoggedIn = ref(false); 
+    const isAdmin = ref(false);
     const router = useRouter();
 
     onMounted(() => {
       const auth = getAuth();
-      onAuthStateChanged(auth, (user) => {
-        isLoggedIn.value = !!user;
+      onAuthStateChanged(auth, async (user) => {
+        if (user) {
+          isLoggedIn.value = true;
+          
+          const userRef = doc(db, 'users', user.uid);
+          const userSnap = await getDoc(userRef);
+
+          if (userSnap.exists()) {
+            const userData = userSnap.data();
+            isAdmin.value = userData.isAdmin || false;
+            console.log("Admin status:", isAdmin.value);
+          } else {
+            console.log("No such user document in Firestore!");
+            isAdmin.value = false;
+          }
+        } else {
+          isLoggedIn.value = false;
+          isAdmin.value = false;
+        }
       });
     });
 
@@ -207,9 +227,11 @@ export default {
 
     return {
       isLoggedIn,
+      isAdmin,
       handleSignOut
     };
   },
+
   data() {
     return {
       audioFiles: [

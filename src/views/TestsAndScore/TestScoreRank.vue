@@ -1,24 +1,21 @@
-<template>
+<template> 
   <div class="test-score-rank">
+    <h1>TEST</h1>
     
-    <div class="image-container">
-      <router-link to="/scorerank" class="image-box">
-        <img src="@/assets/pozadina.jpg" alt="Score Rank">
-        <p>SCORE RANK</p>
+    <div class="score-rank-container">
+      <router-link to="/scorerank" class="score-rank-box">
+        <p>SCORE RANKS</p>
       </router-link>
+      <div class="yellow-line"></div>
     </div>
 
-    <h1>TEST</h1>
     <div class="image-container">
       <div class="image-box" v-for="test in tests" :key="test.id" :data-test-id="test.id" @click="showTestInfo(test.id)">
-        <img src="@/assets/pozadina.jpg" alt="Test">
+        <img src="@/assets/soldierFace.jpg" alt="Test">
         <h2>{{ test.title }}</h2>
-        <p>{{ test.description }}</p>
         <p>Questions: {{ test.questions.length }}</p>
       </div>
     </div>
-
-    
 
     <div v-if="showingTestInfo" class="overlay" @click="closeTestInfo"></div>
     <div v-if="showingTestInfo" class="info-box">
@@ -111,7 +108,6 @@ export default {
           }
         } catch (error) {
           console.error('Error loading scores:', error);
-          // Handle the error, e.g., display an error message to the user
           this.highestScore = 0;
           this.yourScore = 0;
         }
@@ -135,23 +131,7 @@ export default {
 .test-score-rank {
   text-align: center;
   padding: 20px;
-}
-
-.scoreboard {
-  background-color: #f5f5f5;
-  padding: 20px;
-  border-radius: 4px;
-  margin-bottom: 20px;
-}
-
-.scoreboard h2 {
-  margin-top: 0;
-}
-
-.score-item {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 10px;
+  font-family: 'mojFont', sans-serif;
 }
 
 h1 {
@@ -182,26 +162,96 @@ h1::after {
   right: -40px;
 }
 
-.test-list {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  grid-gap: 20px;
+.score-rank-container {
+  margin: 20px 0;
 }
 
-.test-card {
-  background-color: #f5f5f5;
-  padding: 20px;
-  border-radius: 4px;
+.score-rank-box {
+  display: flex;
+  justify-content: center; 
+  align-items: center; 
+  text-align: center;
+  margin: 0 auto; 
+  width: 180px;
+  text-decoration: none;
+  color: #007c8a64;
+  background: #e9d48d;
+  border: 1px solid #ddd;
+  padding: 10px;
   cursor: pointer;
-  transition: box-shadow 0.3s ease;
+  position: relative;
+  height: 60px; 
 }
 
-.test-card:hover {
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+.score-rank-box p {
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: white;
+  margin: 0; 
 }
 
-.test-card h2 {
-  margin-top: 0;
+.score-rank-box:hover {
+  transform: scale(1.1);
+  background: #efcc5b;
+}
+
+.yellow-line {
+  height: 1px;
+  background-color: #6767672c;
+  margin: 40px 40px;
+}
+
+.image-container {
+  display: flex; 
+  flex-wrap: wrap; 
+  justify-content: center; 
+  gap: 80px; 
+  padding: 0 20px;
+  margin-top: 30px;
+}
+
+.image-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  width: 250px;
+  text-decoration: none;
+  color: #7b7b7b;
+  cursor: pointer;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.image-box img {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  opacity: 0.7;
+}
+
+.image-box:hover img {
+  opacity: 1;
+}
+
+.image-box h2 {
+  margin-top: 15px;
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: inherit;
+  text-transform: uppercase;
+}
+
+.image-box p {
+  margin-top: 5px;
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: inherit;
+}
+
+.image-box:hover {
+  transform: scale(1.1);
 }
 
 .overlay {
@@ -224,7 +274,6 @@ h1::after {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
   z-index: 11;
   text-align: left;
-  font-family: 'mojFont', sans-serif;
   color: #676767;
 }
 
@@ -269,64 +318,13 @@ h1::after {
 .info-box button {
   margin-top: 20px;
   padding: 10px 20px;
-  font-size: 1rem;
-  background-color: #007c8a64;
+  background: #007c8a64;
   color: white;
   border: none;
-  border-radius: 0px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
 }
 
 .info-box button:hover {
-  background-color: #007c8a89;
-}
-
-.image-container {
-  display: flex;
-  justify-content: center;
-  gap: 80px;
-  padding: 0 20px;
-  margin-top: 30px;
-}
-
-.image-box {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  margin: 20px;
-  transition: transform 0.3s ease, opacity 0.3s ease;
-  width: 250px;
-  text-decoration: none;
-  color: #7b7b7b;
-  position: relative;
-  top: -10px;
-  cursor: pointer;
-}
-
-.image-box img {
-  width: 250px;
-  height: 250px;
-  object-fit: cover;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  opacity: 0.7;
-}
-
-.image-box:hover img {
-  opacity: 1;
-}
-
-.image-box p {
-  margin-top: 10px;
-  font-size: 1.3rem;
-  font-weight: bold;
-  font-family: 'mojFont', sans-serif;
-  color: inherit;
-}
-
-.image-box:hover {
-  transform: scale(1.1);
+  background: #007c8a89;
 }
 </style>
