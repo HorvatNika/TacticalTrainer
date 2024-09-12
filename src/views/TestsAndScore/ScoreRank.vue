@@ -5,12 +5,13 @@
       <h3 class="table-title">OVERALL SCORES</h3>
       <div class="tabs">
         <div
-          v-for="(testResult, index) in testResults"
+          v-for="(result, index) in testResults"
           :key="index"
           :class="['tab', { 'active': currentTab === index }]"
           @click="currentTab = index"
-        >
+        ><button>
           Test {{ index + 1 }}
+        </button>
         </div>
       </div>
       <table class="score-table overall-table">
@@ -23,9 +24,12 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(user, userIndex) in sortedScores(currentTab)" :key="user.userId">
+          <tr v-if="!testResults || testResults.length === 0">
+            <td colspan="4">No results available</td>
+          </tr>
+          <tr v-else v-for="(user, userIndex) in sortedScores" :key="user.userId">
             <td>{{ userIndex + 1 }}</td>
-            <td>{{ user.userId }}</td>
+            <td>{{ getUserName(user.userId) }}</td>
             <td>{{ user.score }}</td>
             <td>{{ formatTime(user.time) }}</td>
           </tr>
@@ -36,64 +40,112 @@
 </template>
 
 <script>
-import { collection, getDocs } from 'firebase/firestore';
+import { collection, getDocs, doc } from 'firebase/firestore';
 import db from '@/main';
 
 export default {
   name: 'ScoreRank',
+  props: {
+    testId: {
+      type: String,
+      required: true
+    }
+  },
   data() {
     return {
       testResults: [],
-      currentTab: 0
+      testIds: [],
+      users: {},
+      currentTab: 0,
+      testId: null
     };
   },
   created() {
-    this.fetchTestResults();
+    this.initializeComponent();
+  },
+  computed: {
+    sortedScores() {
+      if (this.testResults.length === 0 || this.currentTab >= this.testResults.length) {
+        return [];
+      }
+
+      return this.testResults[this.currentTab].users.sort((a, b)  => {
+        if (b.score === a.score) {
+          return a.time - b.time;
+        }
+        return b.score - a.score;
+      });
+    }
   },
   methods: {
-    async fetchTestResults() {
+    async initializeComponent() {
       try {
-        const testsRef = collection(db, 'tests');
-        const querySnapshot = await getDocs(testsRef);
-
-        this.testResults = await Promise.all(
-          querySnapshot.docs.map(async (testDoc) => {
-            const testId = testDoc.id;
-            const testRef = doc(db, 'tests', testId);
-            const resultsRef = collection(testRef, 'results');
-            const resultsSnapshot = await getDocs(resultsRef);
-
-            console.log("PASS  NESTOOOO 1")
-            console.log("PASS 2")
-            return {
-              id: testId,
-              results: resultsSnapshot.docs.map((resultDoc) => ({
-                userId: resultDoc.data().userId,
-                score: resultDoc.data().score,
-                time: resultDoc.data().time
-              }))
-            };
-          })
-        );
+        await this.fetchTestIds();
+        await this.fetchTestResults();
       } catch (error) {
-        console.error('Error fetching test results:', error);
+        console.error('Error initializing component:', error);
       }
     },
-    sortedScores(tabIndex) {
-      return this.testResults[tabIndex].results
-        .sort((a, b) => {
-          if (b.score === a.score) {
-            return a.time - b.time;
+    async fetchTestIds() {
+      try {
+        const testsRef = collection(db, 'tests');
+        const testsSnapshot = await getDocs(testsRef);
+        this.testIds = testsSnapshot.docs.map((doc) => doc.id);
+      } catch (error) {
+        console.error('Error fetching test IDs:', error);
+      }
+    },
+    async fetchTestResults() {
+      try {
+        const testResults = [];
+        for (const testId of this.testIds) {
+          const testRef = doc(db, 'tests', testId);
+          const resultsRef = collection(testRef, 'results');
+          const resultsSnapshot = await getDocs(resultsRef);
+
+          const users = [];
+          resultsSnapshot.docs.forEach((resultDoc) => {
+            const userId = resultDoc.data().userId;
+            const score = resultDoc.data().score;
+            const time = resultDoc.data().time;
+            users.push({ userId, score, time });
+          });
+
+          testResults.push({
+            testId,
+            users
+          });
+        }
+        this.testResults = testResults;
+      } catch (error) {
+        console.error('Error fetching test results:', error);
+        this.testResults = [];
+      }
+    },
+    async fetchUserData() {
+      try {
+        for (const testResult of this.testResults) {
+          for (const user of testResult.users) {
+            const userRef = doc(db, 'users', user.userId);
+            const userSnapshot = await getDoc(userRef);
+            if (userSnapshot.exists()) {
+              this.$set(this.users, user.userId, userSnapshot.data().name);
+            } else {
+              this.$set(this.users, user.userId, 'Unknown');
+            }
           }
-          return b.score - a.score;
-        });
+        }
+        console.log(this.users)
+      } catch (error) {
+        console.error('Error fetching user data:', error);
+      }
     },
     formatTime(time) {
       const minutes = Math.floor(time / 60);
       const seconds = time % 60;
       return `${minutes}m ${seconds}s`;
     },
-    convertTimeToMinutes(time) {
+    conertTimeToMinutes(time) {
       if (typeof time !== 'string') {
         console.error('Expected time to be a string, but got:', typeof time);
         return 0;
@@ -105,10 +157,14 @@ export default {
         const seconds = parseInt(match[2], 10);
         return minutes + (seconds / 60);
       }
-      
+
       console.warn('Time format not recognized:', time);
       return 0;
+    },
+    getUserName(userId) {
+      return this.users[userId] || 'Unknown';
     }
+
   }
 };
 </script>
@@ -136,14 +192,14 @@ export default {
 }
 
 .table-title {
-  margin-bottom: 10px;
+  margin-bottom: 30px; 
   color: #00adb5;
 }
 
 .score-table {
   width: 70%;
   border-collapse: collapse;
-  margin: 0 auto;
+  margin: 20px auto;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
@@ -154,8 +210,7 @@ export default {
 }
 
 .table-header th, .score-table td {
-  color: #7b7b7b
-  ;
+  color: #7b7b7b;
 }
 
 th, td {
@@ -173,5 +228,37 @@ th:hover {
 
 th.sorted {
   font-weight: bold;
+}
+
+.tabs {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px; 
+  margin-top: 30px; 
+}
+
+.tabs .tab {
+  display: inline-block;
+  margin: 0 5px;
+}
+
+.tabs button {
+  background-color: #007c8a64; 
+  border: none;
+  padding: 10px 20px;
+  color: #fff; 
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+.tabs button:hover {
+  background-color: #007c8a89; 
+}
+
+.tabs .active button {
+  background-color: #4cb4bf;
+  color: #fff;
 }
 </style>
