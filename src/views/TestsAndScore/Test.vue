@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div class="test-container">
     <div class="header">
       <h1><strong>TEST</strong></h1>
     </div>
@@ -17,7 +17,7 @@
 
     <div class="main-container">
       <div class="question-box">
-        <div v-if="!submitted" class="question-container">
+        <div v-if="questions.length > 0 && !submitted" class="question-container">
           <h2 v-html="`${currentQuestion + 1}. ${questions[currentQuestion].text}`" class="question-text"></h2>
 
           <div class="radio-container">
@@ -54,7 +54,7 @@
         </div>
       </div>
 
-      <div class="sidebar-box" v-show="!submitted">
+      <div class="sidebar-box" v-show="!submitted && questions.length > 0">
         <div class="sidebar">
           <div class="question-status">
             <div
@@ -71,42 +71,38 @@
           </div>
         </div>
       </div>
+
+      <div v-if="questions.length === 0" class="loading-container">
+        <p>Loading...</p>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-import * as XLSX from 'xlsx';
+import { getFirestore, doc, getDoc, updateDoc, collection, addDoc } from 'firebase/firestore';
+import { getAuth } from 'firebase/auth';
 
 export default {
   data() {
     return {
       currentQuestion: 0,
-      questions: [
-        { text: 'Which type of action mechanism is used in a Glock 17?', options: ['Striker-fired', 'Hammer-fired', 'Revolving', 'Bolt-action'], correctAnswer: 'Striker-fired', marked: false },
-        { text: 'What is a common feature of the Colt 1911?', options: ['Single-action trigger', 'Double-action trigger', 'Revolver cylinder', 'Integrated laser sight'], correctAnswer: 'Single-action trigger', marked: false },
-        { text: 'Which of the following is a characteristic of a .357 Magnum revolver?', options: ['High recoil and power', 'Low capacity', 'Semi-automatic', 'Compact design'], correctAnswer: 'High recoil and power', marked: false },
-        { text: 'The Beretta 92 is known for which of the following?', options: ['Double-action/single-action mechanism', 'Revolver mechanism', 'Single-shot capability', 'Break-action design'], correctAnswer: 'Double-action/single-action mechanism', marked: false },
-        { text: 'Which of the following is <strong>NOT</strong> a type of semi-automatic pistol?', options: ['1911', 'Glock', 'Beretta', 'Smith & Wesson Model 29'], correctAnswer: 'Smith & Wesson Model 29', marked: false },
-        { text: 'What is the maximum magazine capacity of an M4 carbine?', options: ['10 rounds', '20 rounds', '30 rounds', '40 rounds'], correctAnswer: '30 rounds', marked: false },
-        { text: 'Which of the following is a common caliber for a sniper rifle?', options: ['.22 LR', '.223 Remington', '.308 Winchester', '9mm'], correctAnswer: '.308 Winchester', marked: false },
-        { text: 'What action type is commonly found in an AR-15?', options: ['Bolt-action', 'Lever-action', 'Semi-automatic', 'Break-action'], correctAnswer: 'Semi-automatic', marked: false },
-        { text: 'Which firearm is known for its bullpup design?', options: ['AK-47', 'M16', 'Steyr AUG', 'FN SCAR'], correctAnswer: 'Steyr AUG', marked: false },
-        { text: 'Which of the following is a characteristic of a double-barrel shotgun?', options: ['Single trigger', 'Two separate barrels', 'Automatic reloading', 'High magazine capacity'], correctAnswer: 'Two separate barrels', marked: false },
-        { text: 'Which type of sight is commonly used on handguns for precision shooting?', options: ['Iron sights', 'Red dot sight', 'Laser sight', 'Holographic sight'], correctAnswer: 'Iron sights', marked: false },
-        { text: 'What is the purpose of a compensator on a firearm?', options: ['Increase magazine capacity', 'Reduce recoil', 'Enhance accuracy', 'Improve grip'], correctAnswer: 'Reduce recoil', marked: false },
-        { text: 'Which material is commonly used for firearm barrels?', options: ['Aluminum', 'Stainless steel', 'Plastic', 'Wood'], correctAnswer: 'Stainless steel', marked: false },
-        { text: 'What is the primary function of a firearm’s safety mechanism?', options: ['Increase accuracy', 'Prevent accidental discharge', 'Enhance range', 'Improve trigger pull'], correctAnswer: 'Prevent accidental discharge', marked: false },
-        { text: 'Which of the following calibers is considered a high-power rifle round?', options: ['.22 LR', '.30-06 Springfield', '.45 ACP', '5.56 NATO'], correctAnswer: '.30-06 Springfield', marked: false }
-      ],
-      answers: Array(15).fill(''),
+      questions: [],
+      answers: [],
       submitted: false,
       isMarked: false,
       score: 0,
       elapsedTime: 0,
       timer: null,
-      sidebarVisible: true
+      sidebarVisible: true,
+      testId: null,
+      userId: null
     };
+  },
+  created() {
+    this.testId = this.$route.params.testId;
+    this.userId = getAuth().currentUser.uid;
+    this.fetchTest();
   },
   computed: {
     progressBarWidth() {
@@ -124,6 +120,29 @@ export default {
     }
   },
   methods: {
+    async fetchTest() {
+      try {
+        const db = getFirestore();
+        const testRef = doc(db, 'tests', this.testId);
+        const testSnapshot = await getDoc(testRef);
+
+        if (testSnapshot.exists()) {
+          const testData = testSnapshot.data();
+          this.questions = testData.questions.map(q => ({
+            id: q.id,
+            text: q.text,
+            options: q.options,
+            correctAnswer: q.correctAnswer,
+            marked: false
+          }));
+          this.answers = Array(this.questions.length).fill('');
+        } else {
+          console.error(`Test with ID ${this.testId} not found.`);
+        }
+      } catch (error) {
+        console.error('Error fetching test:', error);
+      }
+    },
     prevQuestion() {
       if (this.currentQuestion > 0) {
         this.currentQuestion--;
@@ -134,11 +153,30 @@ export default {
         this.currentQuestion++;
       }
     },
-    submitAnswers() {
+    async submitAnswers() {
       this.calculateScore();
       this.submitted = true;
       this.sidebarVisible = false;
       this.stopTimer();
+      await this.saveTestResults();
+    },
+    async saveTestResults() {
+      try {
+        const db = getFirestore();
+        const testRef = doc(db, 'tests', this.testId);
+        const resultsRef = collection(testRef, 'results');
+
+        const resultData = {
+          userId: this.userId,
+          score: this.score,
+          time: this.elapsedTime,
+          timestamp: new Date()
+        };
+
+        await addDoc(resultsRef, resultData);
+      } catch (error) {
+        console.error('Error saving test results:', error);
+      }
     },
     calculateScore() {
       this.score = this.questions.reduce((total, question, index) => {

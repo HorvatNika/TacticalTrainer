@@ -1,13 +1,14 @@
 <template>
   <div id="app">
-    <nav>
-      <router-link to="/">TACTICAL TRAINER</router-link>
+    <nav v-if="isLoggedIn">
       <router-link to="/menu">MENU</router-link>
+      <router-link to="/" @click="handleSignOut">SIGN OUT</router-link>
+      <router-link to="/admin" v-if="isAdmin">ADMIN</router-link>
     </nav>
     <router-view />
 
     <audio ref="backgroundAudio" :src="currentAudioSrc" autoplay loop></audio>
-
+    
     <div class="audio-controls" v-if="showControls">
       <button @click="prevAudio" class="control-button">◀</button>
       <span class="current-audio-name">{{ currentAudioName }}</span>
@@ -23,6 +24,8 @@
     </div>
   </div>
 </template>
+
+
 
 <style lang="scss">
 @font-face {
@@ -48,7 +51,6 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
 }
 
 nav {
@@ -57,20 +59,25 @@ nav {
   flex-wrap: wrap;
   justify-content: center;
   gap: 10px;
-
+  font-family: 'mojFont', sans-serif;
+  font-size: 20px;
+  
   a {
     font-weight: bold;
-    color: #2c3e50;
+    color: #676767;
     text-decoration: none;
     padding: 5px 10px;
     transition: color 0.3s;
+    background: none;
+    border: none;
+    cursor: pointer;
 
     &.router-link-exact-active {
-      color: #42b983;
+      color: #00adb5;
     }
 
     &:hover {
-      color: #42b983;
+      color: #007c8a64;
     }
   }
 }
@@ -170,8 +177,61 @@ nav {
 }
 </style>
 
+
 <script>
+import { getAuth, onAuthStateChanged, signOut } from 'firebase/auth';
+import { useRouter } from 'vue-router';
+import { doc, getDoc } from 'firebase/firestore';
+import { ref, onMounted } from 'vue'; 
+import db from "src/main.js";
+
 export default {
+  setup() {
+    const isLoggedIn = ref(false); 
+    const isAdmin = ref(false);
+    const router = useRouter();
+
+    onMounted(() => {
+      const auth = getAuth();
+      onAuthStateChanged(auth, async (user) => {
+        if (user) {
+          isLoggedIn.value = true;
+          
+          const userRef = doc(db, 'users', user.uid);
+          const userSnap = await getDoc(userRef);
+
+          if (userSnap.exists()) {
+            const userData = userSnap.data();
+            isAdmin.value = userData.isAdmin || false;
+            console.log("Admin status:", isAdmin.value);
+          } else {
+            console.log("No such user document in Firestore!");
+            isAdmin.value = false;
+          }
+        } else {
+          isLoggedIn.value = false;
+          isAdmin.value = false;
+        }
+      });
+    });
+
+    const handleSignOut = async () => {
+      try {
+        const auth = getAuth();
+        await signOut(auth);
+        router.push('/'); 
+      } catch (error) {
+        console.error("Error signing out:", error);
+      }
+    };
+
+    return {
+      isLoggedIn,
+      isAdmin,
+      handleSignOut
+    };
+  },
+
   data() {
     return {
       audioFiles: [
@@ -249,7 +309,6 @@ export default {
           });
         }
       });
-
       audio.play().catch(error => {
         console.log("Autoplay blocked or error occurred:", error);
         window.addEventListener('click', this.userInteraction, { once: true });

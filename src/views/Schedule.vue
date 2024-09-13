@@ -5,14 +5,26 @@
       <span class="schedule-circle" @click="toggleTaskForm">+</span>
     </h1>
     <div class="input-container" v-if="showTaskForm">
-      <input v-model="newTaskTitle" class="task-title-input" placeholder="ENTER TASK TITLE...">
+      <input v-model="newTaskTitle" class="task-title-input" placeholder="ENTER TASK TITLE..." />
       <textarea v-model="newTaskContent" class="task-content-input" placeholder="Enter task content..."></textarea>
       <div class="date-time-container">
-        <input type="text" v-model="formattedDate" class="task-date-input" placeholder="DD.MM.YYYY" @input="updateDate">
-        <input type="text" v-model="formattedTime" class="task-time-input" placeholder="HH:MM" @input="updateTime">
+        <input
+          type="text"
+          v-model="formattedDate"
+          class="task-date-input"
+          placeholder="DD.MM.YYYY"
+          @input="updateDate"
+        />
+        <input
+          type="text"
+          v-model="formattedTime"
+          class="task-time-input"
+          placeholder="HH:MM"
+          @input="updateTime"
+        />
       </div>
       <div class="priority-selector">
-        <div 
+        <div
           class="priority-option low-priority"
           :class="{ selected: selectedPriority === 'low' }"
           @click="selectedPriority = 'low'"
@@ -20,7 +32,7 @@
         >
           <span class="priority-label">Low</span>
         </div>
-        <div 
+        <div
           class="priority-option medium-priority"
           :class="{ selected: selectedPriority === 'medium' }"
           @click="selectedPriority = 'medium'"
@@ -28,7 +40,7 @@
         >
           <span class="priority-label">Medium</span>
         </div>
-        <div 
+        <div
           class="priority-option high-priority"
           :class="{ selected: selectedPriority === 'high' }"
           @click="selectedPriority = 'high'"
@@ -54,18 +66,34 @@
           <p>{{ formatTime(task.time) }}</p>
         </div>
         <div v-else>
-          <input v-model="task.title" class="task-title-input" placeholder="Enter task title...">
+          <input v-model="task.title" class="task-title-input" placeholder="Enter task title..." />
           <textarea v-model="task.content" class="task-content-input" placeholder="Enter task content..."></textarea>
-          <input type="text" v-model="task.formattedDate" class="task-date-input" placeholder="DD.MM.YYYY" @input="updateTaskDate(task)">
-          <input type="text" v-model="task.formattedTime" class="task-time-input" placeholder="HH:MM" @input="updateTaskTime(task)">
+          <input
+            type="text"
+            v-model="task.formattedDate"
+            class="task-date-input"
+            placeholder="DD.MM.YYYY"
+            @input="updateTaskDate(task)"
+          />
+          <input
+            type="text"
+            v-model="task.formattedTime"
+            class="task-time-input"
+            placeholder="HH:MM"
+            @input="updateTaskTime(task)"
+          />
         </div>
-        <button @click.stop="removeTask(task.id)">Remove</button>
+        <button @click.stop="removeTask(task.id)">REMOVE</button>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import { setDoc, getDocs, doc, updateDoc, deleteDoc, collection } from 'firebase/firestore';
+import { getAuth } from "firebase/auth";
+import db from 'src/main';
+
 export default {
   data() {
     return {
@@ -73,7 +101,7 @@ export default {
       newTaskContent: '',
       newTaskDate: '',
       newTaskTime: '',
-      tasks: [],
+      tasks: {},
       nextId: 1,
       selectedPriority: '',
       draggingTask: null,
@@ -84,49 +112,97 @@ export default {
       formattedTime: ''
     };
   },
+  created() {
+    this.fetchTasks();
+  },
   methods: {
-    addTask() {
+    async fetchTasks() {
+      try {
+        const auth = getAuth();
+        const tasksRef = collection(db, 'users', auth.currentUser.uid, 'tasks');
+        const tasksSnapshot = await getDocs(tasksRef);
+
+        this.tasks = {};
+        this.nextId = 1;
+
+        tasksSnapshot.forEach((doc) => {
+          const taskData = doc.data();
+          this.tasks[doc.id] = {
+            id: doc.id,
+            title: taskData.title,
+            content: taskData.content,
+            date: taskData.date,
+            time: taskData.time,
+            completed: taskData.completed,
+            top: taskData.top,
+            left: taskData.left,
+            color: taskData.color,
+            priority: taskData.priority,
+            formattedDate: taskData.formattedDate,
+            formattedTime: taskData.formattedTime,
+            editing: taskData.editing
+          };
+          this.nextId = Math.max(this.nextId, parseInt(doc.id.split('-')[1]) + 1);
+        });
+      } catch (error) {
+        console.error('Error fetching tasks:', error);
+      }
+    },
+    async addTask() {
       if (this.newTaskTitle.trim() === '') return;
 
-      let color;
-      switch (this.selectedPriority) {
-        case 'low':
-          color = '#ffa500'; 
-          break;
-        case 'medium':
-          color = '#a9d98e'; 
-          break;
-        case 'high':
-          color = '#f9a1a1'; 
-          break;
-        default:
-          color = '#ffffff'; 
+      try {
+        const auth = getAuth();
+        const userRef = doc(db, 'users', auth.currentUser.uid);
+        const taskId = `task-${this.nextId}`;
+        this.nextId++;
+
+        await setDoc(doc(userRef, 'tasks', taskId), {
+          title: this.newTaskTitle.trim(),
+          content: this.newTaskContent.trim(),
+          date: this.newTaskDate,
+          time: this.newTaskTime,
+          completed: false,
+          top: 100,
+          left: 100,
+          color: this.getTaskColor(this.selectedPriority),
+          priority: this.selectedPriority,
+          formattedDate: this.formattedDate,
+          formattedTime: this.formattedTime,
+          editing: false
+        });
+
+        this.tasks[taskId] = {
+          id: taskId,
+          title: this.newTaskTitle.trim(),
+          content: this.newTaskContent.trim(),
+          date: this.newTaskDate,
+          time: this.newTaskTime,
+          completed: false,
+          top: 100,
+          left: 100,
+          color: this.getTaskColor(this.selectedPriority),
+          priority: this.selectedPriority,
+          formattedDate: this.formattedDate,
+          formattedTime: this.formattedTime,
+          editing: false
+        };
+
+        this.resetTaskForm();
+      } catch (error) {
+        console.error('Error adding task:', error);
       }
-
-      this.tasks.push({
-        id: this.nextId++,
-        title: this.newTaskTitle.trim(),
-        content: this.newTaskContent.trim(),
-        date: this.newTaskDate,
-        time: this.newTaskTime,
-        completed: false,
-        top: 100, 
-        left: 100, 
-        color: color,
-        priority: this.selectedPriority
-      });
-
-      this.newTaskTitle = '';
-      this.newTaskContent = '';
-      this.newTaskDate = '';
-      this.newTaskTime = '';
-      this.formattedDate = '';
-      this.formattedTime = '';
-      this.selectedPriority = ''; 
-      this.showTaskForm = false;
     },
-    removeTask(taskId) {
-      this.tasks = this.tasks.filter(task => task.id !== taskId);
+    async removeTask(taskId) {
+      try {
+        const auth = getAuth();
+        const userRef = doc(db, 'users', auth.currentUser.uid);
+        const taskRef = doc(userRef, 'tasks', taskId);
+        await deleteDoc(taskRef);
+        delete this.tasks[taskId];
+      } catch (error) {
+        console.error('Error removing task:', error);
+      }
     },
     startDrag(event, task) {
       this.draggingTask = task;
@@ -140,20 +216,32 @@ export default {
       this.draggingTask.top = event.clientY - this.offsetY;
       this.draggingTask.left = event.clientX - this.offsetX;
     },
-    stopDrag() {
-      this.draggingTask = null;
-      window.removeEventListener('mousemove', this.onDrag);
-      window.removeEventListener('mouseup', this.stopDrag);
+    async stopDrag() {
+      if (!this.draggingTask) return;
+
+      try {
+        const auth = getAuth();
+        const userRef = doc(db, 'users', auth.currentUser.uid);
+        const taskRef = doc(userRef, 'tasks', this.draggingTask.id);
+
+        await updateDoc(taskRef, {
+          top: this.draggingTask.top,
+          left: this.draggingTask.left
+        });
+
+        this.tasks[this.draggingTask.id].top = this.draggingTask.top;
+        this.tasks[this.draggingTask.id].left = this.draggingTask.left;
+      } catch (error) {
+        console.error('Error updating task position:', error);
+      } finally {
+        this.draggingTask = null;
+        window.removeEventListener('mousemove', this.onDrag);
+        window.removeEventListener('mouseup', this.stopDrag);
+      }
     },
     toggleTaskForm() {
       if (this.showTaskForm) {
-        this.newTaskTitle = '';
-        this.newTaskContent = '';
-        this.newTaskDate = '';
-        this.newTaskTime = '';
-        this.formattedDate = '';
-        this.formattedTime = '';
-        this.selectedPriority = '';
+        this.resetTaskForm();
       }
       this.showTaskForm = !this.showTaskForm;
     },
@@ -182,11 +270,53 @@ export default {
     convertToISOTime(value) {
       return value;
     },
-    updateTaskDate(task) {
-      task.date = this.convertToISODate(task.formattedDate);
+    async updateTaskDate(task) {
+      try {
+        const auth = getAuth();
+        const userRef = doc(this.db, 'users', auth.currentUser.uid);
+        await setDoc(doc(userRef, 'tasks', task.id), {
+          ...task,
+          date: this.convertToISODate(task.formattedDate),
+          formattedDate: task.formattedDate
+        }, { merge: true });
+      } catch (error) {
+        console.error('Error updating task date:', error);
+      }
     },
-    updateTaskTime(task) {
-      task.time = this.convertToISOTime(task.formattedTime);
+    async updateTaskTime(task) {
+      try {
+        const auth = getAuth();
+        const userRef = doc(this.db, 'users', auth.currentUser.uid);
+        await setDoc(doc(userRef, 'tasks', task.id), {
+          ...task,
+          time: this.convertToISOTime(task.formattedTime),
+          formattedTime: task.formattedTime
+        }, { merge: true });
+      } catch (error) {
+        console.error('Error updating task time:', error);
+      }
+    },
+    getTaskColor(priority) {
+      switch (priority) {
+        case 'low':
+          return '#ffa500';
+        case 'medium':
+          return '#a9d98e';
+        case 'high':
+          return '#f9a1a1';
+        default:
+          return '#ffffff';
+      }
+    },
+    resetTaskForm() {
+      this.newTaskTitle = '';
+      this.newTaskContent = '';
+      this.newTaskDate = '';
+      this.newTaskTime = '';
+      this.formattedDate = '';
+      this.formattedTime = '';
+      this.selectedPriority = '';
+      this.showTaskForm = false;
     }
   }
 };
