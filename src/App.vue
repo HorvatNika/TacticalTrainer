@@ -183,7 +183,7 @@ import { getAuth, onAuthStateChanged, signOut } from 'firebase/auth';
 import { useRouter } from 'vue-router';
 import { doc, getDoc } from 'firebase/firestore';
 import { ref, onMounted } from 'vue'; 
-import db from "@/main.js";
+import db from "src/main.js";
 
 export default {
   setup() {

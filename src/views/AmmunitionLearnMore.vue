@@ -12,7 +12,7 @@
       <button @click="prevPage" class="nav-button prev" :disabled="currentPage === 0">❮</button>
       <div class="ammo-row">
         <div 
-          v-for="(ammo, index) in ammoToShow"
+          v-for="(ammo) in ammoToShow"
           :key="ammo.id" 
           class="ammo-box" 
           @click="selectAmmo(ammo)"

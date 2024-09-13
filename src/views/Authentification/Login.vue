@@ -7,6 +7,7 @@
         <div class="col-md"></div>
         <div class="col-md-6 d-flex justify-content-center">
           <div class="transparent-box with-shadow compact rounded-40">
+            
             <form @submit.prevent="handleSubmit">
               <div class="form-group">
                 <label for="email" class="text-left">Email</label>
@@ -73,7 +74,7 @@
 
 <script>
 import { getAuth, signInWithEmailAndPassword, sendPasswordResetEmail } from 'firebase/auth';
-import router from '@/router/index';
+import router from 'src/router/index';
 
 export default {
   name: 'Login',

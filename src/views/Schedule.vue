@@ -92,7 +92,7 @@
 <script>
 import { setDoc, getDocs, doc, updateDoc, deleteDoc, collection } from 'firebase/firestore';
 import { getAuth } from "firebase/auth";
-import db from '@/main';
+import db from 'src/main';
 
 export default {
   data() {

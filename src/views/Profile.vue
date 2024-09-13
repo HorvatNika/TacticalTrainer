@@ -52,7 +52,7 @@
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import db from '@/main';
+import db from 'src/main';
 
 export default {
   name: 'Profile',

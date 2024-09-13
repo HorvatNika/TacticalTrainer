@@ -66,7 +66,7 @@
   
   <script>
 import { collection, getDocs, doc, updateDoc, deleteDoc } from 'firebase/firestore';
-import db from '@/main';
+import db from 'src/main';
 
 export default {
   name: 'AdminPage',

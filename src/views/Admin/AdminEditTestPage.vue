@@ -56,7 +56,7 @@
 </template>
 
 <script>
-import db from '@/main';
+import db from 'src/main';
 import { getDoc, doc, updateDoc } from 'firebase/firestore';
 
 

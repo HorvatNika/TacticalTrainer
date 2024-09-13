@@ -37,7 +37,7 @@
 
 <script>
 import { collection, getDocs, doc, getDoc } from 'firebase/firestore';
-import db from '@/main';
+import db from 'src/main';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 
 export default {

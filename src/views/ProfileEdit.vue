@@ -84,7 +84,7 @@
   <script>
   import { getAuth, updateProfile, updatePassword } from 'firebase/auth';
   import { doc, getDoc, updateDoc } from 'firebase/firestore';
-  import db from '@/main';
+  import db from 'src/main';
   
   export default {
     name: "ProfileEdit",
