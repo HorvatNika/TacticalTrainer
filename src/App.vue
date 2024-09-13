@@ -1,14 +1,19 @@
 <template>
   <div id="app">
     <nav v-if="isLoggedIn">
-      <router-link to="/menu">MENU</router-link>
-      <router-link to="/" @click="handleSignOut">SIGN OUT</router-link>
-      <router-link to="/admin" v-if="isAdmin">ADMIN</router-link>
+      <div class="logo">
+        <span class="logo-tt">T</span>ACTICAL <span class="logo-tt">T</span>RAINER
+      </div>
+      <div class="nav-links">
+        <router-link to="/menu">MENU</router-link>
+        <router-link to="/admin" v-if="isAdmin">ADMIN</router-link>
+        <router-link to="/" @click="handleSignOut">SIGN OUT</router-link>
+      </div>
     </nav>
     <router-view />
 
     <audio ref="backgroundAudio" :src="currentAudioSrc" autoplay loop></audio>
-    
+
     <div class="audio-controls" v-if="showControls">
       <button @click="prevAudio" class="control-button">◀</button>
       <span class="current-audio-name">{{ currentAudioName }}</span>
@@ -18,14 +23,10 @@
       <button @click="toggleMute" class="volume-button">
         <i :class="muteIconClass"></i>
       </button>
-      <button @click="toggleControls" class="toggle-controls-button">
-        Change Sound
-      </button>
+      <button @click="toggleControls" class="toggle-controls-button">Change Sound</button>
     </div>
   </div>
 </template>
-
-
 
 <style lang="scss">
 @font-face {
@@ -56,29 +57,45 @@ body {
 nav {
   padding: 20px;
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 10px;
+  justify-content: space-between; 
+  align-items: center; 
   font-family: 'mojFont', sans-serif;
   font-size: 20px;
-  
-  a {
-    font-weight: bold;
-    color: #676767;
-    text-decoration: none;
-    padding: 5px 10px;
-    transition: color 0.3s;
-    background: none;
-    border: none;
-    cursor: pointer;
+}
 
-    &.router-link-exact-active {
-      color: #00adb5;
-    }
 
-    &:hover {
-      color: #007c8a64;
-    }
+.logo {
+  font-size: 25px;
+  font-weight: bold;
+  color: #676767;
+}
+
+.logo-tt {
+  color: #00adb5; 
+}
+
+
+.nav-links {
+  display: flex;
+  gap: 20px; 
+}
+
+.nav-links a {
+  font-weight: bold;
+  color: #676767;
+  text-decoration: none;
+  padding: 5px 10px;
+  transition: color 0.3s;
+  background: none;
+  border: none;
+  cursor: pointer;
+
+  &.router-link-exact-active {
+    color: #00adb5;
+  }
+
+  &:hover {
+    color: #007c8a64;
   }
 }
 
