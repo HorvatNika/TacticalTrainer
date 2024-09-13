@@ -50,7 +50,6 @@
         <div v-if="submitted" class="submitted-container">
           <h2 class="score">SCORE: {{ score }}/{{ questions.length }}</h2>
           <span class="restart-button" @click="restartQuiz">RESTART</span>
-          <span class="export-button" @click="exportToExcel">EXPORT TO EXCEL</span>
         </div>
       </div>
 
@@ -80,7 +79,7 @@
 </template>
 
 <script>
-import { getFirestore, doc, getDoc, updateDoc, collection, addDoc } from 'firebase/firestore';
+import { getFirestore, doc, getDoc, collection, addDoc } from 'firebase/firestore';
 import { getAuth } from 'firebase/auth';
 
 export default {
@@ -217,28 +216,6 @@ export default {
       this.submitted = false;
       this.sidebarVisible = true;
       this.startTimer();
-    },
-    exportToExcel() {
-      const wb = XLSX.utils.book_new();
-      
-      const questionsData = this.questions.map((q, index) => ({
-        Question: q.text,
-        YourAnswer: this.answers[index] || 'Not Answered',
-        CorrectAnswer: q.correctAnswer
-      }));
-      
-      const ws1 = XLSX.utils.json_to_sheet(questionsData);
-      XLSX.utils.book_append_sheet(wb, ws1, 'Questions and Answers');
-      
-      const summaryData = [
-        { Label: 'Total Score', Value: this.score },
-        { Label: 'Time', Value: this.formattedTime }
-      ];
-      
-      const ws2 = XLSX.utils.json_to_sheet(summaryData);
-      XLSX.utils.book_append_sheet(wb, ws2, 'Summary');
-
-      XLSX.writeFile(wb, 'TT-Test.xlsx');
     },
     startTimer() {
       this.timer = setInterval(() => {
@@ -546,19 +523,6 @@ body, #app, h1, h2, button, input, label {
 
 .restart-button:hover {
   color: #007c8a89;
-}
-
-.export-button {
-  font-size: 18px;
-  color: #7b7b7b;
-  cursor: pointer;
-  margin-top: 20px;
-  text-decoration: none;
-  transition: color 0.3s;
-}
-
-.export-button:hover {
-  color: #676767;
 }
 
 .main-container {
