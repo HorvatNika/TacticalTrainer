@@ -14,16 +14,18 @@
           <tr>
             <th>NAME</th>
             <th>EMAIL</th>
-            <th>ACTIONS</th>
+            <th></th> 
           </tr>
         </thead>
         <tbody>
           <tr v-for="user in users" :key="user.id">
             <td>{{ user.name }}</td>
             <td>{{ user.email }}</td>
-            <td>
-              <button class="btn-finish" @click="deleteUser(user)">DELETE</button>
-              <button class="btn-finish" @click="viewUserSchedule(user)">VIEW SCHEDULE</button>
+            <td class="actions">
+              <div class="table-actions">
+                <button class="btn-finish" @click="deleteUser(user)">DELETE</button>
+                <button class="btn-finish" @click="viewUserSchedule(user)">VIEW SCHEDULE</button>
+              </div>
             </td>
           </tr>
         </tbody>
@@ -36,23 +38,20 @@
         <thead>
           <tr>
             <th>TITLE</th>
-            <th>DESCRIPTION</th>
             <th>QUESTIONS</th>
-            <th>USER TAKEN</th>
-            <th>ACTIONS</th>
           </tr>
         </thead>
         <tbody>
           <tr v-for="test in tests" :key="test.id">
             <td>{{ test.title }}</td>
-            <td>{{ test.description }}</td>
             <td>{{ test.questions ? test.questions.length : 0 }}</td>
-            <td>{{ testResults[test.id] ? testResults[test.id].length : 0 }}</td>
-            <td>
-              <router-link class="btn-finish" :to="{ name: 'AdminTestEditPage', params: { id: test.id } }">
-                EDIT
-              </router-link>
-              <button class="btn-finish" @click="deleteTest(test)">DELETE</button>
+            <td class="actions">
+              <div class="table-actions">
+                <router-link class="btn-finish" :to="{ name: 'AdminTestEditPage', params: { id: test.id } }">
+                  EDIT
+                </router-link>
+                <button class="btn-finish" @click="deleteTest(test)">DELETE</button>
+              </div>
             </td>
           </tr>
         </tbody>
@@ -66,7 +65,7 @@
 </template>
 
 <script>
-import { collection, getDocs, doc, updateDoc, deleteDoc, query, where } from 'firebase/firestore';
+import { collection, getDocs, doc, updateDoc, deleteDoc } from 'firebase/firestore';
 import db from 'src/main';
 
 export default {
@@ -76,7 +75,6 @@ export default {
       activeTab: 'users',
       users: [],
       tests: [],
-      testResults: {}
     };
   },
   methods: {
@@ -101,16 +99,6 @@ export default {
       const testsSnapshot = await getDocs(testsRef);
       this.tests = testsSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
     },
-    async loadTestResults() {
-      const testResultsRef = collection(db, 'test_results');
-      this.testResults = {};
-
-      for (const test of this.tests) {
-        const testResultsQuery = query(testResultsRef, where('testId', '==', test.id));
-        const testResultsSnapshot = await getDocs(testResultsQuery);
-        this.testResults[test.id] = testResultsSnapshot.docs.map(doc => doc.data());
-      }
-    },
     async deleteTest(test) {
       const testRef = doc(db, 'tests', test.id);
       await deleteDoc(testRef);
@@ -119,7 +107,6 @@ export default {
   mounted() {
     this.fetchUserData();
     this.fetchTestData();
-    this.loadTestResults();
   }
 };
 </script>
@@ -192,5 +179,14 @@ th, td {
 .users-tab h2,
 .tests-tab h2 {
   margin-bottom: 15px; 
+}
+
+td.actions {
+  text-align: right;
+}
+
+.table-actions {
+  display: flex;
+  justify-content: flex-end;
 }
 </style>

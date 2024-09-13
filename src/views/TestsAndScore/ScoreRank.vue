@@ -97,9 +97,9 @@ export default {
           id: doc.id,
           name: doc.data().title || 'Unnamed Test'
         }));
-        testsSnapshot.docs.forEach((doc) => {
-          console.log(doc.data());
-        });
+        // testsSnapshot.docs.forEach((doc) => {
+        //   console.log(doc.data());
+        // });
       } catch (error) {
         console.error('Error fetching test IDs:', error);
       }
@@ -108,7 +108,7 @@ export default {
       try {
         const testResults = [];
         for (const testId of this.testIds) {
-          const testRef = doc(db, 'tests', testId);
+          const testRef = doc(db, 'tests', testId.id);
           const resultsRef = collection(testRef, 'results');
           const resultsSnapshot = await getDocs(resultsRef);
 
@@ -145,7 +145,7 @@ export default {
                 email: userData.email
               };
             } else {
-              console.log(userSnapshot);
+              // console.log(userSnapshot);
               this.users[user.userId] = {
                 name: 'Unknown',
                 email: 'No email provided'
@@ -153,7 +153,7 @@ export default {
             }
           }
         }
-        console.log(this.users);
+        // console.log(this.users);
       } catch (error) {
         console.error('Error fetching user data:', error);
       }

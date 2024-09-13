@@ -148,7 +148,7 @@ export default {
         this.currentQuestion--;
       }
     },
-    nextQuestion() {
+    nextQuestion() { 
       if (this.currentQuestion < this.questions.length - 1) {
         this.currentQuestion++;
       }
