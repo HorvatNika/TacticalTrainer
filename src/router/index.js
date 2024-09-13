@@ -217,7 +217,10 @@ router.beforeEach(async (to, from, next) => {
     } else {
       next('/');
     }
-  } else {
+  }
+  else if (currentUser && (to.path === '/' || to.path === '/signup' || to.path === 'login'))
+    next('/menu');
+  else {
     next();
   }
 });
