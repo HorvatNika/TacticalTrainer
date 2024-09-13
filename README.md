@@ -1,5 +1,10 @@
-# tacticaltrainer
+# TACTICAL TRAINER
+--------------------
+**Kolegij:** _Programsko inženjerstvo_  
+**Mentor:** _doc. dr. sc. Nikola Tanković_  
+**Studentica:** _Nika Horvat (FIPU)_  
 
+--------------------
 ## Project setup
 ```
 npm install
