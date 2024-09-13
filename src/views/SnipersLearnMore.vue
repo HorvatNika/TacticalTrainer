@@ -13,7 +13,7 @@
       <button @click="prevPage" class="nav-button prev" :disabled="currentPage === 0">❮</button>
       <div class="sniper-row">
         <div 
-          v-for="(sniper, index) in snipersToShow"
+          v-for="(sniper) in snipersToShow"
           :key="sniper.id" 
           class="sniper-box" 
           @click="selectSniper(sniper)"
@@ -260,5 +260,4 @@ h1::after {
   cursor: not-allowed;
   opacity: 0.5; 
 }
-
 </style>

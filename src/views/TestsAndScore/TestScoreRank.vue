@@ -1,12 +1,12 @@
 <template> 
   <div class="test-score-rank">
-    <h1>TEST</h1>
+    <h1>TESTS</h1>
     
     <div class="score-rank-container">
       <router-link to="/scorerank" class="score-rank-box">
         <p>SCORE RANKS</p>
       </router-link>
-      <div class="yellow-line"></div>
+      <div class="line"></div>
     </div>
 
     <div class="image-container">
@@ -176,7 +176,6 @@ h1::after {
   text-decoration: none;
   color: #007c8a64;
   background: #e9d48d;
-  border: 1px solid #ddd;
   padding: 10px;
   cursor: pointer;
   position: relative;
@@ -195,7 +194,7 @@ h1::after {
   background: #efcc5b;
 }
 
-.yellow-line {
+.line {
   height: 1px;
   background-color: #6767672c;
   margin: 40px 40px;

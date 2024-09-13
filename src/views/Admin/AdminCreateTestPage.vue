@@ -1,6 +1,7 @@
-<template>
+<template> 
   <div class="admin-test-create-container">
     <h1>CREATE TEST</h1>
+    <div class="line"></div> 
     <form @submit.prevent="createTest">
       <div class="form-content">
         <div class="form-left">
@@ -121,7 +122,7 @@ export default {
   }
 };
 </script>
-  
+
 <style scoped>
 .admin-test-create-container {
   padding: 20px;
@@ -136,11 +137,17 @@ textarea {
 }
 
 h1 {
-  margin-bottom: 30px;
+  margin-bottom: 20px;
+  position: relative;
+  display: inline-block;
+  font-size: 2.5rem; 
+  color: #676767;
 }
 
-h1, h2, label, button {
-  color: #676767;
+.line {
+  height: 1px;
+  background-color: #6767672c; 
+  margin: 20px 0;
 }
 
 form {
@@ -167,7 +174,7 @@ form {
 .form-right {
   display: flex;
   flex-direction: column;
-  gap: 20px; 
+  gap: 27px; 
 }
 
 .question-container {
@@ -220,7 +227,7 @@ textarea {
 
 button {
   background-color: #007c8a64;
-  color: #fff;
+  color: white;
   border: none;
   padding: 10px 20px;
   cursor: pointer;
@@ -257,4 +264,3 @@ button.remove-question-btn:hover, button.remove-option-btn:hover {
   color: #007c8a89; 
 }
 </style>
-  
